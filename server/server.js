@@ -1,11 +1,18 @@
 const express = require('express');
+require('dotenv').config();
 
 const server = express();
 
-server.get('/',(req,res)=>{
-    res.send('Hola gense');
-})
+// Importar rutas
+const userRoutes = require('./routes/userRoutes');
 
-server.listen(3000,()=>{
-    console.log('server');
-}) 
+// Middleware para JSON
+server.use(express.json());
+
+// Usar rutas
+server.use('/api', userRoutes);
+
+// Iniciar el servidor
+server.listen(3000, () => {
+  console.log(`🚀 Servidor corriendo en http://localhost:3000`);
+});
