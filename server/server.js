@@ -7,6 +7,8 @@ const server = express();
 const userRoutes = require('./routes/userRoutes');
 const spaceRoutes = require('./routes/spaceRoutes');
 const moduleRoutes = require('./routes/moduleRoutes');
+const projectRoutes = require('./routes/PM/projectRoutes');
+
 
 // Middleware para JSON
 server.use(express.json());
@@ -15,7 +17,7 @@ server.use(express.json());
 server.use('/api', userRoutes);
 server.use('/api', spaceRoutes);
 server.use('/api', moduleRoutes);
-
+server.use('/api', projectRoutes);
 
 // Iniciar el servidor
 server.listen(3000, () => {
