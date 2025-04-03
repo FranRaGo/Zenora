@@ -1,4 +1,7 @@
+
 const db = require('../config/db.js')
+
+//GET
 
 exports.getUsers = (req,res)=>{
     db.query('SELECT * FROM user', (err, results) => {
@@ -48,3 +51,89 @@ exports.getUsersSpace = (req,res)=>{
     res.json(results);
   });
 }
+
+//POST
+
+exports.createUser = (req, res) => {
+  const { first_name, last_name, email, pass, private, profile_picture , file_type } = req.body;
+
+  if (!first_name || !last_name || !email || !pass) {
+    return res.status(400).json({ error: "Todos los campos son obligatorios" });
+  }
+
+  const query = "INSERT INTO user (first_name, last_name, email, pass, private, profile_picture , file_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type], (err, result) => {
+    if (err) {
+      console.error("Error al insertar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    res.status(201).json({ message: "Usuario creado exitosamente", userId: result.insertId });
+  });
+};
+
+//PUT
+
+exports.updateUser = (req, res) => {
+  const userId = req.params.userId;
+  const { first_name, last_name, email, pass, private } = req.body;
+
+  if (!first_name || !last_name || !email || !pass) {
+    return res.status(400).json({ error: "Todos los campos son obligatorios" });
+  }
+
+  const query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ?, private = ? WHERE id = ?";
+
+  db.query(query, [first_name, last_name, email, pass, private, userId], (err, result) => {
+    if (err) {
+      console.error("Error al actualizar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario actualizado exitosamente" });
+  });
+};
+
+exports.updateUserPhoto = (req, res) => {
+  const userId = req.params.userId;
+  const { image } = req.body;
+
+  if (!first_name || !last_name || !email || !pass) {
+    return res.status(400).json({ error: "Todos los campos son obligatorios" });
+  }
+/*
+  const query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ?, private = ? WHERE id = ?";
+
+  db.query(query, [first_name, last_name, email, pass, private, userId], (err, result) => {
+    if (err) {
+      console.error("Error al actualizar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario actualizado exitosamente" });
+  });
+  */
+};
+
+//DELETE
+
+exports.deleteUser = (req, res) => {
+  const userId = req.params.userId;
+
+  const query = "DELETE FROM user WHERE id = ?";
+
+  db.query(query, [userId], (err, result) => {
+    if (err) {
+      console.error("Error al eliminar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario eliminado exitosamente" });
+  });
+};

@@ -1,7 +1,7 @@
 
 ## 👤Usuarios
 
-# 📥GET
+### 📥GET
 
 --Todos los usuarios.
 http://localhost:3000/api/users
@@ -15,7 +15,7 @@ http://localhost:3000/api/usersFilter/:param/:value
 
 ## 🗃️Espacios
 
-# 📥GET
+### 📥GET
 
 --Espacios de un usuario.
 http://localhost:3000/api/space/:id'
@@ -23,7 +23,7 @@ http://localhost:3000/api/space/:id'
 
 ## 💽Modulos
 
-# 📥GET
+### 📥GET
 
 --Todos los modulos disponibles.
 http://localhost:3000/api/modules
@@ -31,7 +31,7 @@ http://localhost:3000/api/modules
 
 ## 📃Projectos(PM)
 
-# 📥GET
+### 📥GET
 
 --Todos los projectos de un modulo
 http://localhost:3000/api/projects/:moduleId
@@ -48,7 +48,7 @@ http://localhost:3000/api/projectUsers/:projectId
 
 ## 📑Tareas(PM)
 
-# 📥GET
+### 📥GET
 
 --Tarea mediante una ID.
 http://localhost:3000/api/task/:taskId
@@ -62,7 +62,7 @@ http://localhost:3000/api/userTask/:userId/:projectId
 
 ## 📑Tareas(PM)
 
-# 📥GET
+### 📥GET
 
 --Subtarea mediante una ID.
 http://localhost:3000/api/subtask/:subtaskId
@@ -76,7 +76,7 @@ http://localhost:3000/api/userSubtask/:userId/:taskId
 
 ## 📑Documents(PM)
 
-# 📥GET
+### 📥GET
 
 --Documentos de un projecto,tarea o subtarea especifico.
 http://localhost:3000/api/PmDocument/:param/:id
