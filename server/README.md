@@ -1,3 +1,16 @@
+# 🔧Configuracion Servidor
+
+## 🚀Iniciar Servidor
+
+Iniciar servidor.
+-node server
+*Desde la carpeta del servidor.
+
+Iniciar sevidor reiniiciandolo cuando hay cambios en algun archivo.
+-npx nodemon server.js
+*Desde la carpeta del servidor.
+
+# 🔎Consultas al Servidor
 
 ## 👤Usuarios
 
@@ -11,6 +24,21 @@ http://localhost:3000/api/usersSpace/:id
 
 --Usuario filtrando mendiante el parametro que especifiques.
 http://localhost:3000/api/usersFilter/:param/:value
+
+### 📤POST
+
+--Insertar nuevo usuario.
+http://localhost:3000/api/user
+
+### ♻️PUT
+
+--Actualizar usuario especifico.
+http://localhost:3000/api/user/:userId
+
+### 🧨DELETE
+
+--Borrar usuario especifico.
+http://localhost:3000/api/user/:userId
 
 
 ## 🗃️Espacios
