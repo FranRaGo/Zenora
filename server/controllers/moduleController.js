@@ -1,8 +1,7 @@
 const db = require('../config/db.js')
 
-//Get modules and their plan
 exports.getModules = (req,res)=>{
-    db.query(`SELECT m.name AS module_name, p.name AS plan_name
+    db.query(`SELECT m.id, m.prefix, m.name, m.description ,p.id AS plan_id,p.name AS plan_name, m.file_type ,m.logo
                 FROM module m 
                 JOIN plan p ON m.plan_id = p.id`,(err,results)=>{
         if (err) {
