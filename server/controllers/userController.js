@@ -98,25 +98,26 @@ exports.updateUser = (req, res) => {
 
 exports.updateUserPhoto = (req, res) => {
   const userId = req.params.userId;
-  const { image } = req.body;
+  const { image, file_type } = req.body;
 
-  if (!first_name || !last_name || !email || !pass) {
-    return res.status(400).json({ error: "Todos los campos son obligatorios" });
+  if (!image) {
+    return res.status(400).json({ error: "La imagen es obligatoria" });
   }
-/*
-  const query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ?, private = ? WHERE id = ?";
 
-  db.query(query, [first_name, last_name, email, pass, private, userId], (err, result) => {
+  const imageBuffer = Buffer.from(image, "base64");
+
+  const query = "UPDATE user SET profile_picture = ?, file_type = ? WHERE id = ?";
+
+  db.query(query, [imageBuffer, file_type || "image/png", userId], (err, result) => {
     if (err) {
-      console.error("Error al actualizar usuario:", err);
+      console.error("Error al actualizar la foto de perfil:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
     }
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    res.json({ message: "Usuario actualizado exitosamente" });
+    res.json({ message: "Foto de perfil actualizada exitosamente" });
   });
-  */
 };
 
 //DELETE

@@ -35,6 +35,9 @@ http://localhost:3000/api/user
 --Actualizar usuario especifico.
 http://localhost:3000/api/user/:userId
 
+--Actualizar foto de perfil de usuario
+http://localhost:3000/api/userPhoto/:userId
+
 ### 🧨DELETE
 
 --Borrar usuario especifico.
@@ -45,8 +48,31 @@ http://localhost:3000/api/user/:userId
 
 ### 📥GET
 
+--Espacio en base de la ID.
+http://localhost:3000/api/usersSpace/:spaceId'
+
 --Espacios de un usuario.
-http://localhost:3000/api/space/:id'
+http://localhost:3000/api/userSpace/:userId'
+
+### 📤POST
+
+--Insertar nuevo espacio.
+http://localhost:3000/api/space
+
+### ♻️PUT
+
+--Actualizar nombre de un espacio.
+http://localhost:3000/api/upadateSpaceName/:spaceId
+
+--Actualizar plan de un espacio.
+http://localhost:3000/api/upadateSpacePlan/:spaceId
+
+--Actualizar foto de logo de un espacio.
+http://localhost:3000/api/upadateSpaceLogo/:userId
+
+### 🧨DELETE
+-Eliminar un espacio especifico.
+http://localhost:3000/api/deleteSpace/:spaceId
 
 
 ## 💽Modulos
@@ -55,6 +81,7 @@ http://localhost:3000/api/space/:id'
 
 --Todos los modulos disponibles.
 http://localhost:3000/api/modules
+
 
 
 ## 📃Projectos(PM)

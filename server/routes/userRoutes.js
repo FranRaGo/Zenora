@@ -9,6 +9,7 @@ router.get('/usersSpace/:id', userController.getUsersSpace);
 router.post('/user', userController.createUser);
 
 router.put('/user/:userId', userController.updateUser);
+router.put('/userPhoto/:userId', userController.updateUserPhoto);
 
 router.delete('/user/:userId', userController.deleteUser);
 
