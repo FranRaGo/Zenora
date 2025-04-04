@@ -1,0 +1,14 @@
+:root{
+  --fondo: #0B0816;
+  --white: #fafafa;
+  --secondText: #a9a9a9;
+  --blue: #315CEE;
+  --secondFondo: #1C1923;
+}
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}

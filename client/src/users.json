@@ -1,0 +1,40 @@
+{
+    "usuarios": [
+      {
+        "id": 1,
+        "nombre": "Ana",
+        "lastName": "Fernandez",
+        "email": "ana@example.com",
+        "password": "1234"
+      },
+      {
+        "id": 2,
+        "nombre": "Carlos",
+        "lastName": "Lopez",
+        "email": "carlos@example.com",
+        "password": "abcd"
+      },
+      {
+        "id": 3,
+        "nombre": "Maria",
+        "lastName": "Perez",
+        "email": "maria@example.com",
+        "password": "5678"
+      },
+      {
+        "id": 4,
+        "nombre": "Juan",
+        "lastName": "Gomez",
+        "email": "juan@example.com",
+        "password": "qwerty"
+      },
+      {
+        "id": 5,
+        "nombre": "Laura",
+        "lastName": "Martinez",
+        "email": "laura@example.com",
+        "password": "password1"
+      }
+    ]
+  }
+  
