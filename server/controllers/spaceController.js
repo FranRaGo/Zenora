@@ -52,6 +52,23 @@ exports.createSpace = (req,res)=>{
   });
 }
 
+exports.addUserSpace = (req,res) => {
+  const { spaceId, userId, role } = req.body;
+
+  const query = "INSERT INTO user_space(user_id,space_id,role) VALUES (?,?,?)";
+
+  db.query(query, [userId, spaceId, role], (err, result) => {
+    if (err) {
+      console.error("Error al eliminar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario eliminado exitosamente" });
+  });
+}
+
 //PUT
 
 exports.updateSpacePlan = (req, res) => {
@@ -118,6 +135,25 @@ exports.updateSpaceLogo = (req, res) => {
   });
 };
 
+exports.updateUserRole = (req,res) => {
+  const spaceId = req.params.spaceId;
+  const userId = req.params.userId;
+  const { role } = req.body;
+
+  const query = "UPDATE user_space SET role = ? WHERE user_id = ? AND space_id = ?";
+
+  db.query(query, [role, userId, spaceId], (err, result) => {
+    if (err) {
+      console.error("Error al eliminar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario eliminado exitosamente" });
+  });
+}
+
 //DELETE
 
 exports.deleteSpace = (req, res) => {
@@ -136,3 +172,21 @@ exports.deleteSpace = (req, res) => {
     res.json({ message: "Usuario eliminado exitosamente" });
   });
 };
+
+exports.deleteUserSpace = (req,res) => {
+  const spaceId = req.params.spaceId;
+  const userId = req.params.userId;
+
+  const query = "DELETE FROM user_space WHERE user_id = ? AND space_id = ?";
+
+  db.query(query, [userId, spaceId], (err, result) => {
+    if (err) {
+      console.error("Error al eliminar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario eliminado exitosamente" });
+  });
+}

@@ -11,3 +11,20 @@ exports.getModules = (req,res)=>{
         res.json(results);
     })
 }
+
+exports.getSpaceModules = (req,res)=>{
+  space_id = req.params.spaceId;
+
+  db.query(`SELECT m.*
+              FROM module m 
+              JOIN mod_space ms ON m.id = ms.module_id
+              WHERE ms.space_id = ?`,[space_id],(err,results)=>{
+      if (err) {
+        console.error('Error en la consulta:', err);
+        return res.status(500).json({ error: 'Error en la base de datos' });
+      }
+      res.json(results);
+  })
+}
+
+//cojer modulos de un espacio

@@ -59,6 +59,9 @@ http://localhost:3000/api/userSpace/:userId'
 --Insertar nuevo espacio.
 http://localhost:3000/api/space
 
+--Insertar usuario a espacio.
+http://localhost:3000/api/addUserSpace/:userId/:spaceId/:role
+
 ### ♻️PUT
 
 --Actualizar nombre de un espacio.
@@ -70,9 +73,16 @@ http://localhost:3000/api/upadateSpacePlan/:spaceId
 --Actualizar foto de logo de un espacio.
 http://localhost:3000/api/upadateSpaceLogo/:userId
 
+--Actualizar rol de un usuario en un espacio.
+http://localhost:3000/api/updateSpaceUserRole/:userId/:spaceId/:role
+
 ### 🧨DELETE
+
 -Eliminar un espacio especifico.
 http://localhost:3000/api/deleteSpace/:spaceId
+
+-Eliminar un usuario del espacio.
+http://localhost:3000/api/deleteUserSpace/:userId/:spaceId
 
 
 ## 💽Modulos
