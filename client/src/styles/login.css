@@ -50,10 +50,10 @@
     justify-content: center;
     align-items: flex-end;
     width: 80%;
-    gap: 25px;
+    gap: 10px;
 }
 
-.inputs{
+.input-login{
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -61,13 +61,13 @@
     position: relative;
 }
 
-.inputs label{
+.input-login label{
     font-size: 0.8rem;
     font-weight: 300;
     color: var(--secondText);
 }
 
-.inputs input{
+.input-login input{
     position: relative;
     padding: 10px 10px 10px 50px;
     border-radius: 8px;
@@ -80,30 +80,34 @@
     transition: border 0.1s ease;
 }
 
-.inputs input:focus {
-    border-color: var(--blue);
-    box-shadow: 0 0 0 2px var(--blue); /* Ajusta la distancia */
+.input-login input:focus {
+    border: 0.5px solid var(--secondText);
+    outline: none;
+    box-shadow: none; 
 }
 
-.inputs input:hover{
+
+.input-login input:hover{
     border: 0.5px solid var(--white);
 }
 
+
+
 #emailSVG{
     position: absolute;
-    top: 77%;
+    top: 50%;
     left: 15px; /* Ajusta la distancia desde el borde izquierdo */
-    transform: translateY(-77%);
+    transform: translateY(-50%);
     width: 20px;
     height: 20px;
     color: var(--secondText);
 }
 
-#passwordSVG{
+#passwordSVG-login{
     position: absolute;
-    top: 77%;
+    top: 50%;
     left: 15px; /* Ajusta la distancia desde el borde izquierdo */
-    transform: translateY(-77%);
+    transform: translateY(-50%);
     width: 20px;
     height: 20px;
     color: var(--secondText);
@@ -111,9 +115,9 @@
 
 #eyeBtn{
     position: absolute;
-    top: 77%;
+    top: 50%;
     right: 15px; /* Ajusta la distancia desde el borde izquierdo */
-    transform: translateY(-77%);
+    transform: translateY(-50%);
     width: 20px;
     height: 20px;
     color: var(--secondText);
@@ -122,21 +126,30 @@
     z-index: 100;
 }
 
-#eyeBtn:hover svg{
-    color: var(--white);
+#eyeBtn svg{
+    transition: all 0.2s ease;
 }
 
-.inputs-login button{
+#eyeBtn:hover svg{
+    color: var(--blue);
+}
+
+/*Btn recordar password*/
+#recoveryPass{
     background-color: transparent;
     border: 0;
     color: var(--secondText);
     cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 300;
     transition: all 0.3s ease;
+
 }
 
-.inputs-login button:hover{
+#recoveryPass:hover{
     color: var(--blue);
 }
+
 
 .submit-login{
     display: flex;
@@ -194,4 +207,39 @@
     background-color: #fafafa70;
     border: 0;
     border-radius: 1000px;
+}
+
+/*-----Errores Email-----*/
+
+/*Mensaje error*/
+.error{
+    font-size: 0.8rem;
+    font-weight: 200;
+    color: var(--red);
+    padding-left: 5px;
+    visibility: hidden;
+}
+
+.showError{
+    visibility: visible !important;
+}
+
+/*svg*/
+.redError{
+    color: var(--red) !important;
+}
+
+/*Input*/
+.inputError{
+    border-color: var(--red) !important;
+}
+
+.inputError:hover{
+    border-color: var(--red) !important;
+}
+
+.inputError:focus {
+    border: 0.5px solid var(--red);
+    outline: none !important;
+    box-shadow: none !important; 
 }

@@ -1,38 +1,127 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import Users from '../users.json';
-import PasswordInput from '../components/login/btn-input';
-import { Route, Routes, Link } from 'react-router-dom';
+import EmailInput from '../components/login/input-email';
+import PasswordInput from '../components/login/input-password';
+import { useNavigate, Route, Routes, Link } from 'react-router-dom';
+import '../styles/login.css';
 
 
 const Login = () => {
     const[email, setEmail] = useState(''); 
     const[password, setPassword] = useState('');
     const[userFind, setUser] = useState(null);
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        const activeLog = localStorage.getItem("activeLog");
+        if(activeLog){
+            navigate('/');
+        }
+    }, []);
 
     const findEmail = (e) => {
+        const svg = document.getElementById("emailSVG-login");
+        const input = document.getElementById("email-login");
+        const error = document.getElementById("errorEmail-login");
         const email = e.target.value;
         setEmail(email);
-
+        
         const user = Users.usuarios.find((user) => user.email === email);
-        setUser(user);
-
-        if(user){
-            console.log("encontrado, es:" + JSON.stringify(user));
-        }else{
-            console.log("no se ha encontrado nada");
+    
+        if (email === '') {
+            input.classList.remove("inputError");
+            svg.classList.remove("redError");
+            error.classList.remove("showError");
+        } else if (!user) {
+            input.classList.add("inputError");
+            svg.classList.add("redError");
+            error.classList.add("showError");
+            error.textContent = "No user found with that email address, please try again.";
+            setUser(null);
+        } else {
+            input.classList.remove("inputError");
+            svg.classList.remove("redError");
+            error.classList.remove("showError");
+            setUser(user);
         }
     };
 
     const findPassword = (e) => {
-        console.log(userFind);
+        const svg = document.getElementById("passwordSVG-login");
+        const input = document.getElementById("password-login");
+        const error = document.getElementById("errorPass-login");
+    
         const password = e.target.value;
         setPassword(password);
-
-        if(userFind){
-            if(userFind.password === password){
-                console.log("La contraseña del usuario es correcta");
-            }else{
-                console.log("La contraseña que le pertoca no es la correcta");
+    
+        if (password.trim() === '') {
+            input.classList.remove("inputError");
+            svg.classList.remove("redError");
+            error.classList.remove("showError");
+        } else if (password.length >= 8) {
+            input.classList.remove("inputError");
+            svg.classList.remove("redError");
+            error.classList.remove("showError");
+        } else {
+            input.classList.add("inputError");
+            svg.classList.add("redError");
+            error.classList.add("showError");
+            error.textContent = "Min 8 characters password, please try again.";
+        }
+    };
+    
+    const validate = (e) => {
+        const input_email = document.getElementById("email-login");
+        const svg_email = document.getElementById("emailSVG-login");
+        const error_email = document.getElementById("errorEmail-login");
+    
+        const input_password = document.getElementById("password-login");
+        const svg_password = document.getElementById("passwordSVG");
+        const error_password = document.getElementById("errorPass-login");
+    
+        // Email validation
+        if (input_email.value === '') {
+            error_email.classList.add("showError");
+            input_email.classList.add("inputError");
+            svg_email.classList.add("redError");
+            error_email.textContent = "This email is invalid, please try again.";
+        } else if (!userFind) {  // If no user is found with that email
+            error_email.classList.add("showError");
+            input_email.classList.add("inputError");
+            svg_email.classList.add("redError");
+            error_email.textContent = "No user found with this email.";
+        }
+    
+        // Password validation
+        if (input_password.value === '') {
+            error_password.classList.add("showError");
+            input_password.classList.add("inputError");
+            svg_password.classList.add("redError");
+            error_password.textContent = "This password is invalid, min 8 characters.";
+        } else {
+            error_password.classList.remove("showError");
+            input_password.classList.remove("inputError");
+            svg_password.classList.remove("redError");
+        }
+    
+        // Actual login validation
+        if (userFind && userFind.password === password) {
+            const loggedAcounts = JSON.parse(localStorage.getItem("loggedAcounts")) || [];
+    
+            if (!loggedAcounts.includes(userFind.email)) {
+                loggedAcounts.push(userFind.email);
+            }
+    
+            localStorage.setItem('loggedAcounts', JSON.stringify(loggedAcounts));
+            localStorage.setItem('activeLog', userFind.email);
+    
+            navigate('/');
+        } else {
+            if (userFind && userFind.password !== password) {
+                error_password.classList.add("showError");
+                input_password.classList.add("inputError");
+                svg_password.classList.add("redError");
+                error_password.textContent = "Incorrect password, please try again.";
             }
         }
     };
@@ -49,20 +138,13 @@ const Login = () => {
                 </div>
 
                 <div className="inputs-login">
-                    <div className="inputs">
-                        <label htmlFor="email-login">Email</label>
-                        <svg xmlns="http://www.w3.org/2000/svg" id='emailSVG' fill="none" viewBox="0 0 24 24" strokeWidt="1.5" stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
-                        </svg>
-                        <input type="text" name='email-login' id='email-login' value={email} placeholder='Insert your Email' onChange={(e) => setEmail(e.target.value)} onBlur={findEmail} />
-                    </div>
-
-                    <PasswordInput password={password} setPassword={setPassword} onChange={(e) => setPassword(e.target.value)} onBlur={findPassword}/>
-                    <button>Recovery Password</button>
+                    < EmailInput id="login" className="login" placeholder="Insert your email" email={email} setEmail={setEmail} onChange={(e) => setEmail(e.target.value)} onBlur={findEmail} />
+                    < PasswordInput id="login" className="login" password={password} setPassword={setPassword} onChange={(e) => setPassword(e.target.value)} onBlur={findPassword} />
+                    <button id='recoveryPass'>Recovery Password</button>
                 </div>
 
                 <div className="submit-login">
-                    <button id='signIn-btn'>Log In</button>
+                    <button id='signIn-btn' onClick={validate}>Log In</button>
                     <div className='register-div'>
                         <p>Not a member?</p>
                         <Link to="/signup">Register</Link>

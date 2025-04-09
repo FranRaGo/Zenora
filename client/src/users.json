@@ -5,14 +5,14 @@
         "nombre": "Ana",
         "lastName": "Fernandez",
         "email": "ana@example.com",
-        "password": "1234"
+        "password": "12345678"
       },
       {
         "id": 2,
         "nombre": "Carlos",
         "lastName": "Lopez",
         "email": "carlos@example.com",
-        "password": "abcd"
+        "password": "abcdefghi"
       },
       {
         "id": 3,

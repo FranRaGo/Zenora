@@ -4,6 +4,12 @@
   --secondText: #a9a9a9;
   --blue: #315CEE;
   --secondFondo: #1C1923;
+  --red: #E63237;
+  --fondoNav: #1C1A21;
+  --borderNav: #4e4d52;
+  --fondoHover2: #fafafa20;
+  --fondoHover: #fafafa30;
+  --fondoNavBarMovil: #28272E;
 }
 
 *{

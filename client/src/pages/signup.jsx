@@ -1,49 +1,26 @@
 import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import '../styles/signup.css';
+import FormSignUp from '../components/signup/signup-form';
+import Validate from '../components/signup/validate-code';
 
 const SignUp = () => {
-    const [email, setEmail] = useState(''); 
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [lastName, setLastName] = useState('');
+    const [step, setStep] = useState(1);
+    const [newUser, setNewUser] = useState('');
+    //primera opcion componente form, una vez comprobado los campos y que este todo correcto pasamos a enviar el codigo
+    //segunda parte, validacion, una vez validamos el correo con el codigo que hayamos pasado este ya habra creado su cuenta
+    //y redirigiremos al login o al home , dependiendo de que salimos mas beneficiados.
+
+    const ok = ((userData) => {
+        setNewUser(userData);
+        setStep(2);
+    });
 
     return(
-        <div className="container-login">
+        <div className="container-signup">
             <div id='redonda'></div>
+            {step === 1 && < FormSignUp onSuccess={ok} />}
+            {step === 2 && < Validate user={newUser} />}    
 
-            <div className="div-login">
-                <div className="title-signup">
-                    <h1>Join the team!</h1>
-                    <p>Sign up and start managing tasks with ease.</p>
-                </div>
-
-                <div className="inputs-signup">
-                    <div className="inputs">
-                        <label htmlFor="name">Name</label>
-                        <input type="text" id="name" value={name} placeholder="Insert your Name" onChange={(e) => setName(e.target.value)} />
-                    </div>
-                    <div className="inputs">
-                        <label htmlFor="last-name">Last Name</label>
-                        <input type="text" id="last-name" value={lastName} placeholder="Insert your Last Name" onChange={(e) => setLastName(e.target.value)} />
-                    </div>
-                    <div className="inputs">
-                        <label htmlFor="email">Email</label>
-                        <input type="email" id="email" value={email} placeholder="Insert your Email" onChange={(e) => setEmail(e.target.value)} />
-                    </div>
-                    <div className="inputs">
-                        <label htmlFor="password">Password</label>
-                        <input type="password" id="password" value={password} placeholder="Insert your Password" onChange={(e) => setPassword(e.target.value)} />
-                    </div>
-                </div>
-
-                <div className="submit-signup">
-                    <button id="signIn-btn">Sign In</button>
-                    <div className="register-div">
-                        <p>¿Ya disfrutas de Zenora?</p>
-                        <Link to="/login">Iniciar sesión</Link>
-                    </div>
-                </div>
-            </div>
         </div>
     );
 }
