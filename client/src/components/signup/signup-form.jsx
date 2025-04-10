@@ -22,7 +22,6 @@ const FormSignUp = ({ onSuccess }) => {
         const errorName = document.getElementById("errorName-signup");
 
         if (validName) {
-            console.log("Nombre validado");
             inputName.classList.remove("inputError");
             svgName.classList.remove("redError");
             errorName.classList.remove("showError");
@@ -37,7 +36,6 @@ const FormSignUp = ({ onSuccess }) => {
             inputName.classList.add("inputError");
             svgName.classList.add("redError");
             errorName.textContent = "Name invalid, only strings";
-            console.log("Nombre invalidado");
             return false;
         }
     });
@@ -47,29 +45,21 @@ const FormSignUp = ({ onSuccess }) => {
         const svg = document.getElementById("lastNameSVG-signup");
         const error = document.getElementById("errorLastName-signup");
 
-        if (!input || !svg || !error) {
-            console.warn("❗ Elementos no encontrados en el DOM para la validación de apellido.");
-            return false;
-        }
-
         const value = input.value.trim();
         const regex = /^[A-Za-z]+$/;
         const isValid = regex.test(value);
 
         if (isValid) {
-            console.log("✅ Apellido válido");
             input.classList.remove("inputError");
             svg.classList.remove("redError");
             error.classList.remove("showError");
             return true;
         } else if (value === '') {
-            console.log("🟡 Apellido vacío");
             input.classList.remove("inputError");
             svg.classList.remove("redError");
             error.classList.remove("showError");
             return false;
         } else {
-            console.log("❌ Apellido inválido");
             input.classList.add("inputError");
             svg.classList.add("redError");
             error.classList.add("showError");
@@ -79,40 +69,53 @@ const FormSignUp = ({ onSuccess }) => {
     };
 
     //comprobar tambien si existe en la base de datos ya
-    const validateEmail = ((e) => {
+    const validateEmail = async (e) => {
         const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         const error = document.getElementById("errorEmail-signup");
         const svg = document.getElementById("emailSVG-signup");
         const input = document.getElementById("email-signup");
-
-        const emailValue = input.value.trim(); // Mejor usar el valor del input directamente
-
-        if (!input || !error || !svg) {
-            console.warn("Algún elemento no se encontró en el DOM");
+    
+        const emailValue = input.value.trim();
+    
+        if (emailValue === '') {
+            input.classList.remove("inputError");
+            svg.classList.remove("redError");
+            error.classList.remove("showError");
             return false;
         }
-
-        if (regexEmail.test(emailValue)) {
-            console.log("✅ Email validado");
-            input.classList.remove("inputError");
-            svg.classList.remove("redError");
-            error.classList.remove("showError");
-            return true;
-        } else if (emailValue === '') {
-            console.log("🟡 Email vacío");
-            input.classList.remove("inputError");
-            svg.classList.remove("redError");
-            error.classList.remove("showError");
-            return false;
-        } else {
-            console.log("❌ Email inválido");
+    
+        if (!regexEmail.test(emailValue)) {
             input.classList.add("inputError");
             svg.classList.add("redError");
             error.classList.add("showError");
-            error.textContent = "Invalid email, please try again";
+            error.textContent = "Invalid email format, please try again.";
             return false;
         }
-    });
+    
+        try {
+            const res = await fetch(`http://localhost:3000/api/usersFilter/email/${emailValue}`);
+            if (res.ok) {
+                // L'email ja existeix, bloqueja registre
+                input.classList.add("inputError");
+                svg.classList.add("redError");
+                error.classList.add("showError");
+                error.textContent = "This email is already registered. Please log in.";
+                return false;
+            } else {
+                // Si el servidor retorna 404, llavors l'email no està registrat
+                input.classList.remove("inputError");
+                svg.classList.remove("redError");
+                error.classList.remove("showError");
+                return true;
+            }
+        } catch (err) {
+            input.classList.add("inputError");
+            svg.classList.add("redError");
+            error.classList.add("showError");
+            error.textContent = "Connection error validating email.";
+            return false;
+        }
+    };
 
     const validatePassword = (e) => {
         const regexPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
@@ -121,28 +124,20 @@ const FormSignUp = ({ onSuccess }) => {
         const svg = document.getElementById("passwordSVG-signup");
         const error = document.getElementById("errorPass-signup");
 
-        if (!input || !svg || !error) {
-            console.warn("Algún elemento de contraseña no fue encontrado en el DOM");
-            return false;
-        }
-
         const passwordValue = input.value.trim();
         const validPassword = regexPassword.test(passwordValue);
 
         if (validPassword) {
-            console.log("✅ Password validado");
             input.classList.remove("inputError");
             svg.classList.remove("redError");
             error.classList.remove("showError");
             return true;
         } else if (passwordValue === '') {
-            console.log("🟡 Password vacío");
             input.classList.remove("inputError");
             svg.classList.remove("redError");
             error.classList.remove("showError");
             return false;
         } else {
-            console.log("❌ Password inválido");
             input.classList.add("inputError");
             svg.classList.add("redError");
             error.classList.add("showError");
@@ -152,8 +147,7 @@ const FormSignUp = ({ onSuccess }) => {
     };
 
     const sendCode = async () => {
-        if (!email || !email.includes("@")) {
-            console.log("❗ Email no válido antes de enviar");
+        if (!email || !email.includes("@")) {  //email no valido
             return;
         }
 
@@ -167,8 +161,7 @@ const FormSignUp = ({ onSuccess }) => {
             const data = await response.json();
             return data.code;
         } catch (error) {
-            console.error("❌ Error al enviar:", error);
-            alert("Hubo un problema al enviar el correo.");
+            console.error("❌ Error al enviar:", error); //problema con enviar el codigo al email
             return null;
         }
     };
@@ -180,20 +173,78 @@ const FormSignUp = ({ onSuccess }) => {
         const lastNameValido = validateLastname();
         const emailValido = validateEmail();
         const passwordValido = validatePassword();
+        //Name Input
+        const inputName = document.getElementById("name-signup");
+        const svgName = document.getElementById("nameSVG-signup");
+        const errorName = document.getElementById("errorName-signup");
+        //LastName Input
+        const inputLast = document.getElementById("lastname-signup");
+        const svgLast = document.getElementById("lastNameSVG-signup");
+        const errorLast = document.getElementById("errorLastName-signup");
+        //Email Input
+        const errorEmail = document.getElementById("errorEmail-signup");
+        const svgEmail = document.getElementById("emailSVG-signup");
+        const inputEmail = document.getElementById("email-signup");
+        //Password Input
+        const inputPass = document.getElementById("password-signup");
+        const svgPass = document.getElementById("passwordSVG-signup");
+        const errorPass = document.getElementById("errorPass-signup");
 
-        // Si alguno falla, no continúes
+        if (!nameValido){
+            errorName.classList.add("showError");
+            inputName.classList.add("inputError");
+            svgName.classList.add("redError");
+            errorName.textContent = "Name empty, please rellena el nombre";
+        }else{
+            inputName.classList.remove("inputError");
+            svgName.classList.remove("redError");
+            errorName.classList.remove("showError");
+        }
+
+        if(!lastNameValido){
+            inputLast.classList.add("inputError");
+            svgLast.classList.add("redError");
+            errorLast.classList.add("showError");
+            errorLast.textContent = "Last name invalid, only letters allowed.";
+            
+        }else{
+            inputLast.classList.remove("inputError");
+            svgLast.classList.remove("redError");
+            errorLast.classList.remove("showError");
+        }
+
+        if(!emailValido){
+            inputEmail.classList.add("inputError");
+            svgEmail.classList.add("redError");
+            errorEmail.classList.add("showError");
+            errorEmail.textContent = "Last name invalid, only letters allowed.";
+        }else{
+            inputEmail.classList.remove("inputError");
+            svgEmail.classList.remove("redError");
+            errorEmail.classList.remove("showError");
+        }
+
+        if(!passwordValido){
+            inputPass.classList.add("inputError");
+            svgPass.classList.add("redError");
+            errorPass.classList.add("showError");
+            errorPass.textContent = "Last name invalid, only letters allowed.";
+        }else{
+            inputPass.classList.remove("inputError");
+            svgPass.classList.remove("redError");
+            errorPass.classList.remove("showError");
+        }
+
         if (!nameValido || !lastNameValido || !emailValido || !passwordValido) {
-            console.log("Validación fallida. No se envía el formulario.");
             return;
         }
+
         const codeResult = await sendCode();
         if (!codeResult) {
-            alert("No se pudo generar el código.");
             return;
         }
 
         const userData = { name, lastName, email, password, code: codeResult };
-        console.log("✅ Todos los campos validados. Enviando datos:", userData);
         onSuccess(userData);
     };
 

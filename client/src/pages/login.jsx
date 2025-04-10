@@ -1,5 +1,4 @@
-import React, { useState, useEffect} from 'react';
-import Users from '../users.json';
+import React, { useState, useEffect } from 'react';
 import EmailInput from '../components/login/input-email';
 import PasswordInput from '../components/login/input-password';
 import { useNavigate, Route, Routes, Link } from 'react-router-dom';
@@ -7,53 +6,65 @@ import '../styles/login.css';
 
 
 const Login = () => {
-    const[email, setEmail] = useState(''); 
-    const[password, setPassword] = useState('');
-    const[userFind, setUser] = useState(null);
+    const [userData, setUserData] = useState(null);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [userFind, setUser] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         const activeLog = localStorage.getItem("activeLog");
-        if(activeLog){
+        if (activeLog) {
             navigate('/');
         }
     }, []);
 
-    const findEmail = (e) => {
+    const findEmail = async (e) => {
         const svg = document.getElementById("emailSVG-login");
         const input = document.getElementById("email-login");
         const error = document.getElementById("errorEmail-login");
         const email = e.target.value;
         setEmail(email);
-        
-        const user = Users.usuarios.find((user) => user.email === email);
-    
+
         if (email === '') {
             input.classList.remove("inputError");
             svg.classList.remove("redError");
             error.classList.remove("showError");
-        } else if (!user) {
+            setUser(null);
+            return;
+        }
+
+        try {
+            const res = await fetch(`http://localhost:3000/api/usersFilter/email/${email}`);
+            if (!res.ok) throw new Error("No user found");
+            const user = await res.json(); //user en json
+            if (user.length === 0) throw new Error("No user found");
+
+            input.classList.remove("inputError");
+            svg.classList.remove("redError");
+            error.classList.remove("showError");
+            console.log("user encontrado");
+            
+            setUser(user[0]);
+            console.log(user);
+        } catch (err) {
             input.classList.add("inputError");
             svg.classList.add("redError");
             error.classList.add("showError");
             error.textContent = "No user found with that email address, please try again.";
             setUser(null);
-        } else {
-            input.classList.remove("inputError");
-            svg.classList.remove("redError");
-            error.classList.remove("showError");
-            setUser(user);
         }
-    };
+    }
+
 
     const findPassword = (e) => {
         const svg = document.getElementById("passwordSVG-login");
         const input = document.getElementById("password-login");
         const error = document.getElementById("errorPass-login");
-    
+
         const password = e.target.value;
         setPassword(password);
-    
+
         if (password.trim() === '') {
             input.classList.remove("inputError");
             svg.classList.remove("redError");
@@ -68,17 +79,17 @@ const Login = () => {
             error.classList.add("showError");
             error.textContent = "Min 8 characters password, please try again.";
         }
-    };
-    
+    }
+
     const validate = (e) => {
         const input_email = document.getElementById("email-login");
         const svg_email = document.getElementById("emailSVG-login");
         const error_email = document.getElementById("errorEmail-login");
-    
+
         const input_password = document.getElementById("password-login");
-        const svg_password = document.getElementById("passwordSVG");
+        const svg_password = document.getElementById("passwordSVG-login");
         const error_password = document.getElementById("errorPass-login");
-    
+
         // Email validation
         if (input_email.value === '') {
             error_email.classList.add("showError");
@@ -91,7 +102,7 @@ const Login = () => {
             svg_email.classList.add("redError");
             error_email.textContent = "No user found with this email.";
         }
-    
+
         // Password validation
         if (input_password.value === '') {
             error_password.classList.add("showError");
@@ -103,30 +114,28 @@ const Login = () => {
             input_password.classList.remove("inputError");
             svg_password.classList.remove("redError");
         }
-    
+
         // Actual login validation
-        if (userFind && userFind.password === password) {
+        if (userFind && userFind.pass === password) {
             const loggedAcounts = JSON.parse(localStorage.getItem("loggedAcounts")) || [];
-    
+
             if (!loggedAcounts.includes(userFind.email)) {
                 loggedAcounts.push(userFind.email);
             }
-    
+
             localStorage.setItem('loggedAcounts', JSON.stringify(loggedAcounts));
             localStorage.setItem('activeLog', userFind.email);
-    
-            navigate('/');
-        } else {
-            if (userFind && userFind.password !== password) {
-                error_password.classList.add("showError");
-                input_password.classList.add("inputError");
-                svg_password.classList.add("redError");
-                error_password.textContent = "Incorrect password, please try again.";
-            }
-        }
-    };
 
-    return(
+            navigate('/');
+        } else if (userFind && userFind.pass !== password) {
+            error_password.classList.add("showError");
+            input_password.classList.add("inputError");
+            svg_password.classList.add("redError");
+            error_password.textContent = "Incorrect password, please try again.";
+        }
+    }
+
+    return (
         <div className="container-login">
             <div id='redonda'></div>
 
@@ -153,9 +162,7 @@ const Login = () => {
 
             </div>
         </div>
-        
-        
     )
-}
 
+};
 export default Login;

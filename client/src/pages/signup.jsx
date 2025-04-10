@@ -19,8 +19,7 @@ const SignUp = () => {
         <div className="container-signup">
             <div id='redonda'></div>
             {step === 1 && < FormSignUp onSuccess={ok} />}
-            {step === 2 && < Validate user={newUser} />}    
-
+            {step === 2 && < Validate user={newUser} goBack={() => setStep(1)} />}    
         </div>
     );
 }
