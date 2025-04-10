@@ -10,7 +10,7 @@ const SignUp = () => {
     //segunda parte, validacion, una vez validamos el correo con el codigo que hayamos pasado este ya habra creado su cuenta
     //y redirigiremos al login o al home , dependiendo de que salimos mas beneficiados.
 
-    const ok = ((userData) => {
+    const succes = ((userData) => {
         setNewUser(userData);
         setStep(2);
     });
@@ -18,7 +18,7 @@ const SignUp = () => {
     return(
         <div className="container-signup">
             <div id='redonda'></div>
-            {step === 1 && < FormSignUp onSuccess={ok} />}
+            {step === 1 && < FormSignUp onSuccess={succes} />}
             {step === 2 && < Validate user={newUser} goBack={() => setStep(1)} />}    
         </div>
     );
