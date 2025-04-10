@@ -7,4 +7,15 @@ router.get('/projectUsers/:projectId',projectController.getProjectUsers);
 router.get('/projects/:spaceId',projectController.getProjects);
 router.get('/project/:projectId',projectController.getProject);
 
+router.post('/project',projectController.createProject);
+router.post('/assigProject',projectController.assigProject);
+
+router.put('/project/:projectId',projectController.updateProject);
+router.put('/bannerProject/:projectId',projectController.updateBannerProject);
+router.put('/userManager/:assigId',projectController.updateProject);
+
+router.delete('/project/:projectId',projectController.deleteProject);
+router.delete('/assigProject/:assigId',projectController.deleteAssigProject);
+
+
 module.exports = router;

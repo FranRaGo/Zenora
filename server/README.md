@@ -60,7 +60,7 @@ http://localhost:3000/api/userSpace/:userId'
 http://localhost:3000/api/space
 
 --Insertar usuario a espacio.
-http://localhost:3000/api/addUserSpace/:userId/:spaceId/:role
+http://localhost:3000/api/addUserSpace
 
 ### ♻️PUT
 
@@ -74,7 +74,7 @@ http://localhost:3000/api/upadateSpacePlan/:spaceId
 http://localhost:3000/api/upadateSpaceLogo/:userId
 
 --Actualizar rol de un usuario en un espacio.
-http://localhost:3000/api/updateSpaceUserRole/:userId/:spaceId/:role
+http://localhost:3000/api/updateSpaceUserRole/:userId/:spaceId
 
 ### 🧨DELETE
 
@@ -92,7 +92,7 @@ http://localhost:3000/api/deleteUserSpace/:userId/:spaceId
 --Todos los modulos disponibles.
 http://localhost:3000/api/modules
 
-
+//?Espacios asignados a un proyectos
 
 ## 📃Projectos(PM)
 
@@ -107,8 +107,35 @@ http://localhost:3000/api/project/:projectId
 --Todos los projectos de un usuario.
 http://localhost:3000/api/userProjects/:id
 
---Todos los usuarios de un proyecto
+--Todos los usuarios de un proyecto.
 http://localhost:3000/api/projectUsers/:projectId
+
+### 📤POST
+
+--Crear nuevo proyecto.
+http://localhost:3000/api/project
+
+--Asignar usuario a projecto.
+http://localhost:3000/api/assigProject
+
+### ♻️PUT
+
+--Actualizar un proyecto.
+http://localhost:3000/api/project/:projectId
+
+--Actualizar banner de un proyecto.
+http://localhost:3000/api/project/:projectId
+
+--Actualizar rol de un usuario en un proyecto.
+http://localhost:3000/api/userManager/:assigId
+
+### 🧨DELETE
+
+--Eliminar un proyecto.
+http://localhost:3000/api/project/:projectId
+
+--Eliminar usuario de un projecto.
+http://localhost:3000/api/assigProject/:assigId
 
 
 ## 📑Tareas(PM)
