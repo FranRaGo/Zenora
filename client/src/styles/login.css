@@ -1,0 +1,245 @@
+.container-login{
+    width: 100%;
+    height: 100vh;
+    background-color: var(--fondo);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.div-login{
+    background-color: #2B2835;
+    width: 500px;
+    height: 500px;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    color: var(--white);
+    z-index: 10;
+}
+
+.title-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.title-login h1{
+    font-size: 2rem;
+    font-weight: 400;
+}
+
+.title-login p{
+    width: 80%;
+    text-align: center;
+    font-size: 0.9rem;
+    font-weight: 300;
+}
+
+
+.inputs-login{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    width: 80%;
+    gap: 10px;
+}
+
+.input-login{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    position: relative;
+}
+
+.input-login label{
+    font-size: 0.8rem;
+    font-weight: 300;
+    color: var(--secondText);
+}
+
+.input-login input{
+    position: relative;
+    padding: 10px 10px 10px 50px;
+    border-radius: 8px;
+    border: 0.5px solid var(--secondText);
+    background-color: #fafafa10;
+    color: var(--white);
+    cursor: pointer;
+    font-weight: 300;
+    letter-spacing: 0.5px;
+    transition: border 0.1s ease;
+}
+
+.input-login input:focus {
+    border: 0.5px solid var(--secondText);
+    outline: none;
+    box-shadow: none; 
+}
+
+
+.input-login input:hover{
+    border: 0.5px solid var(--white);
+}
+
+
+
+#emailSVG{
+    position: absolute;
+    top: 50%;
+    left: 15px; /* Ajusta la distancia desde el borde izquierdo */
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--secondText);
+}
+
+#passwordSVG-login{
+    position: absolute;
+    top: 50%;
+    left: 15px; /* Ajusta la distancia desde el borde izquierdo */
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--secondText);
+}
+
+#eyeBtn{
+    position: absolute;
+    top: 50%;
+    right: 15px; /* Ajusta la distancia desde el borde izquierdo */
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    color: var(--secondText);
+    background-color: transparent;
+    border: 0;
+    z-index: 100;
+}
+
+#eyeBtn svg{
+    transition: all 0.2s ease;
+}
+
+#eyeBtn:hover svg{
+    color: var(--blue);
+}
+
+/*Btn recordar password*/
+#recoveryPass{
+    background-color: transparent;
+    border: 0;
+    color: var(--secondText);
+    cursor: pointer;
+    font-size: 0.8rem;
+    font-weight: 300;
+    transition: all 0.3s ease;
+
+}
+
+#recoveryPass:hover{
+    color: var(--blue);
+}
+
+
+.submit-login{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+    gap: 15px;
+}
+
+#signIn-btn{
+    padding: 10px 10px;
+    background-color: var(--blue);
+    color: var(--white);
+    border: 0;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#signIn-btn:hover{
+    color: var(--secondText);
+}
+
+.register-div{
+    display: flex;
+    gap: 10px;
+}
+
+.register-div p{
+    font-size: 0.8rem;
+    color: var(--secondText);
+}
+
+.register-div a{
+    font-size: 0.8rem;
+    background-color: transparent;
+    border: 0;
+    color: var(--white);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.register-div a:hover{
+    color: var(--blue);
+}
+
+#redonda{
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 40%;
+    height: 50%;
+    filter: blur(300px);
+    background-color: #fafafa70;
+    border: 0;
+    border-radius: 1000px;
+}
+
+/*-----Errores Email-----*/
+
+/*Mensaje error*/
+.error{
+    font-size: 0.8rem;
+    font-weight: 200;
+    color: var(--red);
+    padding-left: 5px;
+    visibility: hidden;
+}
+
+.showError{
+    visibility: visible !important;
+}
+
+/*svg*/
+.redError{
+    color: var(--red) !important;
+}
+
+/*Input*/
+.inputError{
+    border-color: var(--red) !important;
+}
+
+.inputError:hover{
+    border-color: var(--red) !important;
+}
+
+.inputError:focus {
+    border: 0.5px solid var(--red);
+    outline: none !important;
+    box-shadow: none !important; 
+}

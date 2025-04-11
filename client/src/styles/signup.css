@@ -1,0 +1,281 @@
+.container-signup {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--fondo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.div-signup {
+  background-color: #2b2835;
+  width: 550px;
+  height: 700px;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  color: var(--white);
+  position: relative;
+  z-index: 10;
+}
+
+#redonda {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 50%;
+  filter: blur(300px);
+  background-color: #fafafa70;
+  border: 0;
+  border-radius: 1000px;
+}
+
+.title-signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.title-signup h1 {
+  font-size: 2rem;
+  font-weight: 400;
+}
+
+.title-signup p {
+  width: 80%;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.div-inputs-signup {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 70%;
+  gap: 10px;
+}
+
+.input-signup {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  position: relative;
+}
+
+.input-signup label {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--secondText);
+}
+
+.input-signup input {
+  position: relative;
+  padding: 10px 10px 10px 50px;
+  border-radius: 8px;
+  border: 0.5px solid var(--secondText);
+  background-color: #fafafa10;
+  color: var(--white);
+  cursor: pointer;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  transition: border 0.1s ease;
+}
+
+.input-signup input:focus {
+  border: 0.5px solid var(--secondText);
+  outline: none;
+  box-shadow: none;
+}
+
+.input-signup input:hover {
+  border: 0.5px solid var(--white);
+}
+
+.svg {
+  position: absolute;
+  top: 50%;
+  left: 15px; /* Ajusta la distancia desde el borde izquierdo */
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  color: var(--secondText);
+}
+
+.submit-signup {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  gap: 15px;
+}
+
+#signup-btn {
+  padding: 10px 10px;
+  background-color: var(--blue);
+  color: var(--white);
+  border: 0;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#signup-btn:hover {
+  color: var(--secondText);
+}
+
+.error {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: var(--red);
+  padding-left: 5px;
+  visibility: hidden;
+}
+
+/*Mostrar Error*/
+.showError {
+  visibility: visible !important;
+}
+
+/*SVG*/
+.redError {
+  color: var(--red) !important;
+}
+
+/*Input*/
+.inputError {
+  border-color: var(--red) !important;
+}
+
+.inputError:hover {
+  border-color: var(--red) !important;
+}
+
+.inputError:focus {
+  border: 0.5px solid var(--red);
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/*Validate-Code*/
+#btn-goBack {
+  position: absolute;
+  top: 2%;
+  left: 2%;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}
+
+#btn-goBack svg {
+  width: 24px;
+  height: 24px;
+}
+
+.inputs-code {
+  width: 70%;
+  display: flex;
+  gap: 10px;
+}
+
+.inputs-code input {
+  padding: 10px 10px;
+  width: 20%;
+  height: 60px;
+  border: 1px solid var(--secondText);
+  border-radius: 10px;
+  background-color: var(--fondoHover2);
+  color: var(--white);
+  font-size: 2rem;
+  font-weight: 200;
+  text-align: center;
+}
+
+#options-code {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 25px;
+  margin-top: 20px;
+}
+
+#resend-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+}
+
+#resend-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+#verify-btn {
+  padding: 10px 10px;
+  background-color: var(--blue);
+  color: var(--white);
+  border: 0;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+#verify-btn:hover {
+  color: var(--secondText);
+}
+
+#back-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.send-btn{
+  color: var(--verde) !important;
+}
+
+
+/*ANIMATION*/
+
+/* al teu fitxer signup.css */
+.rotate-animation {
+  animation: rotate 1s linear infinite;
+}
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
