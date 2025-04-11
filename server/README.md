@@ -55,7 +55,7 @@ http://localhost:3000/api/user/:userId
 http://localhost:3000/api/usersSpace/:spaceId
 
 --Espacios de un usuario.
-http://localhost:3000/api/userSpace/:userId
+http://localhost:3000/api/spaceUser/:userId
 
 ### 📤POST
 
