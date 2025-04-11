@@ -19,7 +19,7 @@ exports.getSpace = (req,res)=>{
 exports.getUserSpace = (req,res)=>{
   const userId = req.params.id;
 
-  db.query(`SELECT s.id ,s.name, us.role, s.file_type ,s.logo
+  db.query(`SELECT s.id ,s.name, us.role, us.owner, s.file_type ,s.logo
             FROM space s
             JOIN user_space us ON s.id = us.space_id
             JOIN user u ON us.user_id = u.id

@@ -52,10 +52,10 @@ http://localhost:3000/api/user/:userId
 ### 📥GET
 
 --Espacio en base de la ID.
-http://localhost:3000/api/usersSpace/:spaceId'
+http://localhost:3000/api/usersSpace/:spaceId
 
 --Espacios de un usuario.
-http://localhost:3000/api/userSpace/:userId'
+http://localhost:3000/api/userSpace/:userId
 
 ### 📤POST
 
