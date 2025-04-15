@@ -1,17 +1,22 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
-import Home from "./pages/Home";
+import Home from "./pages/MainSpace";
 import Login from "./pages/Login";
-import SignUp from "./pages/SignUp";
+import SignUp from "./pages/Signup";
+import LaunchPad from "./pages/LaunchPad";
+import CreateWorkspace from './pages/CreateWorkspace';
+
 
 function App() {
   return (
     <Router>
       <Routes>
-        <Route path='/login' element={<Login />} />
-        <Route path='/' element={<Home />} />
-        <Route path='/signup' element={<SignUp />} />
+        <Route path='/login' element={< Login />} />
+        <Route path='/' element={< Home />} />
+        <Route path='/signup' element={< SignUp />} />
+        <Route path='/launchpad' element={< LaunchPad />} />
+        <Route path='/createWorkspace' element={< CreateWorkspace />} />
       </Routes>
     </Router>
   );

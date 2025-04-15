@@ -1,21 +1,58 @@
-:root{
-  --fondo: #0B0816;
+:root {
+  --fondo: #0b0816;
   --white: #fafafa;
   --secondText: #a9a9a9;
-  --blue: #315CEE;
-  --secondFondo: #1C1923;
-  --red: #E63237;
-  --fondoNav: #1C1A21;
+  --blue: #315cee;
+  --secondFondo: #1c1923;
+  --red: #e63237;
+  --fondoNav: #1c1a21;
   --borderNav: #4e4d52;
   --fondoHover2: #fafafa20;
   --fondoHover: #fafafa30;
-  --fondoNavBarMovil: #28272E;
-  --verde: #3CDF5A;
+  --fondoNavBarMovil: #28272e;
+  --verde: #3cdf5a;
 }
 
-*{
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
+}
+
+.st0 {
+  stroke: #fafafa;
+  fill: var(--white);
+  stroke-miterlimit: 10;
+}
+
+#div-main {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--fondo);
+  
+  padding: 10px;
+  
+}
+
+.container{
+  background-color: var(--fondoHover);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  border: 0;
+  border-radius: 10px;
+}
+
+.contain-content{
+  background-color: var(--fondoHover);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding-top: 10px;
 }

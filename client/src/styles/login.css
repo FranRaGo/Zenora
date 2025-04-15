@@ -186,6 +186,7 @@
 .register-div a{
     font-size: 0.8rem;
     background-color: transparent;
+    text-decoration: none;
     border: 0;
     color: var(--white);
     cursor: pointer;
@@ -243,3 +244,29 @@
     outline: none !important;
     box-shadow: none !important; 
 }
+
+
+
+@media (max-width: 480px) {
+    .div-login{
+      padding: 20px;
+      background-color: transparent;
+    }
+  
+    .inputs-login{
+      width: 100%;
+    }
+  
+    .submit-login{
+      width: 100%;
+    }
+  
+    #redonda {
+      width: 60%;
+      height: 60%;
+      filter: blur(250px);
+      background-color: #fafafa70;
+      border: 0;
+      border-radius: 1000px;
+    }
+  }

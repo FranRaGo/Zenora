@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import '../styles/signup.css';
 import FormSignUp from '../components/signup/signup-form';
-import Validate from '../components/signup/validate-code';
+import ValidateSignup from '../components/signup/validate-code';
 
 const SignUp = () => {
     const [step, setStep] = useState(1);
@@ -19,7 +19,7 @@ const SignUp = () => {
         <div className="container-signup">
             <div id='redonda'></div>
             {step === 1 && < FormSignUp onSuccess={succes} />}
-            {step === 2 && < Validate user={newUser} goBack={() => setStep(1)} />}    
+            {step === 2 && < ValidateSignup user={newUser} goBack={() => setStep(1)} />}    
         </div>
     );
 }
