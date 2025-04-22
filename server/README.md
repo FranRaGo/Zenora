@@ -224,3 +224,13 @@ http://localhost:3000/api/assigSubtask/:assigId
 
 --Documentos de un projecto,tarea o subtarea especifico.
 http://localhost:3000/api/PmDocument/:param/:id
+
+### 📤POST
+
+--Subir documento a un projecto,tarea o subtarea.
+http://localhost:3000/api/PmDocument/:param/:id
+{ name, *image, file_type }
+
+### 🧨DELETE
+--Eliminar documento especifico.
+http://localhost:3000/api/PmDocument/:documentId
