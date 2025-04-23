@@ -34,10 +34,10 @@ exports.getUserSpace = (req,res)=>{
 
 //POST
 
-exports.createSpace = (req,res)=>{
+exports.createSpace = (req, res) => {
   const { name, admin_id, plan_id, logo, file_type } = req.body;
 
-  if (!name|| !admin_id || !plan_id) {
+  if (!name || !admin_id || !plan_id) {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
   }
 
@@ -45,12 +45,29 @@ exports.createSpace = (req,res)=>{
 
   db.query(query, [name, admin_id, plan_id, logo, file_type], (err, result) => {
     if (err) {
-      console.error("Error al insertar usuario:", err);
-      return res.status(500).json({ error: "Error en la base de datos" });
+      console.error("Error al insertar espacio:", err);
+      return res.status(500).json({ error: "Error en la base de datos al crear espacio" });
     }
-    res.status(201).json({ message: "Usuario creado exitosamente", userId: result.insertId });
+
+    const spaceId = result.insertId;
+
+    // Insertar en space_user para vincular al admin con el espacio
+    const userSpaceQuery = "INSERT INTO user_space (space_id, user_id, role, owner) VALUES (?, ?, ?, 1)";
+    const role = 'admin'; // Puedes cambiar esto según tu lógica
+
+    db.query(userSpaceQuery, [spaceId, admin_id, role], (err2) => {
+      if (err2) {
+        console.error("Error al insertar relación space_user:", err2);
+        return res.status(500).json({ error: "Espacio creado, pero error al vincular con el usuario" });
+      }
+
+      res.status(201).json({
+        message: "Espacio creado y usuario vinculado exitosamente",
+        spaceId: spaceId
+      });
+    });
   });
-}
+};
 
 exports.addUserSpace = (req,res) => {
   const { spaceId, userId, role } = req.body;

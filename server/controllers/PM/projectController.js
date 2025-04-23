@@ -144,7 +144,7 @@ exports.updateBannerProject = (req, res) => {
   });
 };
 
-exports.updateProject = (req, res) => {
+exports.updateManageProject = (req, res) => {
   const projectId = req.params.assigId;
   const { manager } = req.body;
 

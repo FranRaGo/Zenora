@@ -12,7 +12,7 @@ router.post('/assigProject',projectController.assigProject);
 
 router.put('/project/:projectId',projectController.updateProject);
 router.put('/bannerProject/:projectId',projectController.updateBannerProject);
-router.put('/userManager/:assigId',projectController.updateProject);
+router.put('/userManager/:assigId',projectController.updateManageProject);
 
 router.delete('/project/:projectId',projectController.deleteProject);
 router.delete('/assigProject/:assigId',projectController.deleteAssigProject);
