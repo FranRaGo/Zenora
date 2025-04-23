@@ -267,7 +267,7 @@ const FormSignUp = ({ onSuccess }) => {
                 <button id="signup-btn" onClick={validateUser}>Sign Up</button>
                 <div className="register-div">
                     <p>Are you already enjoying Zenora?</p>
-                    <Link to="/login">Iniciar sesión</Link>
+                    <Link to="/login">Log In</Link>
                 </div>
             </div>
         </div>

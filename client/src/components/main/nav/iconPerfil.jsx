@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../../styles/nav.css';
+import '../../../styles/nav.css';
 
 const ProfileIcon = ({ status }) => {
   const [name, setName] = useState('My space');

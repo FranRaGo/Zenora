@@ -15,7 +15,7 @@ const Login = () => {
     useEffect(() => {
         const activeLog = localStorage.getItem("activeLog");
         if (activeLog) {
-            navigate('/');
+            navigate('/launchpad');
         }
     }, []);
 
@@ -126,7 +126,7 @@ const Login = () => {
             localStorage.setItem('loggedAcounts', JSON.stringify(loggedAcounts));
             localStorage.setItem('activeLog', userFind.email);
 
-            navigate('/');
+            navigate('/launchpad');
         } else if (userFind && userFind.pass !== password) {
             error_password.classList.add("showError");
             input_password.classList.add("inputError");
@@ -156,7 +156,7 @@ const Login = () => {
                     <button id='signIn-btn' onClick={validate}>Log In</button>
                     <div className='register-div'>
                         <p>Not a member?</p>
-                        <Link to="/signup">Register</Link>
+                        <Link to="/signup" className='a-login'>Sign Up</Link>
                     </div>
                 </div>
 
