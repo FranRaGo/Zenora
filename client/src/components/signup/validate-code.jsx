@@ -1,14 +1,17 @@
 import React, { useRef, useState } from "react";
 import '../../styles/signup.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 // 
 
-const validationSignup = ({ user, goBack }) => {
+const ValidateSignup = ({ user, goBack }) => {
     const [loading, setLoading] = useState(false);
     const [sent, setSent] = useState(false);
     const [code, setCode] = useState(user.code);
+    const navigate = useNavigate();
+    
 
+    console.log(code);
 
     const [num1, setNum1] = useState('');
     const [num2, setNum2] = useState('');
@@ -38,12 +41,39 @@ const validationSignup = ({ user, goBack }) => {
     };
 
 
-    const verifyCode = () => {
+    const verifyCode = async () => {
         const inputCode = `${num1}${num2}${num3}${num4}${num5}`;
+        console.log(user);
+
         if (inputCode === code) {
-            console.log("✅ Codi correcte!");
+            console.log("Codi correcte!");
+            const newUserData = {
+                first_name: user.name,
+                last_name: user.lastName,
+                email: user.email,
+                pass: user.password,
+                private: false,
+                profile_picture: null,
+                file_type: null
+            };
+            console.log(newUserData);
+            try {
+                const response = await fetch('http://localhost:3000/api/user', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(newUserData)
+                  });
+            } catch (err) {
+                console.error("Error de connexió amb l'API:", err);
+            }
+            localStorage.setItem("activeLog", user.email);
+            const loggedAcounts = JSON.parse(localStorage.getItem("loggedAcounts")) || [];
+            loggedAcounts.push(user.email);
+            localStorage.setItem('loggedAcounts', JSON.stringify(loggedAcounts));
+            navigate('/launchpad');
         } else {
-            console.log("❌ Codi incorrecte.");
+            
+            console.log("Codi incorrecte.");
         }
     };
 
@@ -121,4 +151,4 @@ const validationSignup = ({ user, goBack }) => {
     );
 }
 
-export default validationSignup;
+export default ValidateSignup;

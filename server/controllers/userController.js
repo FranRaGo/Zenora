@@ -63,7 +63,7 @@ exports.createUser = (req, res) => {
 
   const query = "INSERT INTO user (first_name, last_name, email, pass, private, profile_picture , file_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type], (err, result) => {
+  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type], (err, result ) => {
     if (err) {
       console.error("Error al insertar usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });

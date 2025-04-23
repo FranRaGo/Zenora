@@ -1,399 +1,382 @@
-/**/
-#div-home{
-    width: 100%;
-    height: 100vh;
-    background-color: var(--fondo);
-    display: flex;
-    align-items: center;
-    padding: 10px;
-}
-
 /*Nav*/
-#navbar{
-    width: 60px;
-    height: 95%;
-    border: 0.5px solid var(--borderNav);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-radius: 8px;
-    background-color: var(--fondoNav);
+#navbar {
+  width: 60px;
+  height: 100%;
+  border: 0.5px solid var(--borderNav);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--fondoNav);
 }
 
-.expanded{
-    width: 220px !important;
+.expanded {
+  width: 220px !important;
 }
 
 /*Div con componente perfil y btn expandir*/
-#general-profile-div{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
+#general-profile-div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
 }
 
-.expanded-profile{
-    flex-direction: row !important;
-    justify-content: space-between !important;
+.expanded-profile {
+  flex-direction: row !important;
+  justify-content: space-between !important;
 }
 
 /*Btn para el sidebar*/
-#btn-sidebar{
-    background-color: transparent;
-    border: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 5px;
-    transition: all 0.3s ease;
+#btn-sidebar {
+  background-color: transparent;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
+  transition: all 0.3s ease;
 }
-#btn-sidebar svg{
-    color: var(--secondText);
-    transition: all 0.3s ease;
-}
-
-#btn-sidebar:hover{
-    background-color: var(--fondoHover);
+#btn-sidebar svg {
+  color: var(--secondText);
+  transition: all 0.3s ease;
 }
 
-#btn-sidebar:hover svg{
-    color: var(--white);
+#btn-sidebar:hover {
+  background-color: var(--fondoHover);
 }
 
+#btn-sidebar:hover svg {
+  color: var(--white);
+}
 
 /*Profile Colapsed*/
-#btn-profile-collapsed{
-    border: 0;
-    border-radius: 8px;
-    background-color: transparent;
-    padding: 2px;
-    transition: all 0.3s ease;
-    position: relative;
+#btn-profile-collapsed {
+  border: 0;
+  border-radius: 8px;
+  background-color: transparent;
+  padding: 2px;
+  transition: all 0.3s ease;
+  position: relative;
 }
 
-#btn-profile-collapsed:hover{
-    background-color: var(--fondoHover);
+#btn-profile-collapsed:hover {
+  background-color: var(--fondoHover);
 }
 
-#avatar-container{
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--white);
-    border-radius: 8px;
-    text-align: center;
-    
-    z-index: 300;
-    background-color: var(--fondo);
-    color: var(--white);
-    padding: 2px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#avatar-container {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--white);
+  border-radius: 8px;
+  text-align: center;
+
+  z-index: 300;
+  background-color: var(--fondo);
+  color: var(--white);
+  padding: 2px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-
-#dropdown-icon{
-    position: absolute;
-    height: 10px;
-    width: 10px;
-    border: 1px solid var(--fondo);
-    border-radius: 2px;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 500;
-    background-color: var(--white);
+#dropdown-icon {
+  position: absolute;
+  height: 10px;
+  width: 10px;
+  border: 1px solid var(--fondo);
+  border-radius: 2px;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+  background-color: var(--white);
 }
 
-#dropdown-icon svg{
-    width: 100%;
-    color: var(--fondo);
+#dropdown-icon svg {
+  width: 100%;
+  color: var(--fondo);
 }
-
 
 /*Profile expanded*/
-#btn-profile-expanded{
-    display: flex;
-    flex-direction: row;
-    background-color: transparent;
-    border: 0;
-    color: var(--white);
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
-    border-radius: 8px;
-    cursor: pointer;
-    padding: 5px;
+#btn-profile-expanded {
+  display: flex;
+  flex-direction: row;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 5px;
 }
 
-#btn-profile-expanded:hover{
-    background-color: var(--fondoHover);
+#btn-profile-expanded:hover {
+  background-color: var(--fondoHover);
 }
 
-
-#avatar-container-expanded{
-    width: 40px;
-    height: 40px;
-    border: 1px solid var(--white);
-    border-radius: 8px;
-    text-align: center;
-    position: relative;
-    z-index: 300;
-    background-color: var(--fondo);
-    color: var(--white);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#avatar-container-expanded {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--white);
+  border-radius: 8px;
+  text-align: center;
+  position: relative;
+  z-index: 300;
+  background-color: var(--fondo);
+  color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-#name-arrow-container{
-    display: flex;
-    gap: 5px;
-    justify-content: center;
-    align-items: center;
+#name-arrow-container {
+  display: flex;
+  gap: 5px;
+  justify-content: center;
+  align-items: center;
 }
 
-#workspace-name{
-    font-size: 0.9rem;
+#workspace-name {
+  font-size: 0.9rem;
 }
 
 .fade-text {
-    max-width: 7rem; /* o puedes usar 7em si prefieres */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    position: relative;
+  max-width: 7rem; /* o puedes usar 7em si prefieres */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  position: relative;
 }
 
-#dropdown-icon-expanded{
-    position: relative;
-    height: 10px;
-    width: 10px;
-    border: 0;
-    border-radius: 2px;
-    bottom: 0;
-    right: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 500;
-    background-color: transparent;
+#dropdown-icon-expanded {
+  position: relative;
+  height: 10px;
+  width: 10px;
+  border: 0;
+  border-radius: 2px;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 500;
+  background-color: transparent;
 }
 
-#dropdown-icon-expanded svg{
-    color: var(--white);
-    background-color: transparent;
+#dropdown-icon-expanded svg {
+  color: var(--white);
+  background-color: transparent;
 }
-
 
 /*div global nav*/
-.div-perfil{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 15px;
+.div-perfil {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 15px;
 }
 
-.div-perfil-colapsed{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
+.div-perfil-colapsed {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
 }
 
 /*Botones nav menu*/
-.btn-nav{
-    width: 100%;
-    background-color: transparent;
-    border: 0;
-    gap: 15px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    padding: 5px 5px 5px 15px;
-    border-radius: 5px;
+.btn-nav {
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  gap: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding: 5px 5px 5px 15px;
+  border-radius: 5px;
 }
 
-.btn-nav:hover{
-background-color: var(--fondoHover);}
-
-.btn-nav:hover svg{
-    color: var(--white);
+.btn-nav:hover {
+  background-color: var(--fondoHover);
 }
 
-.btn-nav:hover p{
-    color: var(--white);
+.btn-nav:hover svg {
+  color: var(--white);
 }
 
-.btn-nav svg{
-    color: var(--secondText);
-    width: 24px;
-    height: 24px;
-    transition: all 0.3s ease;
+.btn-nav:hover p {
+  color: var(--white);
 }
 
-.btn-nav p{
-    color: var(--secondText);
-    font-size: 0.9rem;
-    font-weight: 300;
-    transition: all 0.3s ease;
+.btn-nav svg {
+  color: var(--secondText);
+  width: 24px;
+  height: 24px;
+  transition: all 0.3s ease;
 }
 
-.btn-nav-colapsed{
-    width: 100%;
-    background-color: transparent;
-    border: 0;
-    gap: 15px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 5px;
+.btn-nav p {
+  color: var(--secondText);
+  font-size: 0.9rem;
+  font-weight: 300;
+  transition: all 0.3s ease;
 }
 
-.btn-nav-colapsed svg{
-    color: var(--secondText);
-    width: 25px;
-    height: 25px;
-    transition: all 0.3s ease;
+.btn-nav-colapsed {
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  gap: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 5px;
 }
 
-.btn-nav-colapsed p{
-    color: var(--secondText);
-    font-size: 0.9rem;
-    font-weight: 300;
-    transition: all 0.3s ease;
+.btn-nav-colapsed svg {
+  color: var(--secondText);
+  width: 25px;
+  height: 25px;
+  transition: all 0.3s ease;
 }
 
-.btn-nav-colapsed:hover{
-    background-color: var(--fondoHover);}
-    
-.btn-nav-colapsed:hover svg{
-    color: var(--white);
+.btn-nav-colapsed p {
+  color: var(--secondText);
+  font-size: 0.9rem;
+  font-weight: 300;
+  transition: all 0.3s ease;
 }
 
-.btn-nav-colapsed:hover p{
-    color: var(--white);
+.btn-nav-colapsed:hover {
+  background-color: var(--fondoHover);
 }
 
-
-
-.invitar{
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 20px;
+.btn-nav-colapsed:hover svg {
+  color: var(--white);
 }
 
-.expandedPerfil{
-    flex-direction: row !important;
-    justify-content: space-between;
+.btn-nav-colapsed:hover p {
+  color: var(--white);
 }
 
-#btn-addPeople{
-    width: 70%;
-    background-color: transparent;
-    border: 0;
-    gap: 15px;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    position: relative;
-    cursor: pointer;
-    padding: 5px;
-    border-radius: 10px;
+.invitar {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
 }
 
-.colapsed{
-    width: 100% !important;
+.expandedPerfil {
+  flex-direction: row !important;
+  justify-content: space-between;
 }
 
-#btn-addPeople svg{
-    color: var(--secondText);
-    width: 25px;
-    height: 25px;
-    transition: all 0.3s ease;
+#btn-addPeople {
+  width: 70%;
+  background-color: transparent;
+  border: 0;
+  gap: 15px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 10px;
 }
 
-#btn-addPeople p{
-    color: var(--secondText);
-    font-size: 0.9rem;
-    font-weight: 300;
-    transition: all 0.3s ease;
+.colapsed {
+  width: 100% !important;
 }
 
-#btn-addPeople:hover{
-    background-color: var(--fondoHover);
+#btn-addPeople svg {
+  color: var(--secondText);
+  width: 25px;
+  height: 25px;
+  transition: all 0.3s ease;
 }
 
-.icon-add-people{
-    position: relative;
-    padding: 2px;
-    border: 0;
-    border-radius: 2px;
+#btn-addPeople p {
+  color: var(--secondText);
+  font-size: 0.9rem;
+  font-weight: 300;
+  transition: all 0.3s ease;
 }
 
-.icon-add-people p{
-    font-size: 0.9rem;
+#btn-addPeople:hover {
+  background-color: var(--fondoHover);
 }
 
-#icon-plus{
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: var(--white);
-    color: var(--fondoNav);
-    width: 12px;
-    height: 12px;
-    border-radius: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 0.7rem
+.icon-add-people {
+  position: relative;
+  padding: 2px;
+  border: 0;
+  border-radius: 2px;
 }
 
-#btn-question{
-    background-color: var(--fondoHover);
-    color: var(--white);
-    border: 0;
-    width: 35px;
-    height: 35px;
-    border-radius: 30px;
-    font-size: 1.2rem;
-    font-weight: 300;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.icon-add-people p {
+  font-size: 0.9rem;
 }
 
-#btn-question:hover{
-    background-color: var(--fondoHover2);
+#icon-plus {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: var(--white);
+  color: var(--fondoNav);
+  width: 12px;
+  height: 12px;
+  border-radius: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.7rem;
 }
 
+#btn-question {
+  background-color: var(--fondoHover);
+  color: var(--white);
+  border: 0;
+  width: 35px;
+  height: 35px;
+  border-radius: 30px;
+  font-size: 1.2rem;
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
 
+#btn-question:hover {
+  background-color: var(--fondoHover2);
+}
 
-#navbar-mobile{
-    width: 100%;
-    background-color: var(--fondoNavBarMovil);
-    color: var(--white);
+#navbar-mobile {
+  width: 100%;
+  background-color: var(--fondoNavBarMovil);
+  color: var(--white);
 }
