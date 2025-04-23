@@ -52,10 +52,10 @@ http://localhost:3000/api/user/:userId
 ### 📥GET
 
 --Espacio en base de la ID.
-http://localhost:3000/api/usersSpace/:spaceId'
+http://localhost:3000/api/usersSpace/:spaceId
 
 --Espacios de un usuario.
-http://localhost:3000/api/userSpace/:userId'
+http://localhost:3000/api/spaceUser/:userId
 
 ### 📤POST
 
@@ -224,3 +224,13 @@ http://localhost:3000/api/assigSubtask/:assigId
 
 --Documentos de un projecto,tarea o subtarea especifico.
 http://localhost:3000/api/PmDocument/:param/:id
+
+### 📤POST
+
+--Subir documento a un projecto,tarea o subtarea.
+http://localhost:3000/api/PmDocument/:param/:id
+{ name, *image, file_type }
+
+### 🧨DELETE
+--Eliminar documento especifico.
+http://localhost:3000/api/PmDocument/:documentId
