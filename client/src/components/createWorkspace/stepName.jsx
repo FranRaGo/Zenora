@@ -14,7 +14,6 @@ const NewName = ({ name: initialName, onSuccess, id }) => {
         const error = document.getElementById("error-name");
         const input = document.getElementById("workspace-name-input");
         if (name.trim() === '') {
-            console.log("nombre vacio");
             input.classList.add("inputError");
             error.classList.add("showError");
         }else{

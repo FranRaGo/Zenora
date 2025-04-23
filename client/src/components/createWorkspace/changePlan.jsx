@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+import Logo from '../global/logo';
 
 
-const SelectPlan = ({ nameSpace, goBack, idUser }) => {
+const SelectPlan = ({ nameSpace, goBack, idUser, onChangePlan }) => {
+
     const [newWorkspace, setNewWorkspace] = useState({
         name: nameSpace,
         admin_id: idUser,
@@ -10,24 +12,28 @@ const SelectPlan = ({ nameSpace, goBack, idUser }) => {
         file_type: null
     });
 
-    useEffect(() => {
-        setNewWorkspace(prev => ({
-          ...prev,
-          name: nameSpace,
-          admin_id: idUser
-        }));
-      }, [nameSpace, idUser]);
+    // useEffect(() => {
+    //     setNewWorkspace(prev => ({
+    //       ...prev,
+    //       name: nameSpace,
+    //       admin_id: idUser
+    //     }));
+    //   }, [nameSpace, idUser]);
 
     const changeFree = () => {
         setNewWorkspace(prev => ({...prev, plan_id: 1}));
+        onChangePlan({plan_id: 1});
+        //hay que controlar si el espacio tiene ya modulos asignados a el con pass premium
     }
 
-    const changeStandar = () => {
+    const changeStandard = () => {
         setNewWorkspace(prev => ({...prev, plan_id: 2}));
+        onChangePlan({plan_id: 2});
     }
 
     const changePremium = () => {
         setNewWorkspace(prev => ({...prev, plan_id: 3}));
+        onChangePlan({plan_id: 3});
     }
 
 
@@ -41,6 +47,9 @@ const SelectPlan = ({ nameSpace, goBack, idUser }) => {
             </button>
 
             <div className="div-title">
+                <div id="div-logo">
+                    < Logo />
+                </div>
                 <p>Upgrade the new Workspace</p>
                 <h1>Choose the right plan for your workspace</h1>
             </div>
@@ -82,7 +91,7 @@ const SelectPlan = ({ nameSpace, goBack, idUser }) => {
                     {newWorkspace.plan_id === 2 ? (
                         <button className="haveit-btn">You have it</button>
                     ) : (
-                        <button className="subscribe-btn" onClick={changeStandar}>Subscribe</button>
+                        <button className="subscribe-btn" onClick={changeStandard}>Subscribe</button>
                     )}
                 </div>
 
