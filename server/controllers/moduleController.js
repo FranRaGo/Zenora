@@ -5,7 +5,8 @@ const db = require('../config/db.js')
 exports.getModules = (req,res)=>{
     db.query(`SELECT m.id, m.prefix, m.name, m.description ,p.id AS plan_id,p.name AS plan_name, m.file_type ,m.logo
                 FROM module m 
-                JOIN plan p ON m.plan_id = p.id`,(err,results)=>{
+                JOIN plan p ON m.plan_id = p.id
+                ORDER BY m.plan_id ASC`,(err,results)=>{
         if (err) {
           console.error('Error en la consulta:', err);
           return res.status(500).json({ error: 'Error en la base de datos' });

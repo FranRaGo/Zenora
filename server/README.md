@@ -241,3 +241,37 @@ http://localhost:3000/api/PmDocument/:param/:id
 ### 🧨DELETE
 --Eliminar documento especifico.
 http://localhost:3000/api/PmDocument/:documentId
+
+
+## 📬Chat(CC)
+
+### 📥GET
+
+--Chats de un usuario.
+http://localhost:3000/api/chat/:userId
+
+### 📤POST
+
+--Crear chat.
+http://localhost:3000/api/chat
+{ name, type, mod_space_id }
+
+--Asignar usuario a chat.
+http://localhost:3000/api/userChat
+{ userId, chatId }
+
+### ♻️PUT
+
+--Editar chat.
+http://localhost:3000/api/chat
+{ name, chatId }
+
+### 🧨DELETE
+
+--Eliminar un chat.
+http://localhost:3000/api/chat/:chatId
+
+--Eliminar usuario de un chat.
+http://localhost:3000/api/userChat
+{ userId, chatId }
+
