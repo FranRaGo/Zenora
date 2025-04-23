@@ -101,7 +101,14 @@ http://localhost:3000/api/deleteUserSpace/:userId/:spaceId
 --Todos los modulos disponibles.
 http://localhost:3000/api/modules
 
-//?Espacios asignados a un proyectos
+--Espacios asignados a un proyectos
+http://localhost:3000/api/modules/:spaceId
+
+### 📤POST
+
+--Insertar un modulo a un espacio.
+http://localhost:3000/api/modSpace
+{ spaceId, moduleId}
 
 ## 📃Projectos(PM)
 

@@ -51,9 +51,8 @@ exports.createSpace = (req, res) => {
 
     const spaceId = result.insertId;
 
-    // Insertar en space_user para vincular al admin con el espacio
     const userSpaceQuery = "INSERT INTO user_space (space_id, user_id, role, owner) VALUES (?, ?, ?, 1)";
-    const role = 'admin'; // Puedes cambiar esto según tu lógica
+    const role = 'admin';
 
     db.query(userSpaceQuery, [spaceId, admin_id, role], (err2) => {
       if (err2) {

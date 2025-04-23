@@ -1,5 +1,7 @@
 const db = require('../config/db.js')
 
+//GET
+
 exports.getModules = (req,res)=>{
     db.query(`SELECT m.id, m.prefix, m.name, m.description ,p.id AS plan_id,p.name AS plan_name, m.file_type ,m.logo
                 FROM module m 
@@ -27,4 +29,21 @@ exports.getSpaceModules = (req,res)=>{
   })
 }
 
-//cojer modulos de un espacio
+//POST
+
+exports.addModuleSpace = (req,res) => {
+  const { spaceId, moduleId } = req.body;
+
+  const query = "INSERT INTO mod_space(module_id,space_id) VALUES (?,?)";
+
+  db.query(query, [moduleId, spaceId], (err, result) => {
+    if (err) {
+      console.error("Error al eliminar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Usuario eliminado exitosamente" });
+  });
+}
