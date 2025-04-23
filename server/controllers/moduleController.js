@@ -48,3 +48,29 @@ exports.addModuleSpace = (req,res) => {
     res.json({ message: "Usuario eliminado exitosamente" });
   });
 }
+
+//DELETE
+
+exports.deleteModuleSpace = (req,res) => {
+  const { spaceId, moduleId } = req.body;
+
+  if (!spaceId || !moduleId) {
+    return res.status(400).json({ error: "spaceId y moduleId son obligatorios" });
+  }
+
+  const query = "DELETE FROM mod_space WHERE module_id = ? AND space_id = ?";
+
+  db.query(query, [moduleId, spaceId], (err, result) => {
+    if (err) {
+      console.error("Error al eliminar usuario:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ 
+        error: "Relación módulo-espacio no encontrada",
+        debug: { moduleId, spaceId }
+      });
+    }
+    res.json({ message: "Usuario eliminado exitosamente" });
+  });
+}

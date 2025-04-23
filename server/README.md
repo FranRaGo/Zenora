@@ -110,6 +110,12 @@ http://localhost:3000/api/modules/:spaceId
 http://localhost:3000/api/modSpace
 { spaceId, moduleId}
 
+### 🧨DELETE
+
+--Eliminar un modulo de un espacio.
+http://localhost:3000/api/modSpace
+{ spaceId, moduleId}
+
 ## 📃Projectos(PM)
 
 ### 📥GET

@@ -7,4 +7,6 @@ router.get('/modules/:spaceId',moduleController.getSpaceModules);
 
 router.post('/modSpace',moduleController.addModuleSpace);
 
+router.delete('/modSpace',moduleController.deleteModuleSpace);
+
 module.exports = router;
