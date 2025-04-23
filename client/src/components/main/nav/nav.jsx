@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMediaQuery } from 'react-responsive';
 import ProfileIcon from "./iconPerfil";
 import Menu from "./menu";
+import '../../../styles/nav.css';
 
 
 const NavBar = () => {

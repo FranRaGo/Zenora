@@ -1,15 +1,21 @@
 :root {
   --fondo: #0b0816;
+  --fondoVerde: #06161c;
+  --secondFondo: #1c1923;
+  --f10: #fafafa10;
+  --f20: #fafafa20;
+  --f30: #fafafa30;
+  --bf20: #1248f820;
+
+  --fondoNav: #1c1a21;
+  --fondoNavBarMovil: #28272e;
+
   --white: #fafafa;
   --secondText: #a9a9a9;
   --blue: #315cee;
-  --secondFondo: #1c1923;
+  --skyblue: #a1f2ff;
   --red: #e63237;
-  --fondoNav: #1c1a21;
   --borderNav: #4e4d52;
-  --fondoHover2: #fafafa20;
-  --fondoHover: #fafafa30;
-  --fondoNavBarMovil: #28272e;
   --verde: #3cdf5a;
 }
 
@@ -20,23 +26,23 @@
   font-family: "Poppins", sans-serif;
 }
 
+/*Logo*/
 .st0 {
   stroke: #fafafa;
   fill: var(--white);
   stroke-miterlimit: 10;
 }
 
+/*Fondo*/
 #div-main {
   width: 100%;
   height: 100vh;
   background-color: var(--fondo);
-  
-  padding: 10px;
-  
+  padding: 5px 10px 10px 10px;
 }
 
-.container{
-  background-color: var(--fondoHover);
+/*Main-Container*/
+.container {
   width: 100%;
   height: 100%;
   display: flex;
@@ -47,12 +53,12 @@
   border-radius: 10px;
 }
 
-.contain-content{
+.contain-content {
   background-color: var(--fondoHover);
   width: 100%;
   height: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;
-  padding-top: 10px;
+  padding-top: 5px;
 }

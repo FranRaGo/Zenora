@@ -6,7 +6,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/Signup";
 import LaunchPad from "./pages/LaunchPad";
 import CreateWorkspace from './pages/CreateWorkspace';
-
+import JoinWorkspace from './pages/JoinWorkspace';
 
 function App() {
   return (
@@ -17,6 +17,7 @@ function App() {
         <Route path='/signup' element={< SignUp />} />
         <Route path='/launchpad' element={< LaunchPad />} />
         <Route path='/createWorkspace' element={< CreateWorkspace />} />
+        <Route path='/joinWorkspace' element={< JoinWorkspace />} />
       </Routes>
     </Router>
   );

@@ -1,23 +1,431 @@
 .container-createWorkspace {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--fondo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#redonda {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 50%;
+  filter: blur(300px);
+  background-color: #fafafa70;
+  background-color: #1d90d8;
+  border: 0;
+  border-radius: 1000px;
+}
+
+/*Step Name*/
+
+.step-name-container {
+  background-color: #2b2835;
+  width: 550px;
+  height: 500px;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  color: var(--white);
+  position: relative;
+  z-index: 10;
+  position: relative;
+}
+
+.btn-back {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  background-color: transparent;
+  width: 35px;
+  height: 35px;
+  padding: 5px;
+  border: 0;
+  border-radius: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-back svg {
+  width: 80%;
+  height: 80%;
+}
+
+.btn-back:hover {
+  color: var(--skyblue);
+}
+
+.div-title {
+  width: 70%;
+}
+
+.div-title h1 {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+
+.input-group {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.input-group label {
+  font-size: 0.9rem;
+}
+
+.input-group input {
+  padding: 10px 10px 10px 10px;
+  border-radius: 8px;
+  border: 0.5px solid var(--secondText);
+  background-color: #fafafa10;
+  color: var(--white);
+  cursor: pointer;
+  font-weight: 300;
+  letter-spacing: 0.5px;
+  transition: border 0.1s ease;
+}
+
+.input-group input:focus {
+  border: 0.5px solid var(--secondText);
+  outline: none;
+  box-shadow: none;
+}
+
+.input-group input:hover {
+  border: 0.5px solid var(--white);
+}
+
+.btn-next {
+  width: 70%;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  background-color: var(--blue);
+  color: var(--white);
+}
+
+/*step features*/
+
+.step-features-container {
+  background-color: #2b2835;
+  width: 550px;
+  height: 500px;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  color: var(--white);
+  position: relative;
+  z-index: 10;
+  position: relative;
+}
+
+.div-select-moduls {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  gap: 10px;
+  max-height: 220px;
+  overflow: auto;
+  padding-right: 10px;
+}
+
+.btn-modul {
+  background-color: var(--f10);
+  border: 2px solid var(--secondText);
+  color: var(--white);
+  padding: 10px 10px 10px 20px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-modul span {
+  pointer-events: none;
+  background-color: var(--white);
+  padding: 4px 10px;
+  border: 0;
+  border-radius: 20px;
+  font-size: 0.6rem;
+  font-weight: 500;
+  color: var(--fondo);
+}
+
+.btn-modul:hover {
+  background-color: var(--f20);
+}
+
+.selected {
+  border: 2px solid var(--blue) !important;
+  background-color: var(--bf20) !important;
+}
+
+/*Mensaje error*/
+.error {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: var(--red);
+  padding-left: 5px;
+  visibility: hidden;
+}
+
+.showError {
+  visibility: visible !important;
+}
+
+.inputError {
+  border-color: var(--red) !important;
+}
+
+.inputError:hover {
+  border-color: var(--red) !important;
+}
+
+.inputError:focus {
+  border: 0.5px solid var(--red);
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/*step-plan-container*/
+
+.step-plan-container {
+  width: 1200px;
+  height: 850px;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 30px;
+  color: var(--white);
+  position: relative;
+  z-index: 10;
+  position: relative;
+}
+
+.div-title {
+  width: 100%;
+  text-align: center;
+}
+
+.div-title h1 {
+  font-size: 1.5rem;
+  font-weight: 300;
+}
+
+.div-title p {
+  font-weight: 300;
+  font-size: 1rem;
+  color: #ffffffa3;
+}
+
+.plans-wrapper {
+  display: flex;
+  gap: 40px;
+}
+
+.plan-card {
+  position: relative;
+  width: 350px;
+  height: 550px;
+  background-color: #15485b40;
+  padding: 30px;
+  border: 0;
+  border-radius: 15px;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.plan-card:hover {
+  background-color: #15485b73;
+}
+
+.best {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0px 10px #9dd8ed9e;
+  border: 2px solid #9dd8ed6c;
+}
+
+.plan-card h2 {
+  font-size: 1.7rem;
+  font-weight: 500;
+}
+
+.plan-subtitle {
+  font-size: 0.9rem;
+  color: #ffffffa3;
+  font-weight: 300;
+  margin-bottom: 15px;
+}
+
+.plan-price {
+  font-size: 3rem;
+  font-weight: 600;
+  color: var(--skyblue);
+  font-family: serif;
+  margin-bottom: 15px;
+}
+
+.plan-price span {
+  font-size: 1rem;
+  font-weight: 300;
+  color: var(--white);
+  margin-left: 8px;
+}
+
+.plan-card h3 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+/*ul*/
+.plan-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.plan-benefits li {
+  font-size: 0.9rem;
+  color: #ffffffc1;
+  font-weight: 300;
+}
+
+/*BTN-suscribe*/
+.subscribe-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff26;
+  border: none;
+  width: 85%;
+  padding: 10px 24px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.subscribe-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.haveit-btn {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--blue);
+  border: none;
+  width: 85%;
+  padding: 10px 24px;
+  border-radius: 12px;
+  color: white;
+  font-weight: 500;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.haveit-btn:hover {
+  background-color: #317dee;
+}
+
+.terms {
+  font-size: 0.9rem;
+  color: #ffffffa1;
+}
+
+.terms span {
+  color: var(--skyblue);
+  text-decoration: underline;
+}
+
+/* Extra petit: mòbils molt petits */
+@media (max-width: 480px) {
+  /* Estils per ≤ 480px */
+  .container-createWorkspace {
     width: 100%;
-    height: 100vh;
+    height: 100%;
     background-color: var(--fondo);
     display: flex;
     justify-content: center;
     align-items: center;
     position: relative;
   }
-  
-  #redonda {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 40%;
-    height: 50%;
-    filter: blur(300px);
-    background-color: #fafafa70;
-    border: 0;
-    border-radius: 1000px;
+
+  .step-plan-container{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
-  
+
+  .plans-wrapper{
+    flex-direction: column;
+  }
+}
+
+/* Telèfons mòbils: layout compacte */
+@media (max-width: 767px) {
+  /* Estils per ≤ 767px (inclou mòbils petits i normals) */
+}
+
+/* Tablet vertical: doble columna, més espai */
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Estils per pantalles entre 768px i 991px */
+}
+
+/* Tablet horitzontal: navbar visible, espais amplis */
+@media (min-width: 992px) and (max-width: 1199px) {
+  /* Estils per pantalles entre 992px i 1199px */
+}
+
+/* Portàtils / desktop: layout complet */
+@media (min-width: 1200px) and (max-width: 1599px) {
+  /* Estils per pantalles de 1200px fins a 1599px */
+}
+
+/* Pantalles molt grans: fonts més grans, més padding */
+@media (min-width: 1600px) {
+  /* Estils per ≥ 1600px */
+}
+
+
+/* Dispositivo	Width	Media query	Uso típico
+Extra pequeño	≤ 480px	@media (max-width: 480px)	Mòbils molt petits, vistes mínimes
+Telèfons mòbils	481px – 767px	@media (max-width: 767px)	Layout compacte, botons grans, columnes en stack
+Tablet vertical	768px – 991px	@media (min-width: 768px)	Ajustos de grid, doble columna, més espai
+Tablet horitzontal	992px – 1199px	@media (min-width: 992px)	Layout quasi desktop, navbar visible
+Portàtil / Desktop	≥ 1200px	@media (min-width: 1200px)	Layout complet, marges amplis, animacions
+Pantalla molt gran	≥ 1600px	@media (min-width: 1600px)	Extra padding, fonts més grans si cal */

@@ -1,6 +1,32 @@
 #header{
-    background-color: var(--fondoHover);
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
+    padding-left: 1.5%;
+    position: relative;
+}
+
+#logo{
+    width: 20px;
+    height: 20px;
+}
+
+#logo svg{
+    width: 100%;
+    height: 100%;
+}
+
+
+#divSearch{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+#inputSearch{
+    border: 0.5px solid var(--secondText);
+    background-color: var(--fondo);
+    padding: 2px 10px;
+    border-radius: 10px;
 }

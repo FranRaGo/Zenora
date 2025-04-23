@@ -1,3 +1,5 @@
+/*FONDO*/
+
 .container-launchpad {
   width: 100%;
   height: 100vh;
@@ -21,6 +23,8 @@
   border-radius: 1000px;
 }
 
+/*CONTAINER*/
+
 .div-launchpad {
   background-color: #2b2835;
   width: 550px;
@@ -29,16 +33,91 @@
   padding: 10px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: center;
   align-items: center;
   color: var(--white);
   position: relative;
   z-index: 10;
-  gap: 0;
+  gap: 80px;
 }
 
-.workspace-card{
-  background-color: var(--fondoHover2);
+/*PERFIL*/
+.div-perfil-pec {
+  position: absolute;
+  display: flex;
+  top: 15px;
+  right: 15px;
+}
+
+#btn-perfil {
+  font-size: 1rem;
+  width: 35px;
+  height: 35px;
+  border: 0;
+  border-radius: 50px;
+}
+
+.div-perfil-pec svg {
+  width: 20px;
+  position: relative;
+}
+
+.dropdown-popup {
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+  border: 0;
+  border-radius: 8px;
+  background-color: var(--fondoNav);
+  position: absolute;
+  top: 45px;
+  right: 0;
+}
+
+/*Div de tus workspace*/
+.myWorkspace {
+  width: 70%;
+  max-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.workspace-header {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+}
+
+.workspace-header h2 {
+  font-size: 1.2rem;
+  font-weight: 400;
+}
+
+.workspace-header p {
+  font-size: 0.9rem;
+  font-weight: 300;
+  text-align: center;
+}
+
+/*Div donde se guardan las cartas de los espacios*/
+#showMyWorkspace {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+/*carta para cada espacio*/
+.workspace-card {
+  background-color: var(--f20);
   border: 0;
   padding: 10px 20px;
   border-radius: 8px;
@@ -50,16 +129,17 @@
   transition: all 0.1s ease;
 }
 
-.workspace-card p{
+.workspace-card p {
   font-size: 1rem !important;
   font-weight: 400;
 }
 
-.workspace-card:hover{
-  background-color: var(--fondoHover);
+.workspace-card:hover {
+  background-color: var(--f30);
 }
 
-.draftLogo{
+/*Icono del espacio*/
+.draftLogo {
   width: 30px;
   height: 30px;
   border: 0;
@@ -70,71 +150,35 @@
   justify-content: center;
 }
 
-.myWorkspace{
+/*Div donde se muestran los espacios en los que te has unido*/
+.joinedWorkspace {
   width: 70%;
-  height: 250px;
+  max-height: 250px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  gap: 15px;
 }
 
-.workspace-header{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}
-
-.workspace-header h2{
+.joinedWorkspace h2 {
   font-size: 1.2rem;
   font-weight: 400;
 }
 
-.workspace-header p{
-  font-size: 0.9rem;
-  font-weight: 300;
-  text-align: center;
-}
-
-#showMyWorkspace{
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-
-.joinedWorkspace{
-  width: 70%;
-  height: 250px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  gap: 20px;
-}
-
-.joinedWorkspace h2{
-  font-size: 1.2rem;
-  font-weight: 400;
-}
-
-.joinedWorkspace p{
+.joinedWorkspace p {
   font-size: 0.9rem;
   font-weight: 300;
 }
 
-.no-workspace{
+.no-workspace {
   font-size: 0.9rem;
   font-weight: 300;
   color: var(--secondText);
+  text-align: center;
 }
 
 /*DIV ACTIONS*/
-
 .actions {
   display: flex;
   flex-direction: column;
@@ -162,9 +206,7 @@
   display: block;
 }
 
-
-
-.btn-add{
+.btn-add {
   width: 30px;
   height: 30px;
   border: 0;
@@ -176,7 +218,7 @@
   cursor: pointer;
 }
 
-.btn-add{
+.btn-add {
   background-color: var(--secondText);
   width: 30px;
   height: 30px;
@@ -188,21 +230,20 @@
   font-size: 1.2rem;
 }
 
-.btn-add p{
-  
+.btn-add p {
 }
 
-.btn-add:hover{
- background-color: var(--white);
+.btn-add:hover {
+  background-color: var(--white);
 }
 
-.invitations{
+.invitations {
   position: absolute;
   bottom: 15px;
   right: 15px;
 }
 
-#emailbox{
+#emailbox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -211,15 +252,14 @@
   border: 0;
   border-radius: 35px;
   background-color: var(--secondText);
-  
 }
 
-#emailbox svg{
+#emailbox svg {
   width: 22px;
   height: 22px;
   color: var(--fondo);
 }
 
-#emailbox:hover{
+#emailbox:hover {
   background-color: var(--white);
 }

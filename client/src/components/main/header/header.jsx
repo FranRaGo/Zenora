@@ -1,14 +1,15 @@
 import React from "react";
-import '../../styles/header.css';
+import '../../../styles/header.css';
+import Logo from '../../global/logo';
 
 const Header = () => {
     return(
         <div id="header">
             <div id="logo">
-                <p>Z</p>
+                < Logo />
             </div>
-            <div id="inputBuscar">
-                <input type="text" placeholder="Buscar" />
+            <div id="divSearch">
+                <input type="text" placeholder="Buscar" id="inputSearch"/>
             </div>
             <div className="options">
                 <button>subir plan</button>
