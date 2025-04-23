@@ -101,7 +101,20 @@ http://localhost:3000/api/deleteUserSpace/:userId/:spaceId
 --Todos los modulos disponibles.
 http://localhost:3000/api/modules
 
-//?Espacios asignados a un proyectos
+--Espacios asignados a un proyectos
+http://localhost:3000/api/modules/:spaceId
+
+### 📤POST
+
+--Insertar un modulo a un espacio.
+http://localhost:3000/api/modSpace
+{ spaceId, moduleId}
+
+### 🧨DELETE
+
+--Eliminar un modulo de un espacio.
+http://localhost:3000/api/modSpace
+{ spaceId, moduleId}
 
 ## 📃Projectos(PM)
 
@@ -234,3 +247,37 @@ http://localhost:3000/api/PmDocument/:param/:id
 ### 🧨DELETE
 --Eliminar documento especifico.
 http://localhost:3000/api/PmDocument/:documentId
+
+
+## 📬Chat(CC)
+
+### 📥GET
+
+--Chats de un usuario.
+http://localhost:3000/api/chat/:userId
+
+### 📤POST
+
+--Crear chat.
+http://localhost:3000/api/chat
+{ name, type, mod_space_id }
+
+--Asignar usuario a chat.
+http://localhost:3000/api/userChat
+{ userId, chatId }
+
+### ♻️PUT
+
+--Editar chat.
+http://localhost:3000/api/chat
+{ name, chatId }
+
+### 🧨DELETE
+
+--Eliminar un chat.
+http://localhost:3000/api/chat/:chatId
+
+--Eliminar usuario de un chat.
+http://localhost:3000/api/userChat
+{ userId, chatId }
+
