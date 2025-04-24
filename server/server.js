@@ -17,6 +17,7 @@ const emailRoutes = require('./routes/emailRoutes');
 const taskRoutes = require('./routes/PM/taskRoutes');
 const documentPmRoutes = require('./routes/PM/documentRoutes');
 const chatCcRoutes = require('./routes/CC/chatRoutes');
+const messageCcRoutes = require('./routes/CC/messageRoutes');
 
 
 // Middleware para JSON
@@ -31,6 +32,8 @@ server.use('/api', emailRoutes);
 server.use('/api', taskRoutes);
 server.use('/api', documentPmRoutes);
 server.use('/api', chatCcRoutes);
+server.use('/api', messageCcRoutes);
+
 
 
 // Iniciar el servidor

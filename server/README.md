@@ -281,3 +281,18 @@ http://localhost:3000/api/chat/:chatId
 http://localhost:3000/api/userChat
 { userId, chatId }
 
+
+## ✉️Messages(CC)
+
+### 📥GET
+
+--Mensajes de un chat.
+http://localhost:3000/api/messages/:chatId
+
+### 📤POST
+
+--Subir mensaje en un chat.
+http://localhost:3000/api/message
+{ *chatId, *userId, *content, answer ,file, type }
+
+
