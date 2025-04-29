@@ -9,9 +9,12 @@ const LaunchPad = () => {
     const navigate = useNavigate();
     const [dropdown, setDrop] = useState(false);
 
+    const [popupAbiertoId, setPopupAbiertoId] = useState(false);
+    const [popupCoords, setPopupCoords] = useState({ top: 0, left: 0 });
+
     const userEmail = localStorage.getItem("activeLog");
 
-    // 1. Cargar datos del usuario por su email
+    // Cargar datos del usuario por su email
     useEffect(() => {
         if (!userEmail) {
             navigate('/login');
@@ -34,7 +37,7 @@ const LaunchPad = () => {
         getUsersData();
     }, [navigate, userEmail]);//cuando cambie el email del localstorage
 
-    // 2️. Cuando ya tengas el usuario (y su id), buscamos su espacio
+    // Cuando ya tengas el usuario (y su id), buscamos su espacio
     useEffect(() => {
         if (!user || !user.id) return;
 
@@ -57,7 +60,7 @@ const LaunchPad = () => {
 
     const openWorkspace = (e) => {
         console.log(e.target.id);
-
+        navigate('/', { state: { id: e.target.id } });
     }
 
     const joinedSpaces = spaces?.filter(space => space.owner === 0) || [];
@@ -68,11 +71,17 @@ const LaunchPad = () => {
     }
 
     const createWorkspace = () => {
-        navigate('/createWorkspace', {state : { id: user.id}});
+        navigate('/createWorkspace', { state: { id: user.id } });
     }
 
     const changeStatus = () => {
         setDrop(!dropdown);
+    }
+
+    const optionsNav = (id, e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        console.log("poner predeterminado" + id);
     }
 
     return (
@@ -120,13 +129,18 @@ const LaunchPad = () => {
                             ownSpaces.map((space) => (
                                 <div key={space.id} id={space.id} onClick={openWorkspace} className="workspace-card">
                                     {space.logo === null ? (
-                                        <div className="draftLogo">
+                                        <div className="draft-logo">
                                             <p>{space.name[0]}</p>
                                         </div>
                                     ) : (
-                                        <p>Tiene logo</p>
+                                        <p>el logo</p>
                                     )}
                                     <p>{space.name}</p>
+                                    <button id="option-space" onClick={(e) => optionsNav(space.id, e)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                        </svg>
+                                    </button>
                                 </div>
                             ))
                         ) : (
@@ -143,17 +157,23 @@ const LaunchPad = () => {
                         <h2>Joined Workspace</h2>
                     </div>
                     <div id="showMyWorkspace">
+                        {/* si hay espacios en los que te has unido los recorre */}
                         {joinedSpaces.length > 0 ? (
                             joinedSpaces.map((space) => (
                                 <div key={space.id} id={space.id} className="workspace-card">
                                     {space.logo === null ? (
-                                        <div className="draftLogo">
+                                        <div className="draft-logo">
                                             <p>{space.name[0]}</p>
                                         </div>
                                     ) : (
                                         <p>Tiene logo</p>
                                     )}
                                     <p>{space.name}</p>
+                                    <button id="option-space" onClick={(e) => optionsNav(space.id, e)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                        </svg>
+                                    </button>
                                 </div>
                             ))
                         ) : (
@@ -173,6 +193,23 @@ const LaunchPad = () => {
                     </button>
                 </div>
             </div>
+            {popupAbiertoId && (
+                <div
+                    className="popup-drive-style"
+                    style={{
+                        position: "absolute",
+                        top: popupCoords.top,
+                        left: popupCoords.left,
+                        zIndex: 1000,
+                    }}
+                >
+                    <ul>
+                        <li onClick={() => console.log("Renombrar", popupAbiertoId)}>Renombrar</li>
+                        <li onClick={() => console.log("Duplicar", popupAbiertoId)}>Duplicar</li>
+                        <li onClick={() => console.log("Eliminar", popupAbiertoId)}>Eliminar</li>
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };

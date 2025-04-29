@@ -375,8 +375,35 @@
   background-color: var(--fondoHover2);
 }
 
+
+/*************************************/
+/*---------MOBIL---------------------*/
+/*************************************/
+
+
 #navbar-mobile {
   width: 100%;
+  height: 80px;
   background-color: var(--fondoNavBarMovil);
   color: var(--white);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 15px;
+  border: 0;
+  border-radius: 0;
+}
+
+@media (max-width: 479px) {  /* Estils per ≤ 480px mòbils molt petits */
+
+  .div-perfil-colapsed {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+  }
+
+  
 }

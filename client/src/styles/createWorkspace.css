@@ -72,11 +72,11 @@
   color: var(--skyblue);
 }
 
-.div-title {
+.div-title-space {
   width: 70%;
 }
 
-.div-title h1 {
+.div-title-space h1 {
   font-size: 1.4rem;
   font-weight: 400;
 }
@@ -448,6 +448,7 @@
 @media (max-width: 767px) {/* Estils per ≤ 767px (inclou mòbils petits i normals) */
   .container-createWorkspace {
     width: 100%;
+    min-height: 100vh;
     height: 100%;
     background-color: var(--fondo);
     display: flex;
@@ -529,7 +530,7 @@
   }
 }
 
-/* Tablet horitzontal: navbar visible, espais amplis */
+
 @media (min-width: 992px) and (max-width: 1199px) {   /* Estils per pantalles entre 992px i 1199px */
   .container-createWorkspace {
     width: 100%;
@@ -571,9 +572,8 @@
   }
 }
 
-/* Portàtils / desktop: layout complet */
-@media (min-width: 1200px) and (max-width: 1599px) {
-  /* Estils per pantalles de 1200px fins a 1599px */
+
+@media (min-width: 1200px) and (max-width: 1599px) {  /* Estils per pantalles de 1200px fins a 1599px */
   .container-createWorkspace {
     width: 100%;
     height: 100vh;
@@ -615,16 +615,6 @@
   }
 }
 
-/* Pantalles molt grans: fonts més grans, més padding */
-@media (min-width: 1600px) {
-  /* Estils per ≥ 1600px */
+@media (min-width: 1600px) {/* Estils per ≥ 1600px */
+  
 }
-
-
-/* Dispositivo	Width	Media query	Uso típico
-Extra pequeño	≤ 480px	@media (max-width: 480px)	Mòbils molt petits, vistes mínimes
-Telèfons mòbils	481px – 767px	@media (max-width: 767px)	Layout compacte, botons grans, columnes en stack
-Tablet vertical	768px – 991px	@media (min-width: 768px)	Ajustos de grid, doble columna, més espai
-Tablet horitzontal	992px – 1199px	@media (min-width: 992px)	Layout quasi desktop, navbar visible
-Portàtil / Desktop	≥ 1200px	@media (min-width: 1200px)	Layout complet, marges amplis, animacions
-Pantalla molt gran	≥ 1600px	@media (min-width: 1600px)	Extra padding, fonts més grans si cal */

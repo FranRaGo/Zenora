@@ -2,6 +2,7 @@
   --fondo: #0b0816;
   --fondoVerde: #06161c;
   --secondFondo: #1c1923;
+  --f02: #d9d9d910;
   --f10: #fafafa10;
   --f20: #fafafa20;
   --f30: #fafafa30;
@@ -11,7 +12,8 @@
   --fondoNavBarMovil: #28272e;
 
   --white: #fafafa;
-  --secondText: #a9a9a9;
+  --secondText: #9f9f9f;
+  
   --blue: #315cee;
   --skyblue: #a1f2ff;
   --red: #e63237;
@@ -34,15 +36,30 @@
 }
 
 /*Fondo*/
-#div-main {
+#main-wrapper {
   width: 100%;
   height: 100vh;
   background-color: var(--fondo);
   padding: 5px 10px 10px 10px;
+  z-index: -2;
+}
+
+#circle-background {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 50%;
+  filter: blur(300px);
+  background-color: #fafafa70;
+  border: 0;
+  border-radius: 1000px;
+  z-index: -1;
 }
 
 /*Main-Container*/
-.container {
+.main-layout {
   width: 100%;
   height: 100%;
   display: flex;
@@ -53,7 +70,7 @@
   border-radius: 10px;
 }
 
-.contain-content {
+.main-content {
   background-color: var(--fondoHover);
   width: 100%;
   height: 100%;
@@ -61,4 +78,96 @@
   align-items: flex-start;
   justify-content: flex-start;
   padding-top: 5px;
+  gap: 10px;
+}
+
+.main-view {
+  width: 100%;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 8px;
+  height: 100%;
+  background-color: var(--f02);
+}
+
+
+@media (max-width: 479px) {/* Estils per ≤ 480px mòbils molt petits */
+  #main-wrapper {
+    width: 100%;
+    height: 100vh;
+    background-color: var(--fondo);
+    padding: 0;
+    z-index: -2;
+  }
+
+  #circle-background {
+    width: 75%;
+    height: 75%;
+    filter: blur(350px);
+    border: 0;
+    border-radius: 1000px;
+  }
+
+  .main-content {
+    flex-direction: column-reverse;
+    gap: 0;
+    padding: 0;
+  }
+
+  .main-view{
+    border: 0;
+    border-radius: 0;
+    padding-top: 60px;
+    color: var(--white);
+  }
+
+  
+
+}
+
+
+@media (max-width: 767px) {/* Estils per ≤ 767px (inclou mòbils petits i normals) */
+
+  #redonda {
+    width: 50%;
+    height: 60%;
+    filter: blur(350px);
+    background-color: #1d90d8ae;
+    border: 0;
+    border-radius: 1000px;
+  }
+}
+
+
+@media (min-width: 768px) and (max-width: 991px) {   /* Estils per pantalles entre 768px i 991px */
+
+  #redonda {
+    width: 50%;
+    height: 60%;
+    filter: blur(350px);
+    background-color: #1d90d8ae;
+    border: 0;
+    border-radius: 1000px;
+  }
+
+  
+}
+
+
+@media (min-width: 992px) and (max-width: 1199px) {   /* Estils per pantalles entre 992px i 1199px */
+  #redonda {
+    width: 50%;
+    height: 60%;
+    filter: blur(350px);
+    background-color: #1d90d8ae;
+    border: 0;
+    border-radius: 1000px;
+  }
+}
+
+
+@media (min-width: 1200px) and (max-width: 1599px) {  /* Estils per pantalles de 1200px fins a 1599px */
+}
+
+@media (min-width: 1600px) {/* Estils per ≥ 1600px */
+  
 }

@@ -1,41 +1,25 @@
 import React, { useState, useEffect } from "react";
-import Logo from '../global/logo';
+import Logo from '../../global/logo';
 
 
-const SelectPlan = ({ nameSpace, goBack, idUser, onChangePlan }) => {
+const SelectPlan = ({ goBack, currentPlan, onChangePlan }) => {
 
-    const [newWorkspace, setNewWorkspace] = useState({
-        name: nameSpace,
-        admin_id: idUser,
-        plan_id: 1,
-        logo: null,
-        file_type: null
-    });
-
-    // useEffect(() => {
-    //     setNewWorkspace(prev => ({
-    //       ...prev,
-    //       name: nameSpace,
-    //       admin_id: idUser
-    //     }));
-    //   }, [nameSpace, idUser]);
+    const [usingPlan, setUsingPlan] = useState(currentPlan);
 
     const changeFree = () => {
-        setNewWorkspace(prev => ({...prev, plan_id: 1}));
-        onChangePlan({plan_id: 1});
-        //hay que controlar si el espacio tiene ya modulos asignados a el con pass premium
+        setUsingPlan(1);
+        onChangePlan(1);
     }
 
     const changeStandard = () => {
-        setNewWorkspace(prev => ({...prev, plan_id: 2}));
-        onChangePlan({plan_id: 2});
+        setUsingPlan(2);
+        onChangePlan(2);
     }
 
     const changePremium = () => {
-        setNewWorkspace(prev => ({...prev, plan_id: 3}));
-        onChangePlan({plan_id: 3});
+        setUsingPlan(3);
+        onChangePlan(3);
     }
-
 
     return (
         <div className="step-plan-container">
@@ -67,7 +51,7 @@ const SelectPlan = ({ nameSpace, goBack, idUser, onChangePlan }) => {
                         <li>✔ 1 GB storage</li>
                         <li>✔ 7-day history</li>
                     </ul>
-                    {newWorkspace.plan_id === 1 ? (
+                    {usingPlan === 1 ? (
                         <button className="haveit-btn">You have it</button>
                     ) : (
                         <button className="subscribe-btn" onClick={changeFree}>Subscribe</button>
@@ -88,7 +72,7 @@ const SelectPlan = ({ nameSpace, goBack, idUser, onChangePlan }) => {
                         <li>✔ Basic integrations</li>
                         <li>✔ Email support</li>
                     </ul>
-                    {newWorkspace.plan_id === 2 ? (
+                    {usingPlan === 2 ? (
                         <button className="haveit-btn">You have it</button>
                     ) : (
                         <button className="subscribe-btn" onClick={changeStandard}>Subscribe</button>
@@ -109,7 +93,7 @@ const SelectPlan = ({ nameSpace, goBack, idUser, onChangePlan }) => {
                         <li>✔ Advanced integrations</li>
                         <li>✔ Priority support</li>
                     </ul>
-                    {newWorkspace.plan_id === 3 ? (
+                    {usingPlan === 3 ? (
                         <button className="haveit-btn">You have it</button>
                     ) : (
                         <button className="subscribe-btn" onClick={changePremium}>Subscribe</button>

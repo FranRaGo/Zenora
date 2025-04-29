@@ -31,7 +31,7 @@ const NewName = ({ name: initialName, onSuccess, id }) => {
                 </svg>
             </button>
 
-            <div className="div-title">
+            <div className="div-title-space">
                 <h1>Creación de workspace</h1>
             </div>
 
