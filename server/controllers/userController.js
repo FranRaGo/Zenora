@@ -1,5 +1,6 @@
-
 const db = require('../config/db.js')
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
 
 //GET
 
@@ -61,9 +62,12 @@ exports.createUser = (req, res) => {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
   }
 
-  const query = "INSERT INTO user (first_name, last_name, email, pass, private, profile_picture , file_type) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  const tokenPayload = { email };
+  const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
 
-  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type], (err, result ) => {
+  const query = "INSERT INTO user (first_name, last_name, email, pass, private, profile_picture , file_type, token) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type, token], (err, result ) => {
     if (err) {
       console.error("Error al insertar usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
