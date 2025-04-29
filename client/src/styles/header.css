@@ -1,10 +1,11 @@
-#header{
+#header-container{
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding-left: 1.5%;
     position: relative;
+    margin: 5px 0;
 }
 
 #logo{
@@ -18,15 +19,125 @@
 }
 
 
-#divSearch{
+.header-search{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
 
 #inputSearch{
+    width: 300px;
     border: 0.5px solid var(--secondText);
-    background-color: var(--fondo);
-    padding: 2px 10px;
-    border-radius: 10px;
+    background-color: #6E6E6E25;
+    padding: 4px 2px 4px 40px;
+    border-radius: 20px;
+    color: var(--white);
+    font-weight: 300;
+}
+
+#inputSearch:focus {
+    outline: none; /* o cualquier otro color personalizado */
+}
+
+.header-search svg{
+    color: var(--secondText);
+    width: 17px;
+    height: 17px;
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    transform: translateY(-50%);
+}
+
+.btn-add-item{
+
+}
+
+
+#header-container-mobil{
+    position: absolute;
+    top: 20px;
+    z-index: 1000px;
+    color: var(--white);
+    width: 100%;
+}
+
+#menuDesplegable{
+    width: 35px;
+    height: 35px;
+    border: 0.5px solid var(--borderNav);
+    border-radius: 50px;
+    background-color: var(--f10);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+#menuDesplegable svg{
+    width: 70%;
+    height: 70%;
+    color: var(--white);
+    border-radius: 50px;
+}
+
+#menuDesplegable:hover{
+    background-color: var(--f20);
+}
+
+.header-actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.btn-upload-plan{
+    background-color: var(--blue);
+    color: var(--white);
+    padding: 4px 15px;
+    border: 0.5px solid var(--borderNav);
+    border-radius: 8px;
+    margin-right: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-upload-plan svg{
+    width: 18px;
+    height: 18px;
+}
+
+.btn-upload-plan p{
+    font-size: 0.9rem;
+}
+
+#btn-add-options{
+    background-color: transparent;
+    border: 0;
+    border-radius: 0;
+    width: 20px;
+    height: 20px;
+}
+
+#btn-add-options svg{
+    color: var(--white);
+    width: 90%;
+    height: 90%;
+}
+
+
+@media (max-width: 479px) { 
+    #header-container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding-left: 1.5%;
+        position: absolute;
+        margin: 5px 0;
+    }
+
 }

@@ -1,21 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useMediaQuery } from 'react-responsive';
+
 import ProfileIcon from "./iconPerfil";
 import Menu from "./menu";
 import '../../../styles/nav.css';
+import useIsMobile from "../../global/useIsMobile";
 
 
-const NavBar = () => {
+const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
     const [status, setStatus] = useState(false);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-
-    useEffect(() => {
-      const handleResize = () => {
-        setIsMobile(window.innerWidth < 768);
-      };
-      window.addEventListener('resize', handleResize);
-      return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    const isMobile = useIsMobile(480);
 
     const changeStatus = () => {
         setStatus(!status);
@@ -24,23 +17,23 @@ const NavBar = () => {
     if (isMobile) {
         return (
             <div id="navbar-mobile">
-                <p>Estás en móvil o tablet</p>
+                <Menu status={false} activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} onlyIcons={true}/>
             </div>
         );
-    }else{
-        return(
+    } else {
+        return (
             <div id="navbar" className={status ? "expanded" : ""}>
                 <div id="general-profile-div" className={status ? "expanded-profile" : ""}>
-                    < ProfileIcon status={status}/>
+                    < ProfileIcon status={status} />
                     <button onClick={changeStatus} id="btn-sidebar">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"/>
+                            <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16" />
                         </svg>
                     </button>
                 </div>
-    
-                < Menu status={status} />
-                
+
+                < Menu status={status} activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
+
                 <div className={status ? "expandedPerfil invitar" : "invitar"}>
                     <button id="btn-addPeople" className={status ? "" : "colapsed"}>
                         <div className="icon-add-people">
@@ -50,7 +43,7 @@ const NavBar = () => {
                             <div id="icon-plus">+</div>
                         </div>
                         {status ? <p>Invite</p> : ""}
-    
+
                     </button>
                     <button id="btn-question">?</button>
                 </div>

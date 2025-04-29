@@ -26,10 +26,14 @@
 /*CONTAINER*/
 
 .div-launchpad {
-  background-color: #2b2835;
+  background-color: #10314a;
+  background-color: #123956;
+  background-color: #15485b50;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0px 10px #33a0c89e;
+  border: 2px solid #31809c9e;
   width: 550px;
   height: 700px;
-  border-radius: 10px;
+  border-radius: 20px;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -45,8 +49,19 @@
 .div-perfil-pec {
   position: absolute;
   display: flex;
-  top: 15px;
-  right: 15px;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  top: 20px;
+  right: 20px;
+  padding: 5px;
+  border: 0;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+}
+
+.div-perfil-pec:hover{
+  background-color: var(--f20);
 }
 
 #btn-perfil {
@@ -59,6 +74,7 @@
 
 .div-perfil-pec svg {
   width: 20px;
+  height: 20px;
   position: relative;
 }
 
@@ -126,7 +142,8 @@
   align-items: center;
   gap: 10px;
   cursor: pointer;
-  transition: all 0.1s ease;
+  position: relative;
+  transition: all 0.2s ease;
 }
 
 .workspace-card p {
@@ -139,7 +156,7 @@
 }
 
 /*Icono del espacio*/
-.draftLogo {
+.draft-logo {
   width: 30px;
   height: 30px;
   border: 0;
@@ -148,6 +165,35 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#option-space{
+  position: absolute;
+  right: 20px;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  font-size: 1rem;
+  width: 30px;
+  height: 30px;
+  border-radius: 30px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+#option-space svg{
+  width: 80%;
+  height: 80%;
+}
+
+#option-space:hover{
+  background-color: var(--f30);
+}
+
+.workspace-card:hover #option-space{
+  display: flex;
 }
 
 /*Div donde se muestran los espacios en los que te has unido*/
@@ -255,11 +301,42 @@
 }
 
 #emailbox svg {
-  width: 22px;
-  height: 22px;
+  width: 20px;
+  height: 20px;
   color: var(--fondo);
 }
 
 #emailbox:hover {
   background-color: var(--white);
+}
+
+
+@media (max-width: 480px) {
+  .div-launchpad{
+    padding: 20px;
+    background-color: transparent !important;
+    border: 0;
+    box-shadow: 0 0px 0px rgba(0, 0, 0, 0.3), inset 0 0px 0px #33a0c89e;
+  }
+
+  .myWorkspace{
+    width: 100%;
+  }
+
+  .joinedWorkspace{
+    width: 100%;
+  }
+
+  .submit-login{
+    width: 100%;
+  }
+
+  #redonda {
+    width: 60%;
+    height: 60%;
+    filter: blur(250px);
+    background-color: #fafafa70;
+    border: 0;
+    border-radius: 1000px;
+  }
 }
