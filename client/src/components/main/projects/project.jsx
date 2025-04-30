@@ -1,13 +1,26 @@
 import React, { useState } from "react";
-import MenuProjects from "./menuProjects";
 import "../../../styles/projects.css";
 
+import MenuProjects from "./MenuProjects";
+import Overview from "./Overview";
+import List from "./List";
+import Kanban from "./Kanban";
+import Calendar from "./Calendar";
+
 const Project = () => {
-    return(
+    const [active, setActive] = useState('overview');
+
+    console.log("El que está activo es:", active);
+
+    return (
         <div>
-            < MenuProjects />
+            <MenuProjects active={active} setActive={setActive} />
+            {active === "overview" && <Overview />}
+            {active === "list" && <List />}
+            {active === "kanban" && <Kanban />}
+            {active === "calendar" && <Calendar />}
         </div>
-    )
+    );
 }
 
 export default Project;

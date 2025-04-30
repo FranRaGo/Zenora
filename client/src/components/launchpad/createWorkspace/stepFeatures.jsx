@@ -77,15 +77,7 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
             plan_id: plan,
             logo: null,
             file_type: null
-        }
-
-        //--Insertar nuevo espacio.
-        //    http://localhost:3000/api/space
-        //    { *name, *admin_id, *plan_id, logo, file_type }
-
-        //--Insertar un modulo a un espacio.
-        // http://localhost:3000/api/modSpace
-        // { spaceId, moduleId}
+        }        
 
         try {
             const space = await fetch('http://localhost:3000/api/space', {
@@ -123,14 +115,7 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
 
                 if(!resMod.ok) throw new Error("Error al añadir el modulo", mod.name);
             }
-
             navigate("/");
-            //redirigira al loading page con la ruta que quiere ir. le enviara
-            // donde quiere ir
-            // el id del espacio
-            // el usuario lo tiene en el localstoratge.
-            
-
         } catch (err) {
             console.error("Error al crear el workspace:", err);
         }

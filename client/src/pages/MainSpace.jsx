@@ -11,21 +11,22 @@ import Add from '../components/main/add/add';
 
 const Main = () => {
     const navigate = useNavigate();
-
-    const location = useLocation();
-    const idSpace = location.state?.id;
-    const idUser = location.state?.idUser;
-    console.log("Estas en el home con el espacio id: " + idSpace);
+    // const location = useLocation();
+    // const idSpace = location.state?.id;
+    // const idUser = location.state?.idUser;
+    
+    const activeId = JSON.parse(localStorage.getItem("activeId"));
+    const idSpace = activeId.spaceId;
+    const idUser = activeId.userId;
 
     const [activeSection, setActiveSection] = useState("home");
     const [isAddOpen, setIsAddOpen] = useState(false);
 
-
     useEffect(() => {
-        if (!idSpace) {
+        if (!activeId) {
             navigate('/launchpad');
         }
-    }, [idSpace]);
+    }, [activeId]);
 
 
 
@@ -35,14 +36,13 @@ const Main = () => {
             <div className="main-layout">
                 < Header />
                 <div className="main-content">
-                    {/* Dependiendo de lo que devuelva navbar, se mostrara o home o projects o employess o chat. pero no se como hacerlo */}
                     < NavBar activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
-                    <div className="main-view">
+                    <div className={`${activeSection === "chat" ? "chatActive" : "main-view"}`}>
                         {activeSection === "home" && <Home  />}
                         {activeSection === "projects" && <Projects />}
                         {isAddOpen === true && < Add onClose={() => setIsAddOpen(false)} />}
                         {activeSection === "employees" && <Employees />}
-                        {activeSection === "chat" && <Chat />}
+                        {activeSection === "chat" && <Chat  />}
                     </div>
                 </div>
             </div>

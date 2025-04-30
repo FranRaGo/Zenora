@@ -89,6 +89,14 @@
   background-color: var(--f02);
 }
 
+.chatActive{
+  width: 100%;
+  border: 0px solid var(--borderNav);
+  border-radius: 8px;
+  height: 100%;
+  background-color: transparent;
+}
+
 
 @media (max-width: 479px) {/* Estils per ≤ 480px mòbils molt petits */
   #main-wrapper {
