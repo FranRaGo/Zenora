@@ -1,0 +1,14 @@
+.chatPanel{
+    background-color: var(--f02);
+}
+
+.chatBanner{
+    color: var(--white);
+    font-weight: 400 !important;
+    background-color: var(--f02);
+    padding: 15px;
+    padding-inline: 25px;
+    margin-inline: 20px;
+    margin-top: 10px;
+    border-radius: 15px;
+}

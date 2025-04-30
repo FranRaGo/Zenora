@@ -42,7 +42,7 @@ const Main = () => {
                         {activeSection === "projects" && <Projects />}
                         {isAddOpen === true && < Add onClose={() => setIsAddOpen(false)} />}
                         {activeSection === "employees" && <Employees />}
-                        {activeSection === "chat" && <Chat  />}
+                        {activeSection === "chat" && <Chat idUser = { idUser } />}
                     </div>
                 </div>
             </div>

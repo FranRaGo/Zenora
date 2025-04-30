@@ -256,6 +256,9 @@ http://localhost:3000/api/PmDocument/:documentId
 --Chats de un usuario.
 http://localhost:3000/api/chat/:userId
 
+-Compañero de chat de un usuario
+http://localhost:3000/api/chatMembers/:userId/:chatId
+
 ### 📤POST
 
 --Crear chat.
