@@ -59,8 +59,9 @@ const LaunchPad = () => {
     }, [user]); // solo se ejecuta cuando cambie user
 
     const openWorkspace = (e) => {
-        console.log(e.target.id);
-        navigate('/', { state: { id: e.target.id, idUser: user.id } });
+        let data = { userId: user.id , spaceId: e.target.id }
+        localStorage.setItem("activeId", JSON.stringify(data));
+        navigate('/');
     }
 
     const joinedSpaces = spaces?.filter(space => space.owner === 0) || [];
