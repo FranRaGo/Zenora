@@ -60,7 +60,7 @@ const LaunchPad = () => {
 
     const openWorkspace = (e) => {
         console.log(e.target.id);
-        navigate('/', { state: { id: e.target.id } });
+        navigate('/', { state: { id: e.target.id, idUser: user.id } });
     }
 
     const joinedSpaces = spaces?.filter(space => space.owner === 0) || [];

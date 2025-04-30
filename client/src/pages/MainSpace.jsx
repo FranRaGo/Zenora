@@ -15,7 +15,7 @@ const Main = () => {
     const location = useLocation();
     const idSpace = location.state?.id;
     const idUser = location.state?.idUser;
-    console.log("Estas en el home con el espacio id: " + idSpace);
+    //console.log("Estas en el home con el espacio id: " + idSpace + "user:"+idUser);
 
     const [activeSection, setActiveSection] = useState("home");
     const [isAddOpen, setIsAddOpen] = useState(false);
@@ -35,14 +35,13 @@ const Main = () => {
             <div className="main-layout">
                 < Header />
                 <div className="main-content">
-                    {/* Dependiendo de lo que devuelva navbar, se mostrara o home o projects o employess o chat. pero no se como hacerlo */}
                     < NavBar activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
                     <div className="main-view">
                         {activeSection === "home" && <Home  />}
                         {activeSection === "projects" && <Projects />}
                         {isAddOpen === true && < Add onClose={() => setIsAddOpen(false)} />}
                         {activeSection === "employees" && <Employees />}
-                        {activeSection === "chat" && <Chat />}
+                        {activeSection === "chat" && <Chat idUser = { idUser } />}
                     </div>
                 </div>
             </div>

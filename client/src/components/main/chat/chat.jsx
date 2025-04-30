@@ -1,9 +1,15 @@
 import React, { useState } from "react";
 
-const Chat = () => {
+import ChatsPanel from "./subComponents/chatsPanel";
+
+const Chat = ({idUser}) => {
+    
+
+    console.log(idUser);
+
     return(
         <div>
-            <h2>estas en el CCCCCCHHHHHHaaaaaat</h2>
+            < ChatsPanel idUser={idUser}/>
         </div>
     )
 }
