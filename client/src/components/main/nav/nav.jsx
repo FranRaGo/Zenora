@@ -9,6 +9,7 @@ import useIsMobile from "../../global/useIsMobile";
 const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
     const [status, setStatus] = useState(false);
     const isMobile = useIsMobile(480);
+    const [dropdown, setDropdown] = useState(false);
 
     const changeStatus = () => {
         setStatus(!status);
@@ -24,7 +25,8 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
         return (
             <div id="navbar" className={status ? "expanded" : ""}>
                 <div id="general-profile-div" className={status ? "expanded-profile" : ""}>
-                    < ProfileIcon status={status} />
+                    < ProfileIcon status={status} dropdown={dropdown}/>
+
                     <button onClick={changeStatus} id="btn-sidebar">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                             <path fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="1" d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16" />

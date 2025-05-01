@@ -18,7 +18,7 @@ exports.getUsersFilter = (req,res)=>{
   const param = req.params.param;
   const value = req.params.value;
 
-  const allowedFields = ["id", "email", "first_name", "last_name"];
+  const allowedFields = ["id", "email", "first_name", "last_name", "token"];
   if (!allowedFields.includes(param)) {
       return res.status(400).json({ error: "Parámetro no permitido" });
   }
@@ -54,6 +54,8 @@ exports.getUsersSpace = (req,res)=>{
 }
 
 //POST
+let colorIndex = 0;
+const colors = ['#3F5AB5', '#387C30', '#8B37DF', '#0F8860', '#B216AF', '#E36420'];
 
 exports.createUser = (req, res) => {
   const { first_name, last_name, email, pass, private, profile_picture , file_type } = req.body;
@@ -65,9 +67,12 @@ exports.createUser = (req, res) => {
   const tokenPayload = { email };
   const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
 
-  const query = "INSERT INTO user (first_name, last_name, email, pass, private, profile_picture , file_type, token) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  const selectedColor = colors[colorIndex];
+  colorIndex = (colorIndex + 1) % colors.length;
 
-  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type, token], (err, result ) => {
+  const query = "INSERT INTO user (first_name, last_name, email, pass, private, profile_picture , file_type, color, token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type, selectedColor, token], (err, result ) => {
     if (err) {
       console.error("Error al insertar usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });

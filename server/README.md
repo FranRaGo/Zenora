@@ -51,8 +51,8 @@ http://localhost:3000/api/user/:userId
 
 ### 📥GET
 
---Espacio en base de la ID.
-http://localhost:3000/api/usersSpace/:spaceId
+--Espacio en base a un parametro y valor.
+http://localhost:3000/api/usersSpace/:param/:value
 
 --Espacios de un usuario.
 http://localhost:3000/api/spaceUser/:userId

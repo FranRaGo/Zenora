@@ -71,7 +71,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: all 0.3s;
+    transition: all 0.2s;
 }
 
 #menuDesplegable svg{
@@ -98,7 +98,7 @@
     padding: 4px 15px;
     border: 0.5px solid var(--borderNav);
     border-radius: 8px;
-    margin-right: 20px;
+    margin-right: 5px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -118,15 +118,90 @@
     background-color: transparent;
     border: 0;
     border-radius: 0;
-    width: 20px;
-    height: 20px;
+    width: 19px;
+    height: 19px;
 }
 
 #btn-add-options svg{
     color: var(--white);
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
 }
+
+.btn-user-options {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    width: 55px;
+    padding: 3px 0px;
+    border: 0;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.btn-user-options:hover {
+    background-color: var(--f20);
+}
+
+.profile-main {
+    width: 27px !important;
+    height: 27px;
+    border: 0;
+    border-radius: 50px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-main img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-main p{
+    text-align: center;
+    color: var(--white);
+}
+
+.btn-user-options svg{
+    width: 15px;
+    height: 15px;
+    color: var(--white);
+}
+
+.profile-main-xl{
+    width: 35px !important;
+    height: 35px;
+    border: 0;
+    border-radius: 50px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-main-xl img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-main-xl p{
+    text-align: center;
+    color: var(--white);
+}
+
+.btn-user-options-xl svg{
+    width: 15px;
+    height: 15px;
+    color: var(--white);
+}
+
 
 
 @media (max-width: 479px) { 

@@ -13,8 +13,8 @@ const Login = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const activeLog = localStorage.getItem("activeLog");
-        if (activeLog) {
+        const tokenActive = localStorage.getItem("activeToken");
+        if (tokenActive) {
             navigate('/launchpad');
         }
     }, []);
@@ -117,14 +117,14 @@ const Login = () => {
 
         // Actual login validation
         if (userFind && userFind.pass === password) {
-            const loggedAcounts = JSON.parse(localStorage.getItem("loggedAcounts")) || [];
+            const loggedAcounts = JSON.parse(localStorage.getItem("loggedTokens")) || [];
 
-            if (!loggedAcounts.includes(userFind.email)) {
-                loggedAcounts.push(userFind.email);
+            if (!loggedAcounts.includes(userFind.token)) {
+                loggedAcounts.push(userFind.token);
             }
 
-            localStorage.setItem('loggedAcounts', JSON.stringify(loggedAcounts));
-            localStorage.setItem('activeLog', userFind.email);
+            localStorage.setItem('loggedTokens', JSON.stringify(loggedAcounts));
+            localStorage.setItem('activeToken', userFind.token);
 
             navigate('/launchpad');
         } else if (userFind && userFind.pass !== password) {

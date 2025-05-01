@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import '../../styles/signup.css';
 import { Link, useNavigate } from 'react-router-dom';
 
-// 
 
 const ValidateSignup = ({ user, goBack }) => {
     const [loading, setLoading] = useState(false);
@@ -53,16 +52,19 @@ const ValidateSignup = ({ user, goBack }) => {
                 email: user.email,
                 pass: user.password,
                 private: false,
-                profile_picture: null,
-                file_type: null
             };
+            // { *first_name, *last_name, *email, *pass, private, profile_picture , file_type }
+
             console.log(newUserData);
             try {
                 const response = await fetch('http://localhost:3000/api/user', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newUserData)
-                  });
+                });
+                if(response.ok){
+                    console.log("Se ha creado bien");
+                }
             } catch (err) {
                 console.error("Error de connexió amb l'API:", err);
             }
@@ -70,7 +72,7 @@ const ValidateSignup = ({ user, goBack }) => {
             const loggedAcounts = JSON.parse(localStorage.getItem("loggedAcounts")) || [];
             loggedAcounts.push(user.email);
             localStorage.setItem('loggedAcounts', JSON.stringify(loggedAcounts));
-            navigate('/launchpad');
+            navigate('/login');
         } else {
             
             console.log("Codi incorrecte.");
@@ -103,8 +105,6 @@ const ValidateSignup = ({ user, goBack }) => {
             setLoading(false);
         }
     };
-
-
 
 
     return (

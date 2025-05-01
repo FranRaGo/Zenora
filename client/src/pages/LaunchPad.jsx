@@ -2,70 +2,57 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import '../styles/launchpad.css';
+import ProfilePlus from "../components/global/profile/profilePlus";
+import { getActiveSpace } from "../utils/getActiveSpace";
+import { getActiveUser } from "../utils/getActiveUser";
+import { getUserSpaces } from "../utils/getUserSpaces";
+
 
 const LaunchPad = () => {
-    const [user, setUser] = useState(null);
-    const [spaces, setSpaces] = useState(null);
     const navigate = useNavigate();
+    const [user, setUser] = useState(null);
+    const [spaces, setSpaces] = useState([]);
     const [dropdown, setDrop] = useState(false);
-
     const [popupAbiertoId, setPopupAbiertoId] = useState(false);
     const [popupCoords, setPopupCoords] = useState({ top: 0, left: 0 });
 
-    const userEmail = localStorage.getItem("activeLog");
+    const ownSpaces = spaces.filter(space => space.owner === 1);
+    const joinedSpaces = spaces.filter(space => space.owner === 0);
+    const color = user?.color;
+    const idUser = user?.id;
 
-    // Cargar datos del usuario por su email
     useEffect(() => {
-        if (!userEmail) {
-            navigate('/login');
-            return;
+        const loadData = async () => {
+            const userData = await getActiveUser();
+            if (!userData) {
+                navigate("/login");
+                return;
+            }
+
+            setUser(userData);
+            const spaceData = await getUserSpaces(userData.id); // ✅ nueva lógica
+            setSpaces(spaceData);
+        };
+
+        loadData();
+    }, [navigate]);
+
+    const openWorkspace = async (e) => {
+        const idSpace = e.currentTarget.id;
+        console.log("Id espacio seleccionado", idSpace);
+        try {
+            const res = await fetch(`http://localhost:3000/api/space/id/${idSpace}`);
+            if (res.ok) {
+                const resData = await res.json();
+                const token = resData[0]?.token;
+                localStorage.setItem("activeSpace", token);
+                navigate('/');
+            }
+        } catch (err) {
+            console.log("Error en la extracción de datos del espacio:", err);
         }
+    };
 
-        const getUsersData = async () => {
-            try {
-                const res = await fetch(`http://localhost:3000/api/usersFilter/email/${userEmail}`);
-                if (res.ok) {
-                    const userData = await res.json();
-                    console.log("Usuario encontrado:", userData[0]);
-                    setUser(userData[0]);
-                }
-            } catch (err) {
-                console.error("Error al buscar usuario:", err);
-            }
-        };
-
-        getUsersData();
-    }, [navigate, userEmail]);//cuando cambie el email del localstorage
-
-    // Cuando ya tengas el usuario (y su id), buscamos su espacio
-    useEffect(() => {
-        if (!user || !user.id) return;
-
-        const getSpace = async () => {
-            try {
-                console.log("La id es " + user.id);
-                const res = await fetch(`http://localhost:3000/api/spaceUser/${user.id}`);
-                if (res.ok) {
-                    const spaceData = await res.json();
-                    setSpaces(spaceData);
-                    console.log("Espacios:", spaceData);
-                }
-            } catch (err) {
-                console.error("Error al buscar espacio:", err);
-            }
-        };
-
-        getSpace();
-    }, [user]); // solo se ejecuta cuando cambie user
-
-    const openWorkspace = (e) => {
-        let data = { userId: user.id , spaceId: e.target.id }
-        localStorage.setItem("activeId", JSON.stringify(data));
-        navigate('/');
-    }
-
-    const joinedSpaces = spaces?.filter(space => space.owner === 0) || [];
-    const ownSpaces = spaces?.filter(space => space.owner === 1) || [];
 
     const joinWorkspace = () => {
         navigate('/joinWorkspace');
@@ -91,35 +78,21 @@ const LaunchPad = () => {
             <div className="div-launchpad">
 
                 <div className="div-perfil-pec" onClick={changeStatus}>
-                    <button id="btn-perfil">
-                        <p>{user?.first_name[0]}</p>
-                    </button>
+                    {idUser && <ProfilePlus idUser={idUser} styleCss={"profile-main-xl"} color={color} dropdown={dropdown} />}
                     {dropdown ? (
-                        <>
-                            {/* Flecha arriba */}
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
-                            </svg>
-                            {/* Popup cerrar sesión */}
-                            <div className="dropdown-popup">
-                                <button>Añadir Cuenta</button>
-                                <button onClick={() => {
-                                    localStorage.removeItem("activeLog");
-                                    navigate("/login");
-                                }}>
-                                    Cerrar sesión
-                                </button>
-                            </div>
-                        </>
+                        <div className="dropdown-popup">
+                            <button>Añadir Cuenta</button>
+                            <button onClick={() => {
+                                localStorage.removeItem("activeToken");
+                                navigate("/login");
+                            }}>
+                                Cerrar sesión
+                            </button>
+                        </div>
                     ) : (
-                        // Flecha abajo
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                        </svg>
+                        ""
                     )}
                 </div>
-
-
 
                 <div className="myWorkspace">
                     <div className="workspace-header">
@@ -194,23 +167,6 @@ const LaunchPad = () => {
                     </button>
                 </div>
             </div>
-            {popupAbiertoId && (
-                <div
-                    className="popup-drive-style"
-                    style={{
-                        position: "absolute",
-                        top: popupCoords.top,
-                        left: popupCoords.left,
-                        zIndex: 1000,
-                    }}
-                >
-                    <ul>
-                        <li onClick={() => console.log("Renombrar", popupAbiertoId)}>Renombrar</li>
-                        <li onClick={() => console.log("Duplicar", popupAbiertoId)}>Duplicar</li>
-                        <li onClick={() => console.log("Eliminar", popupAbiertoId)}>Eliminar</li>
-                    </ul>
-                </div>
-            )}
         </div>
     );
 };

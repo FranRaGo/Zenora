@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import '../../../styles/header.css';
+
 import Logo from '../../global/logo';
 import useIsMobile from "../../global/useIsMobile";
+import ProfilePlus from "../../global/profile/profilePlus";
+import ProfileDropdown from "./profileDropdown";
 
-const Header = () => {
+
+const Header = ({user}) => {
+    const navigate = useNavigate();
     const isMobile = useIsMobile(480);
-    const emailUser = localStorage.getItem("activeLog") || '';
-    const [userData, setUserData] = useState('');
 
-    useEffect(() => {
-        const getUser = async () => {
-            try{    
-                const res = await fetch(`http://localhost:3000/api/usersFilter/email/${emailUser}`);
-                if(res.ok){
-                    const resData = await res.json();
-                    setUserData(resData[0]);
-                }
-            }catch(err){
-                console.log("Error, cant get user", err);
-            }
-        }
+    const [dropdown, setDropdown] = useState(false);
 
-        getUser();
-    },[emailUser])
+    const userId = user?.id;
+    const color = user?.color;
+
+    const showDropdown = () => {
+        setDropdown(!dropdown);
+    }
 
     if (isMobile) {
         return (
@@ -38,7 +35,7 @@ const Header = () => {
         return (
             <div id="header-container">
                 <div id="logo">
-                    < Logo />
+                    <Logo />
                 </div>
                 <div className="header-search">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
@@ -68,7 +65,14 @@ const Header = () => {
                         </svg>
                     </button>
 
-                    <button className="btn-user-options">88</button>
+                    <div className="btn-user-options" onClick={showDropdown}>
+                        {userId && <ProfilePlus userId={userId} styleCss={"profile-main"} color={color} dropdown={dropdown} />}
+                        {dropdown ? (
+                            < ProfileDropdown user={user} />
+                        ) : (
+                            ""
+                        )}
+                    </div>
                 </div>
             </div>
         )
