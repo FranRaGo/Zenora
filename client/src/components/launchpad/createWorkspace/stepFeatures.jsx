@@ -46,18 +46,15 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
     const changeClass = (mod) => {
         //devuelve true o false si esta seleccionado
         const yaSeleccionado = selectedModuls.some(sm => sm.id === mod.id);
-    
         //si esta seleccionado y el plan del modulo es 1 quiere decir que esta bien y no hace nada
         if (mod.plan_id === 1 && yaSeleccionado) {
             return;
         }
-    
         //si el plan que tienes es mas peuqeño del que tiene el modulo te redirige a cambiar de plan a uno mas alto
         if (mod.plan_id > plan) {
             changePlan(mod.plan_id);
             return;
         }
-    
         //si ya esta seleccionado lo quita de seleccionado, y si no lo selecciona y lo mete en {}
         if (yaSeleccionado) {
             setSelectedMod(selectedModuls.filter(sm => sm.id !== mod.id));
@@ -65,12 +62,8 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
             setSelectedMod([...selectedModuls, mod]);
         }
     };
-    
-
 
     const createWorkspace = async () => {
-        console.log("Creando...",  selectedModuls);
-
         const newSpace = {
             name: nameSpace,
             admin_id: idUser,
@@ -78,7 +71,6 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
             logo: null,
             file_type: null
         }        
-
         try {
             const space = await fetch('http://localhost:3000/api/space', {
                 method: 'POST',
@@ -92,14 +84,10 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
 
             const response = await space.json();
             const spaceId = response.spaceId;
-
-            console.log("Space ID creado:", spaceId);
-
+            localStorage.setItem("spaceActive", response.token);
 
             for(let i=0; i<selectedModuls.length; i++){
-
                 const mod = selectedModuls[i];
-                
                 const bodyResMod = {
                     spaceId: spaceId,
                     moduleId: mod.id
@@ -114,6 +102,7 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
                 });
 
                 if(!resMod.ok) throw new Error("Error al añadir el modulo", mod.name);
+
             }
             navigate("/");
         } catch (err) {

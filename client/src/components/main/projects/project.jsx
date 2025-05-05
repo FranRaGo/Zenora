@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../../../styles/projects.css";
 
 import MenuProjects from "./MenuProjects";
-import Overview from "./Overview";
+import Overview from "./overview/overview";
 import List from "./List";
 import Kanban from "./Kanban";
 import Calendar from "./Calendar";
@@ -13,7 +13,7 @@ const Project = () => {
     console.log("El que está activo es:", active);
 
     return (
-        <div>
+        <div className="main-projects-view">
             <MenuProjects active={active} setActive={setActive} />
             {active === "overview" && <Overview />}
             {active === "list" && <List />}

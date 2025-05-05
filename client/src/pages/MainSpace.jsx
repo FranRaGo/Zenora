@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import { getActiveSpace } from "../utils/getActiveSpace";
+import { getActiveUser } from "../utils/getActiveUser";
+
+
 import NavBar from '../components/main/nav/nav';
 import Header from '../components/main/header/header';
 import Home from '../components/main/home/home';
@@ -14,35 +18,42 @@ const Main = () => {
     // const location = useLocation();
     // const idSpace = location.state?.id;
     // const idUser = location.state?.idUser;
-    
-    const activeId = JSON.parse(localStorage.getItem("activeId"));
-    const idSpace = activeId.spaceId;
-    const idUser = activeId.userId;
+    const [user, setUser] = useState(null);
+    const [space, setSpace] = useState(null);
+
+    useEffect(() => {
+        const loadSpace = async () => {
+            const result = await getActiveSpace();
+            setSpace(result);
+        }
+        const loadUser = async () => {
+            const result = await getActiveUser();
+            setUser(result);
+        }
+        loadSpace();
+        loadUser();
+        
+    }, [])
+
+    const idSpace = space?.id;
+    const idUser = user?.id;
 
     const [activeSection, setActiveSection] = useState("home");
     const [isAddOpen, setIsAddOpen] = useState(false);
-
-    useEffect(() => {
-        if (!activeId) {
-            navigate('/launchpad');
-        }
-    }, [activeId]);
-
-
 
     return (
         <div id="main-wrapper">
             <div id="circle-background"></div>
             <div className="main-layout">
-                < Header />
+                < Header user={user} />
                 <div className="main-content">
                     < NavBar activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
                     <div className={`${activeSection === "chat" ? "chatActive" : "main-view"}`}>
-                        {activeSection === "home" && <Home  />}
+                        {activeSection === "home" && <Home />}
                         {activeSection === "projects" && <Projects />}
                         {isAddOpen === true && < Add onClose={() => setIsAddOpen(false)} />}
                         {activeSection === "employees" && <Employees />}
-                        {activeSection === "chat" && <Chat idUser = { idUser } />}
+                        {activeSection === "chat" && <Chat idUser={idUser} />}
                     </div>
                 </div>
             </div>

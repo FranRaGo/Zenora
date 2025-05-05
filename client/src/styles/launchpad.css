@@ -78,19 +78,7 @@
   position: relative;
 }
 
-.dropdown-popup {
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  border: 0;
-  border-radius: 8px;
-  background-color: var(--fondoNav);
-  position: absolute;
-  top: 45px;
-  right: 0;
-}
+
 
 /*Div de tus workspace*/
 .myWorkspace {

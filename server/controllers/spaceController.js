@@ -1,29 +1,39 @@
-const db = require('../config/db.js')
+const db = require('../config/db.js');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
 
 //GET
 
-exports.getSpace = (req,res)=>{
-  const id = req.params.id;
+exports.getSpace = (req, res) => {
+  const param = req.params.param;
+  const value = req.params.value;
 
-  db.query(`SELECT name, id_admin, plan_id, file_type, logo
-            FROM space
-            WHERE id = ?;`,[id],(err,results)=>{
+  const allowedFields = ["id", "token"];
+  if (!allowedFields.includes(param)) {
+    return res.status(400).json({ error: "Parámetro no permitido" });
+  }
+  
+  const query = `SELECT * FROM space WHERE ${param} = ?`;
+
+  db.query(query, [value], (err, result) => {
     if (err) {
-      console.error('Error en la consulta:', err);
-      return res.status(500).json({ error: 'Error en la base de datos' });
+      console.error("Error en la consulta:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
     }
-    res.json(results);
+    res.json(result);
   });
 }
 
-exports.getUserSpace = (req,res)=>{
+exports.getUserSpace = (req, res) => {
   const userId = req.params.id;
 
   db.query(`SELECT s.id ,s.name, us.role, us.owner, s.file_type ,s.logo
             FROM space s
             JOIN user_space us ON s.id = us.space_id
             JOIN user u ON us.user_id = u.id
-            WHERE u.id = ?;`,[userId],(err,results)=>{
+            WHERE u.id = ?;`, [userId], (err, results) => {
     if (err) {
       console.error('Error en la consulta:', err);
       return res.status(500).json({ error: 'Error en la base de datos' });
@@ -41,9 +51,13 @@ exports.createSpace = (req, res) => {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
   }
 
-  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type) VALUES (?, ?, ?, ?, ?)";
+  const tokenPayload = { name };
+  const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
+  const invitationCode = crypto.randomBytes(12).toString('hex').slice(0, 12);
 
-  db.query(query, [name, admin_id, plan_id, logo, file_type], (err, result) => {
+  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+  db.query(query, [name, admin_id, plan_id, logo, file_type, token, invitationCode], (err, result) => {
     if (err) {
       console.error("Error al insertar espacio:", err);
       return res.status(500).json({ error: "Error en la base de datos al crear espacio" });
@@ -68,7 +82,7 @@ exports.createSpace = (req, res) => {
   });
 };
 
-exports.addUserSpace = (req,res) => {
+exports.addUserSpace = (req, res) => {
   const { spaceId, userId, role } = req.body;
 
   const query = "INSERT INTO user_space(user_id,space_id,role) VALUES (?,?,?)";
@@ -151,7 +165,7 @@ exports.updateSpaceLogo = (req, res) => {
   });
 };
 
-exports.updateUserRole = (req,res) => {
+exports.updateUserRole = (req, res) => {
   const spaceId = req.params.spaceId;
   const userId = req.params.userId;
   const { role } = req.body;
@@ -189,7 +203,7 @@ exports.deleteSpace = (req, res) => {
   });
 };
 
-exports.deleteUserSpace = (req,res) => {
+exports.deleteUserSpace = (req, res) => {
   const spaceId = req.params.spaceId;
   const userId = req.params.userId;
 

@@ -315,36 +315,47 @@
   color: var(--secondText);
   width: 25px;
   height: 25px;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
 #btn-addPeople p {
   color: var(--secondText);
   font-size: 0.9rem;
   font-weight: 300;
-  transition: all 0.3s ease;
+  transition: all 0.2s ease;
 }
 
-#btn-addPeople:hover {
-  background-color: var(--fondoHover);
+#btn-addPeople:hover p {
+  color: var(--white);
 }
+
+
+#btn-addPeople:hover svg {
+  color: var(--white);
+}
+
 
 .icon-add-people {
   position: relative;
   padding: 2px;
   border: 0;
-  border-radius: 2px;
+  border-radius: 10px;
+  transition: all 0.1s;
 }
 
 .icon-add-people p {
   font-size: 0.9rem;
 }
 
+#btn-addPeople:hover .icon-add-people #icon-plus{
+  background-color: var(--white);
+}
+
 #icon-plus {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: var(--white);
+  background-color: var(--secondText);
   color: var(--fondoNav);
   width: 12px;
   height: 12px;
@@ -353,11 +364,12 @@
   justify-content: center;
   align-items: center;
   font-size: 0.7rem;
+  transition: all 0.2s ease;
 }
 
 #btn-question {
   background-color: var(--fondoHover);
-  color: var(--white);
+  color: var(--secondText);
   border: 0;
   width: 35px;
   height: 35px;
@@ -373,13 +385,20 @@
 
 #btn-question:hover {
   background-color: var(--fondoHover2);
+  color: var(--white);
 }
 
+.div-invite{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  background-color: var(--white);
+}
 
 /*************************************/
 /*---------MOBIL---------------------*/
 /*************************************/
-
 
 #navbar-mobile {
   width: 100%;
@@ -394,7 +413,8 @@
   border-radius: 0;
 }
 
-@media (max-width: 479px) {  /* Estils per ≤ 480px mòbils molt petits */
+@media (max-width: 479px) {
+  /* Estils per ≤ 480px mòbils molt petits */
 
   .div-perfil-colapsed {
     width: 90%;
@@ -404,6 +424,4 @@
     align-items: center;
     gap: 15px;
   }
-
-  
 }
