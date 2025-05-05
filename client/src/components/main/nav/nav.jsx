@@ -57,10 +57,8 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
                     <button id="btn-question">?</button>
                 </div>
                 {invite ? (
-                    <Invite/>
-                ) : (
-                    ""
-                )}
+                    <Invite onClose={() => setInvite(false)}/>
+                ) : null}
             </div>
         );
     }
