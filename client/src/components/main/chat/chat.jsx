@@ -8,7 +8,7 @@ const Chat = ({idUser}) => {
     console.log(idUser);
 
     return(
-        <div>
+        <div className="chatSection">
             < ChatsPanel idUser={idUser}/>
         </div>
     )

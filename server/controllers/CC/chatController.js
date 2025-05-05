@@ -52,7 +52,7 @@ exports.createChat = (req,res) => {
 exports.userChat = (req,res) => {
     const { userId, chatId } = req.body;
 
-    db.query(`INSERT INTO cc_user_chat(user_id, chat_id) VALUES (?, ?)`,[userId, chatId],(err,results)=>{
+    db.query(`INSERT INTO cc_user_chat(user_id, chat_id, important) VALUES (?, ?, 0)`,[userId, chatId],(err,results)=>{
     if (err) {
         console.error('Error en la consulta:', err);
         return res.status(500).json({ error: 'Error en la base de datos' });

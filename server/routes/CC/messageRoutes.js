@@ -6,4 +6,6 @@ router.get('/messages/:chatId',messageController.getMessages);
 
 router.post('/message',messageController.sendMessage);
 
+router.put('/important', messageController.setImportant);
+
 module.exports = router;

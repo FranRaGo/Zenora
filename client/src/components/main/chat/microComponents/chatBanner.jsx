@@ -3,8 +3,11 @@ import React, { useState, useEffect } from "react";
 
 const ChatBanner = ({chat,idUser}) => {
 
-    const [members,setMembers] = useState([])
-    const [loading, setLoading] = useState(true);
+    const [members,setMembers] = useState([]);
+    const [message,setMessage] = useState([]);
+    const [loadingMembers, setLoadingMembers] = useState(true);
+    const [loadingMessage, setLoadingMessage] = useState(true);
+    const [isImportant, setIsImportant] = useState(chat.important);
     
     useEffect(() => {
         fetch(`http://localhost:3000/api/chatMembers/${idUser}/${chat.chat_id}`)
@@ -14,21 +17,103 @@ const ChatBanner = ({chat,idUser}) => {
         })
         .then(data => {
             setMembers(data);
-            setLoading(false);
+            setLoadingMembers(false);
         })
         .catch(error => {
             console.error("Error:", error);
-            setLoading(false);
+            setLoadingMembers(false);
         });
-    }, [idUser]);
+    }, [idUser, message]);
 
+    useEffect(() => {
+      fetch(`http://localhost:3000/api/messages/${chat.chat_id}`)
+        .then(response => {
+          if (!response.ok) throw new Error("Error al obtener los chats");
+          return response.json();
+        })
+        .then(data => {
+          setMessage(data);
+          setLoadingMessage(false);
+        })
+        .catch(error => {
+          console.error("Error:", error);
+          setLoadingMessage(false);
+        });
+    }, [chat]);
+
+    const formatHora = (fechaString) => {
+      const fecha = new Date(fechaString);
+      return fecha.toLocaleTimeString("es-ES", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Europe/Madrid"
+      });
+    };
+
+    const setImportant = (id, important) => {
+      fetch(`http://localhost:3000/api/important`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ important, chatUsId: id }),
+      })
+        .then(response => {
+          if (!response.ok) throw new Error('Error al actualizar el estado importante');
+          return response.json();
+        })
+        .then(data => {
+          console.log('Actualizado con éxito', data);
+          setIsImportant(important);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    };
+  
     return(
       <div className="chatBanner">
-        {loading ? (
+        <div>
+        {loadingMembers ? (
           <p>Cargando...</p>
+        ) : members.length === 0 ? (
+          <p>No hay miembros</p>
+        ) : chat.type === 0 ? (
+          <div className="chatTitle">
+            <p className="chatName">{members[0]?.name || "Sin nombre"}</p>
+          </div>
+          
         ) : (
-          <p>{members[0]?.name || "Sin nombre"}</p>
+          <div className="chatTitle">
+            <p className="chatName">{chat.name || "Sin nombre"}</p>
+            <p className="chatType">Group</p>
+          </div>
         )}
+        {loadingMessage ? (
+          <p>Cargando...</p>
+        ) : message.length === 0 ? (
+          <p className="message">No hay mensajes</p>
+        ) : (
+          <div>
+            <p className="message">{message[0]?.content}</p>
+          </div>
+        )}
+        </div>
+        <div>
+        {message.length !== 0 && (
+          <p className="hora">{formatHora(message[0]?.date)}</p>
+        )}
+        {isImportant === 0 ? (
+          <svg onClick={() => setImportant(chat.id, 1)} width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+          </svg>
+        ) : (
+          <svg onClick={() => setImportant(chat.id, 0)} width="25" height="25" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
+          </svg>
+        )
+        }
+        </div>
       </div>
     )
 }

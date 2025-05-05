@@ -298,4 +298,9 @@ http://localhost:3000/api/messages/:chatId
 http://localhost:3000/api/message
 { *chatId, *userId, *content, answer ,file, type }
 
+### ♻️PUT
+
+--Editar chat.
+http://localhost:3000/api/important
+{ chatUsId, important }
 
