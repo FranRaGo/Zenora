@@ -10,11 +10,21 @@
 }
 
 .chatPanel{
+    display: flex;
+    flex-direction: column;
     background-color: var(--f02);
     border: 0.5px solid var(--borderNav);
     border-radius: 8px;
-    width: 45%;
+    width: 320px;
     height: 100%;
+    padding: 20px;
+}
+
+.chats{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
 }
 
 .chatBanner{
@@ -22,40 +32,58 @@
     font-weight: 350 !important;
     background-color: var(--f02);
     padding: 15px;
-    padding-inline: 25px;
-    margin-inline: 20px;
-    margin-block: 10px;
+    padding-inline: 20px;
+
     border-radius: 15px;
     border: solid 0.5px var(--borderNav);
     display: flex;
     gap: 30px;
+    height: 70px;
+    width: 100%;
+    justify-content: space-between;
+    cursor: pointer;
 }
 
-.chatTitle{
+.chatBanner div{
     display: flex;
-    gap: 20px;
+    gap: 14px;
     align-items: center;
 }
 
+.chatInfo{
+    flex-direction: column;
+    gap: 2px !important;
+    align-items:start !important;
+}
 
-.chatName {
-    white-space: nowrap;       /* No permite saltos de línea automáticos */
-    overflow: hidden;          /* Oculta el contenido que se sale */
-    text-overflow: ellipsis;   /* Agrega "..." al final si se desborda */
-    width: 120px;
-  }
+.chatLeft{
+    flex-direction: column;
+    gap: 2px !important;
+    justify-content: center !important;
+    font-size: 0.8rem;
+}
 
-.chatType{
-    font-size: 0.7rem;
-    background-color: aquamarine;
-    padding: 3px;
-    padding-inline: 7px;
-    background-color: var(--f30);
-    border-radius: 100px;
+.profile_icon{
+    height: 35px;
+    width: 35px;
 }
 
 .message{
     font-size: 0.8rem;
     color: var(--secondText);
-    margin-top: 7px;
+}
+
+.chatName {
+    white-space: nowrap;
+    overflow: hidden;     
+    text-overflow: ellipsis;
+    width: 120px;
+  }
+
+.chatType{
+    font-size: 0.7rem;
+    padding: 3px;
+    padding-inline: 7px;
+    background-color: var(--f30);
+    border-radius: 100px;
 }

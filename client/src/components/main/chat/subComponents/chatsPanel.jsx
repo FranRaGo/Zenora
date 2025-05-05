@@ -6,7 +6,7 @@ const ChatsPanel = ({idUser}) => {
 
     const [chats, setChats] = useState([]);
     const [loading, setLoading] = useState(true);
-  
+
     useEffect(() => {
       const fetchChats = () => {
         fetch(`http://localhost:3000/api/chats/${idUser}`)
@@ -22,28 +22,30 @@ const ChatsPanel = ({idUser}) => {
             console.error("Error:", error);
             setLoading(false);
           });
-      };
-    
-      fetchChats();
-    
-      const interval = setInterval(fetchChats, 3000);
-    
-      return () => clearInterval(interval);
-    }, [idUser]);
-  
-    if (loading) return <p>Cargando chats...</p>;
-
+        };
+        
+        fetchChats();
+        
+        const interval = setInterval(fetchChats, 3000);
+        
+        return () => clearInterval(interval);
+      }, [idUser]);
+      
+      if (loading) return <p>Cargando chats...</p>;
+      
     return(
         <div className="chatPanel">
+          <div className="chats">
             {
-                (chats.length < 1)?(
-                    <p>No hay chats disponibles</p>
-                ):(
-                    chats.map((chat, index) => (
-                        < ChatBanner chat={chat} idUser={idUser}/>
-                    ))
-                )
+              (chats.length < 1)?(
+                <p>No hay chats disponibles</p>
+              ):(
+                chats.map((chat, index) => (
+                  < ChatBanner chat={chat} idUser={idUser} setChats={setChats}/>
+                ))
+              )
             }
+            </div>
         </div>
     )
 }
