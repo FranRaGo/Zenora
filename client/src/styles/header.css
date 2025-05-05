@@ -1,218 +1,389 @@
-#header-container{
+#header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding-left: 1.5%;
+  position: relative;
+  margin: 5px 0;
+}
+
+#logo {
+  width: 20px;
+  height: 20px;
+}
+
+#logo svg {
+  width: 100%;
+  height: 100%;
+}
+
+.header-search {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+#inputSearch {
+  width: 300px;
+  border: 0.5px solid var(--secondText);
+  background-color: #6e6e6e25;
+  padding: 4px 2px 4px 40px;
+  border-radius: 20px;
+  color: var(--white);
+  font-weight: 300;
+}
+
+#inputSearch:focus {
+  outline: none; /* o cualquier otro color personalizado */
+}
+
+.header-search svg {
+  color: var(--secondText);
+  width: 17px;
+  height: 17px;
+  position: absolute;
+  top: 50%;
+  left: 5%;
+  transform: translateY(-50%);
+}
+
+.btn-add-item {
+}
+
+#header-container-mobil {
+  position: absolute;
+  top: 20px;
+  z-index: 1000px;
+  color: var(--white);
+  width: 100%;
+}
+
+#menuDesplegable {
+  width: 35px;
+  height: 35px;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 50px;
+  background-color: var(--f10);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.2s;
+}
+
+#menuDesplegable svg {
+  width: 70%;
+  height: 70%;
+  color: var(--white);
+  border-radius: 50px;
+}
+
+#menuDesplegable:hover {
+  background-color: var(--f20);
+}
+
+.header-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-upload-plan {
+  background-color: var(--blue);
+  color: var(--white);
+  padding: 4px 15px;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 8px;
+  margin-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-upload-plan svg {
+  width: 18px;
+  height: 18px;
+}
+
+.btn-upload-plan p {
+  font-size: 0.9rem;
+}
+
+#btn-add-options {
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  width: 19px;
+  height: 19px;
+}
+
+#btn-add-options svg {
+  color: var(--white);
+  width: 100%;
+  height: 100%;
+}
+
+.btn-user-options {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  width: 55px;
+  padding: 3px 0px;
+  border: 0;
+  border-radius: 20px;
+  transition: all 0.3s;
+}
+
+.btn-user-options:hover {
+  background-color: var(--f20);
+}
+
+.profile-main {
+  width: 27px !important;
+  height: 27px;
+  border: 0;
+  border-radius: 50px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-main img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-main p {
+  text-align: center;
+  color: var(--white);
+}
+
+.btn-user-options svg {
+  width: 15px;
+  height: 15px;
+  color: var(--white);
+}
+
+.profile-main-xl {
+  width: 35px !important;
+  height: 35px;
+  border: 0;
+  border-radius: 50px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-main-xl img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-main-xl p {
+  text-align: center;
+  color: var(--white);
+}
+
+.btn-user-options-xl svg {
+  width: 15px;
+  height: 15px;
+  color: var(--white);
+}
+
+/*DROPDOWN USER*/
+.dropdown-popup {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 10px;
+  border: 0;
+  border-radius: 8px;
+  /* background-color: var(--fondoNav); */
+  background-color: #15142A;
+  position: absolute;
+  top: 45px;
+  right: 0;
+}
+
+#btn-profile-dropdown{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    border: 0;
+    color: var(--white);
+    font-size: 0.9rem;
+    padding: 8px 5px;
+    border-radius: 8px;
+}
+
+#btn-profile-dropdown:hover{
+    background-color: var(--f20);
+}
+
+.caramelo{
+    width: 24px;
+    height: 24px;
+    border: 0;
+    border-radius: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.caramelo p{
+    text-align: center;
+}
+
+.caramelo img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.div-options-btn{
+    display: flex;
+    flex-direction: column;
+    border-top: 0.5px solid var(--borderNav);
+    border-bottom: 0.5px solid var(--borderNav);
+    padding: 10px 0;
+    gap: 5px;
+}
+
+.div-options-btn button{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    border: 0;
+    color: var(--white);
+    font-size: 0.9rem;
+    padding: 8px 5px;
+    border-radius: 8px;
+}
+
+.div-options-btn button svg{
+    width: 20px;
+    height: 20px;
+}
+
+.div-options-btn button:hover{
+    background-color: var(--f20);
+}
+
+/*DROPDOWN LOGGEDS*/
+.dropdown-loggeds{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.btn-profile-loggeds{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    background-color: transparent;
+    border: 0;
+    color: var(--white);
+    font-size: 0.9rem;
+    padding: 8px 5px;
+    border-radius: 5px;
+}
+
+.btn-profile-loggeds p{
+    white-space: nowrap;
+}
+
+.btn-profile-loggeds:hover{
+    background-color: var(--f20);
+}
+
+.btn-profile-loggeds:hover #option-profile{
+    display: flex;
+}
+
+#option-profile{
+    display: none;
+    border: 0;
+    background-color: transparent;
+    width: 20px;
+    height: 20px;
+    border-radius: 40px;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+#option-profile svg{
+    width: 100%;
+    height: 100%; 
+}
+
+#option-profile:hover{
+    background-color: var(--f20);
+}
+
+#btn-add-user{
+    width: 100%;
+    background-color: transparent;
+    border: 0;
+    border-radius: 8px;
+    padding: 3px 0;
+    color: var(--secondText);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+#btn-add-user:hover{
+    background-color: var(--f20);
+    color: var(--white);
+}
+
+#btn-logout{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 5px;
+    background-color: transparent;
+    border: 0;
+    color: var(--white);
+    font-size: 0.9rem;
+    padding: 8px 5px;
+    border-radius: 8px;
+}
+
+#btn-logout svg{
+    width: 20px;
+    height: 20px;
+}
+
+#btn-logout:hover{
+    background-color: var(--f20);
+}
+
+@media (max-width: 479px) {
+  #header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     width: 100%;
     padding-left: 1.5%;
-    position: relative;
+    position: absolute;
     margin: 5px 0;
-}
-
-#logo{
-    width: 20px;
-    height: 20px;
-}
-
-#logo svg{
-    width: 100%;
-    height: 100%;
-}
-
-
-.header-search{
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-}
-
-#inputSearch{
-    width: 300px;
-    border: 0.5px solid var(--secondText);
-    background-color: #6E6E6E25;
-    padding: 4px 2px 4px 40px;
-    border-radius: 20px;
-    color: var(--white);
-    font-weight: 300;
-}
-
-#inputSearch:focus {
-    outline: none; /* o cualquier otro color personalizado */
-}
-
-.header-search svg{
-    color: var(--secondText);
-    width: 17px;
-    height: 17px;
-    position: absolute;
-    top: 50%;
-    left: 5%;
-    transform: translateY(-50%);
-}
-
-.btn-add-item{
-
-}
-
-
-#header-container-mobil{
-    position: absolute;
-    top: 20px;
-    z-index: 1000px;
-    color: var(--white);
-    width: 100%;
-}
-
-#menuDesplegable{
-    width: 35px;
-    height: 35px;
-    border: 0.5px solid var(--borderNav);
-    border-radius: 50px;
-    background-color: var(--f10);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s;
-}
-
-#menuDesplegable svg{
-    width: 70%;
-    height: 70%;
-    color: var(--white);
-    border-radius: 50px;
-}
-
-#menuDesplegable:hover{
-    background-color: var(--f20);
-}
-
-.header-actions{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 15px;
-}
-
-.btn-upload-plan{
-    background-color: var(--blue);
-    color: var(--white);
-    padding: 4px 15px;
-    border: 0.5px solid var(--borderNav);
-    border-radius: 8px;
-    margin-right: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.btn-upload-plan svg{
-    width: 18px;
-    height: 18px;
-}
-
-.btn-upload-plan p{
-    font-size: 0.9rem;
-}
-
-#btn-add-options{
-    background-color: transparent;
-    border: 0;
-    border-radius: 0;
-    width: 19px;
-    height: 19px;
-}
-
-#btn-add-options svg{
-    color: var(--white);
-    width: 100%;
-    height: 100%;
-}
-
-.btn-user-options {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3px;
-    width: 55px;
-    padding: 3px 0px;
-    border: 0;
-    border-radius: 20px;
-    transition: all 0.3s;
-}
-
-.btn-user-options:hover {
-    background-color: var(--f20);
-}
-
-.profile-main {
-    width: 27px !important;
-    height: 27px;
-    border: 0;
-    border-radius: 50px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.profile-main img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.profile-main p{
-    text-align: center;
-    color: var(--white);
-}
-
-.btn-user-options svg{
-    width: 15px;
-    height: 15px;
-    color: var(--white);
-}
-
-.profile-main-xl{
-    width: 35px !important;
-    height: 35px;
-    border: 0;
-    border-radius: 50px;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-}
-
-.profile-main-xl img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.profile-main-xl p{
-    text-align: center;
-    color: var(--white);
-}
-
-.btn-user-options-xl svg{
-    width: 15px;
-    height: 15px;
-    color: var(--white);
-}
-
-
-
-@media (max-width: 479px) { 
-    #header-container{
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 100%;
-        padding-left: 1.5%;
-        position: absolute;
-        margin: 5px 0;
-    }
-
+  }
 }

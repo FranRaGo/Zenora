@@ -4,16 +4,23 @@ import ProfileIcon from "./iconPerfil";
 import Menu from "./menu";
 import '../../../styles/nav.css';
 import useIsMobile from "../../global/useIsMobile";
+import Invite from "./invite";
 
 
 const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
     const [status, setStatus] = useState(false);
     const isMobile = useIsMobile(480);
     const [dropdown, setDropdown] = useState(false);
+    const [invite, setInvite] = useState(false);
 
     const changeStatus = () => {
         setStatus(!status);
     };
+
+    const openInvite = () => {
+        setInvite(!invite);
+        console.log("abrir pop up invitar");
+    }
 
     if (isMobile) {
         return (
@@ -37,7 +44,7 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
                 < Menu status={status} activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
 
                 <div className={status ? "expandedPerfil invitar" : "invitar"}>
-                    <button id="btn-addPeople" className={status ? "" : "colapsed"}>
+                    <button id="btn-addPeople" className={status ? "" : "colapsed"} onClick={openInvite}>
                         <div className="icon-add-people">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -49,6 +56,11 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
                     </button>
                     <button id="btn-question">?</button>
                 </div>
+                {invite ? (
+                    <Invite/>
+                ) : (
+                    ""
+                )}
             </div>
         );
     }

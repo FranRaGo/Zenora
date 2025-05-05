@@ -1,6 +1,8 @@
 const db = require('../config/db.js');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
 
 //GET
 
@@ -51,10 +53,11 @@ exports.createSpace = (req, res) => {
 
   const tokenPayload = { name };
   const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
+  const invitationCode = crypto.randomBytes(12).toString('hex').slice(0, 12);
 
-  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type, token) VALUES (?, ?, ?, ?, ?, ?)";
+  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  db.query(query, [name, admin_id, plan_id, logo, file_type, token], (err, result) => {
+  db.query(query, [name, admin_id, plan_id, logo, file_type, token, invitationCode], (err, result) => {
     if (err) {
       console.error("Error al insertar espacio:", err);
       return res.status(500).json({ error: "Error en la base de datos al crear espacio" });
