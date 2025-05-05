@@ -42,12 +42,11 @@ const Profile = ({ userId, styleCss, color }) => {
         searchUser();
     }, [userId])
 
-    console.log("El usuario  del usuario apra el perfil ", user);
 
     if (!user) return null;
 
     return (
-        <div className={styleCss} style={{ backgroundColor: color }}>
+        <div className={styleCss} style={{ backgroundColor: user.color }}>
             {imageUrl ? (
                 <img src={imageUrl} alt="Profile img"/>
             ) : (

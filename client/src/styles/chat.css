@@ -1,14 +1,89 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+
+.chatSection{
+    height: 100%;
+}
+
 .chatPanel{
+    display: flex;
+    flex-direction: column;
     background-color: var(--f02);
+    border: 0.5px solid var(--borderNav);
+    border-radius: 8px;
+    width: 320px;
+    height: 100%;
+    padding: 20px;
+}
+
+.chats{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: auto;
 }
 
 .chatBanner{
     color: var(--white);
-    font-weight: 400 !important;
+    font-weight: 350 !important;
     background-color: var(--f02);
     padding: 15px;
-    padding-inline: 25px;
-    margin-inline: 20px;
-    margin-top: 10px;
+    padding-inline: 20px;
+
     border-radius: 15px;
+    border: solid 0.5px var(--borderNav);
+    display: flex;
+    gap: 30px;
+    height: 70px;
+    width: 100%;
+    justify-content: space-between;
+    cursor: pointer;
+}
+
+.chatBanner div{
+    display: flex;
+    gap: 14px;
+    align-items: center;
+}
+
+.chatInfo{
+    flex-direction: column;
+    gap: 2px !important;
+    align-items:start !important;
+}
+
+.chatLeft{
+    flex-direction: column;
+    gap: 2px !important;
+    justify-content: center !important;
+    font-size: 0.8rem;
+}
+
+.profile_icon{
+    height: 35px;
+    width: 35px;
+}
+
+.message{
+    font-size: 0.8rem;
+    color: var(--secondText);
+}
+
+.chatName {
+    white-space: nowrap;
+    overflow: hidden;     
+    text-overflow: ellipsis;
+    width: 120px;
+  }
+
+.chatType{
+    font-size: 0.7rem;
+    padding: 3px;
+    padding-inline: 7px;
+    background-color: var(--f30);
+    border-radius: 100px;
 }
