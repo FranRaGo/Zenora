@@ -46,7 +46,7 @@ const ProfileIcon = ({ status, dropdown, setDropdown, setActiveSection}) => {
             )}
           </div>
         </div>
-        {dropdown && <SpaceDropdown space={space}/> }
+        {dropdown && <SpaceDropdown space={space} setActiveSection={setActiveSection}/> }
 
       </div>
     );
