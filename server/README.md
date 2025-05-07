@@ -109,7 +109,7 @@ http://localhost:3000/api/deleteUserSpace/:userId/:spaceId
 --Todos los modulos disponibles.
 http://localhost:3000/api/modules
 
---Espacios asignados a un proyectos
+--Modulos asignados a un espacio.
 http://localhost:3000/api/modules/:spaceId
 
 ### 📤POST
@@ -271,7 +271,7 @@ http://localhost:3000/api/chatMembers/:userId/:chatId
 
 --Crear chat.
 http://localhost:3000/api/chat
-{ name, type, mod_space_id }
+{ name, type, mod_space_id, user_id, user_id_2 }
 
 --Asignar usuario a chat.
 http://localhost:3000/api/userChat

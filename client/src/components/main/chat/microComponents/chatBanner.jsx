@@ -3,7 +3,7 @@ import Profile from "../../../global/profile/profile";
 
 
 
-const ChatBanner = ({ chat, idUser, setChats }) => {
+const ChatBanner = ({ chat, idUser, setChats, filter, userFilter }) => {
   const [members, setMembers] = useState([]);
   const [message, setMessage] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(true);
@@ -11,7 +11,7 @@ const ChatBanner = ({ chat, idUser, setChats }) => {
   const [isImportant, setIsImportant] = useState(chat.important);
 
   const changeChats = (id)=>{
-    console.log(id);
+    //console.log("Chat clicado = "+id);
   }
 
   useEffect(() => {
@@ -46,13 +46,25 @@ const ChatBanner = ({ chat, idUser, setChats }) => {
       });
   }, [chat]);
 
-  const formatHora = (fechaString) => {
-    const fecha = new Date(fechaString);
-    return fecha.toLocaleTimeString("es-ES", {
-      hour: "2-digit",
-      minute: "2-digit",
-      timeZone: "Europe/Madrid",
-    });
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const today = new Date();
+
+    if(date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear()){
+      return date.toLocaleTimeString("es-ES", {
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZone: "Europe/Madrid",
+      });
+    }else{
+      return date.toLocaleDateString("es-ES", {
+        day: "2-digit",
+        month: "2-digit",
+        timeZone: "Europe/Madrid"
+      });
+    }
   };
 
   const setImportant = (id, important) => {
@@ -77,6 +89,20 @@ const ChatBanner = ({ chat, idUser, setChats }) => {
       });
   };
 
+  if (
+    (filter === 1 && chat.type !== 0) || 
+    (filter === 2 && chat.type === 0) || 
+    (filter === 3 && chat.important === 0) || (
+      userFilter !== '' &&
+      !members.some(member =>
+        member.name.toLowerCase().includes(userFilter.toLowerCase())
+      ) &&
+      !((chat.name || "").toLowerCase().includes(userFilter.toLowerCase()))
+    )
+  ) {
+    return null;
+  }
+
   return (
     <div className="chatBanner" onClick={() => changeChats(chat.chat_id)}>
       <div className="chatRight">
@@ -84,18 +110,18 @@ const ChatBanner = ({ chat, idUser, setChats }) => {
           <Profile userId={members[0]?.id} styleCss={"profile_icon"} />
         )}
         <div className="chatInfo">
-          {loadingMembers ? (
-            <p>Cargando...</p>
-          ) : members.length === 0 ? (
-            <p>No hay miembros</p>
-          ) : chat.type === 0 ? (
-            <p className="chatName">{members[0]?.name || "Sin nombre"}</p>
-          ) : (
-            <div className="chatGroup">
-              <p className="chatName">{chat.name || "Sin nombre"}</p>
-              <p className="chatType">Group</p>
-            </div>
-          )}
+        {loadingMembers ? (
+  <p>Cargando...</p>
+) : chat.type !== 0 ? (
+  <div className="chatGroup">
+    <p className="chatName">{chat.name || "Sin nombre"}</p>
+    <p className="chatType">Group</p>
+  </div>
+) : members.length === 0 ? (
+  <p>No hay miembros</p>
+) : (
+  <p className="chatName">{members[0]?.name || "Sin nombre"}</p>
+)}
           {loadingMessage ? (
             <p>Cargando...</p>
           ) : message.length === 0 ? (
@@ -107,7 +133,7 @@ const ChatBanner = ({ chat, idUser, setChats }) => {
       </div>
       <div className="chatLeft">
         {message.length !== 0 && (
-          <p className="hora">{formatHora(message[0]?.date)}</p>
+          <p className="hora">{formatDate(message[0]?.date)}</p>
         )}
         {isImportant === 0 ? (
           <svg
@@ -117,13 +143,13 @@ const ChatBanner = ({ chat, idUser, setChats }) => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
-            class="size-6"
+            className="size-6"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
             />
           </svg>
@@ -135,13 +161,13 @@ const ChatBanner = ({ chat, idUser, setChats }) => {
             xmlns="http://www.w3.org/2000/svg"
             fill="currentColor"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
-            class="size-6"
+            className="size-6"
           >
             <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
+              strokeLinecap="round"
+              strokeLinejoin="round"
               d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z"
             />
           </svg>
