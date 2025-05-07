@@ -8,7 +8,7 @@ import ProfilePlus from "../../global/profile/profilePlus";
 import ProfileDropdown from "./profileDropdown";
 
 
-const Header = ({user}) => {
+const Header = ({user, setActiveSection}) => {
     const navigate = useNavigate();
     const isMobile = useIsMobile(480);
 
@@ -34,7 +34,7 @@ const Header = ({user}) => {
     } else {
         return (
             <div id="header-container">
-                <div id="logo">
+                <div id="logo" onClick={() => {navigate('/')}}>
                     <Logo />
                 </div>
                 <div className="header-search">
@@ -66,9 +66,9 @@ const Header = ({user}) => {
                     </button>
 
                     <div className="btn-user-options" onClick={showDropdown}>
-                        {userId && <ProfilePlus userId={userId} styleCss={"profile-main"} color={color} dropdown={dropdown} />}
+                        {userId && <ProfilePlus userId={userId} styleCss={"profile-main"} dropdown={dropdown} />}
                         {dropdown ? (
-                            < ProfileDropdown user={user} />
+                            < ProfileDropdown user={user} setActiveSection={setActiveSection}/>
                         ) : (
                             ""
                         )}

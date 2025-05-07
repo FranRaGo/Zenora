@@ -32,7 +32,7 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
         return (
             <div id="navbar" className={status ? "expanded" : ""}>
                 <div id="general-profile-div" className={status ? "expanded-profile" : ""}>
-                    < ProfileIcon status={status} dropdown={dropdown}/>
+                    < ProfileIcon status={status} dropdown={dropdown} setDropdown={setDropdown} setActiveSection={setActiveSection}/>
 
                     <button onClick={changeStatus} id="btn-sidebar">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">

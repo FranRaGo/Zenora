@@ -42,7 +42,7 @@ const LoggedAcounts = () => {
             {users && users.length > 0 ? (
                 users.map((user, index) => (
                     <div key={index} className="btn-profile-loggeds" onClick={() => changeUser(user)}>
-                        <Profile userId={user.id} styleCss={"caramelo"} color={user.color}/>
+                        <Profile userId={user.id} styleCss={"profile_icon_header"}/>
                         <p>{user.first_name} {user.last_name}</p>
                         <button
                             id="option-profile"

@@ -1,0 +1,112 @@
+/*LOADING PAGE*/
+.div-container {
+  width: 300px;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+#logo-div-div {
+  width: 120px;
+  height: 120px;
+  z-index: 1000;
+}
+
+.flash {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--white);
+
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-90deg) translateX(120px);
+  transform-origin: center center;
+  animation: rotar 2.5s ease infinite;
+}
+
+@keyframes rotar {
+  0% {
+    transform: translate(-50%, -50%) rotate(-90deg) translateX(120px);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(270deg) translateX(120px);
+  }
+}
+
+
+/*NOTIFICATIONS*/
+/* 
+<div className={`notifi-${type}`}>
+            <p>{message}</p>
+            <button className="close-btn" onClick={onClose}>x</button>
+        </div> */
+
+.notify{
+  width: 300px;
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  border: 0;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  animation: show 0.4s ease forwards;
+}
+
+.success{
+  background-color: var(--verde);
+}
+
+.notify p {
+  font-size: 0.9rem;
+  color: var(--fondo);
+}
+
+.notify button {
+  font-size: 0.9rem;
+  background-color: transparent;
+  border: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.notify button svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hide {
+  animation: hide 0.4s ease forwards;
+}
+
+
+@keyframes show {
+  from{
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+  to{
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+@keyframes hide {
+  from {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-20px);
+    opacity: 0;
+  }
+}
+

@@ -1,40 +1,12 @@
 import React, { useState, useEffect } from "react";
-import Logo from '../../global/logo';
+import Logo from "./logo";
 
-
-const SelectPlan = ({ goBack, currentPlan, onChangePlan }) => {
-
-    const [usingPlan, setUsingPlan] = useState(currentPlan);
-
-    const changeFree = () => {
-        setUsingPlan(1);
-        onChangePlan(1);
-    }
-
-    const changeStandard = () => {
-        setUsingPlan(2);
-        onChangePlan(2);
-    }
-
-    const changePremium = () => {
-        setUsingPlan(3);
-        onChangePlan(3);
-    }
+const ChangePlan = ({ }) => {
 
     return (
         <div className="step-plan-container">
 
-            <button onClick={goBack} className="btn-back">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                </svg>
-            </button>
-
             <div className="div-title">
-                <div id="div-logo">
-                    < Logo />
-                </div>
-                <p>Upgrade the new Workspace</p>
                 <h1>Choose the right plan for your workspace</h1>
             </div>
 
@@ -51,11 +23,11 @@ const SelectPlan = ({ goBack, currentPlan, onChangePlan }) => {
                         <li>✔ 1 GB storage</li>
                         <li>✔ 7-day history</li>
                     </ul>
-                    {usingPlan === 1 ? (
+                    {/* {usingPlan === 1 ? (
                         <button className="haveit-btn">You have it</button>
                     ) : (
-                        <button className="subscribe-btn" onClick={changeFree}>Subscribe</button>
-                    )}
+                        <button className="subscribe-btn">Subscribe</button>
+                    )} */}
                 </div>
 
                 <div className="plan-card best">
@@ -72,11 +44,11 @@ const SelectPlan = ({ goBack, currentPlan, onChangePlan }) => {
                         <li>✔ Basic integrations</li>
                         <li>✔ Email support</li>
                     </ul>
-                    {usingPlan === 2 ? (
+                    {/* {usingPlan === 2 ? (
                         <button className="haveit-btn">You have it</button>
                     ) : (
-                        <button className="subscribe-btn" onClick={changeStandard}>Subscribe</button>
-                    )}
+                        <button className="subscribe-btn">Subscribe</button>
+                    )} */}
                 </div>
 
                 <div className="plan-card">
@@ -93,19 +65,19 @@ const SelectPlan = ({ goBack, currentPlan, onChangePlan }) => {
                         <li>✔ Advanced integrations</li>
                         <li>✔ Priority support</li>
                     </ul>
-                    {usingPlan === 3 ? (
+                    {/* {usingPlan === 3 ? (
                         <button className="haveit-btn">You have it</button>
                     ) : (
-                        <button className="subscribe-btn" onClick={changePremium}>Subscribe</button>
-                    )}
+                        <button className="subscribe-btn">Subscribe</button>
+                    )} */}
                 </div>
             </div>
 
-            <p className="terms">
+            {/* <p className="terms">
                 <span>Terms and conditions</span> apply. Please <span>contact us</span> for custom enterprise solutions.
-            </p>
+            </p> */}
         </div>
     );
 };
 
-export default SelectPlan;
+export default ChangePlan;

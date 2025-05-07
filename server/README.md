@@ -57,6 +57,10 @@ http://localhost:3000/api/usersSpace/:param/:value
 --Espacios de un usuario.
 http://localhost:3000/api/spaceUser/:userId
 
+--Invitaciones en base a un parametro y valor.
+http://localhost:3000/api/invitations/:param/:value
+
+
 ### 📤POST
 
 --Insertar nuevo espacio.
@@ -66,6 +70,10 @@ http://localhost:3000/api/space
 --Insertar usuario a espacio.
 http://localhost:3000/api/addUserSpace
 { spaceId, userId, role }
+
+--Insertar invitacion
+http://localhost:3000/api/invitation
+{ userId, spaceId, status, role }
 
 ### ♻️PUT
 

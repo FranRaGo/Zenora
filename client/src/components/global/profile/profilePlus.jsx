@@ -16,7 +16,7 @@ const getMimeType = (ext) => {
     }
 };
 
-const ProfilePlus = ({ userId, styleCss, color, dropdown }) => {
+const ProfilePlus = ({ userId, styleCss, dropdown }) => {
     const [user, setUser] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
 
@@ -48,7 +48,7 @@ const ProfilePlus = ({ userId, styleCss, color, dropdown }) => {
 
     return (
         <>
-            <div className={styleCss} style={{ backgroundColor: color }}>
+            <div className={styleCss} style={{ backgroundColor: user.color }}>
                 {imageUrl ? (
                     <img src={imageUrl} alt="Profile img" />
                 ) : (

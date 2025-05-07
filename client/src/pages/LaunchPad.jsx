@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom';
 
 import '../styles/launchpad.css';
 import ProfilePlus from "../components/global/profile/profilePlus";
-import { getActiveSpace } from "../utils/getActiveSpace";
 import { getActiveUser } from "../utils/getActiveUser";
 import { getUserSpaces } from "../utils/getUserSpaces";
 
@@ -78,7 +77,7 @@ const LaunchPad = () => {
             <div className="div-launchpad">
 
                 <div className="div-perfil-pec" onClick={changeStatus}>
-                    {idUser && <ProfilePlus idUser={idUser} styleCss={"profile-main-xl"} color={color} dropdown={dropdown} />}
+                    {idUser && <ProfilePlus userId={user.id} styleCss={"profile_icon_header"} dropdown={dropdown} />}
                     {dropdown ? (
                         <div className="dropdown-popup">
                             <button>Añadir Cuenta</button>
@@ -103,7 +102,7 @@ const LaunchPad = () => {
                             ownSpaces.map((space) => (
                                 <div key={space.id} id={space.id} onClick={openWorkspace} className="workspace-card">
                                     {space.logo === null ? (
-                                        <div className="draft-logo">
+                                        <div className="draft-logo" style={{ backgroundColor: space.color }}>
                                             <p>{space.name[0]}</p>
                                         </div>
                                     ) : (

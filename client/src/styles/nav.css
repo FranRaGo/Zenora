@@ -67,7 +67,7 @@
 }
 
 #btn-profile-collapsed:hover {
-  background-color: var(--fondoHover);
+  background-color: var(--f20);
 }
 
 #avatar-container {
@@ -76,9 +76,7 @@
   border: 1px solid var(--white);
   border-radius: 8px;
   text-align: center;
-
   z-index: 300;
-  background-color: var(--fondo);
   color: var(--white);
   padding: 2px;
   display: flex;
@@ -108,6 +106,7 @@
 
 /*Profile expanded*/
 #btn-profile-expanded {
+  position: relative;
   display: flex;
   flex-direction: row;
   background-color: transparent;
@@ -123,7 +122,7 @@
 }
 
 #btn-profile-expanded:hover {
-  background-color: var(--fondoHover);
+  background-color: var(--f20);
 }
 
 #avatar-container-expanded {
@@ -134,7 +133,6 @@
   text-align: center;
   position: relative;
   z-index: 300;
-  background-color: var(--fondo);
   color: var(--white);
   display: flex;
   justify-content: center;
@@ -178,6 +176,21 @@
 #dropdown-icon-expanded svg {
   color: var(--white);
   background-color: transparent;
+}
+
+/*Dropdown*/
+.dropdown-space{
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 10px;
+  border: 0;
+  border-radius: 8px;
+  background-color: #15142A;
+  position: absolute;
+  top: 50px;
+  left: 0;
 }
 
 /*div global nav*/
@@ -395,17 +408,19 @@
   transform: translate(-50%, -50%);
   background-color: var(--fondoNav);
   border-radius: 12px;
-  width: 500px;
+  width: 600px;
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
-  padding: 20px;
+  gap: 30px;
+  padding: 50px 60px;
   border: 0.5px solid var(--borderNav);
 }
 
 .header-invite {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   border-bottom: 1px solid var(--borderNav);
   padding-bottom: 10px;
@@ -418,12 +433,10 @@
 }
 
 .btn-close {
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
   border: none;
   background: none;
   font-size: 1.5rem;
+  font-weight: 300;
   cursor: pointer;
   color: var(--secondText);
 }
@@ -432,11 +445,11 @@
 .invite-section {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 10px;
 }
 
 .invite-section label {
-  font-size: 1rem;
+  font-size: 0.9rem;
   font-weight: 300;
   color: var(--white);
 }
@@ -451,6 +464,7 @@
   background-color: var(--f10);
   border: 1px solid var(--borderNav);
   border-radius: 5px;
+  padding: 0 10px 0 0;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -485,7 +499,22 @@
 }
 
 .btn-send {
+  width: 85px;
+  background-color: var(--blue);
+  border: 0;
+  color: var(--white);
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
 
+#errorEmail { 
+  color: var(--red);
+  font-size: 0.8rem;
+}
+
+.inputError{
+  border-color: var(--red) !important;
 }
 
 .title-share {
@@ -505,7 +534,6 @@
   border-radius: 6px;
   font-family: monospace;
   font-size: 0.9rem;
-  overflow: hidden;
 }
 
 .btn-copy {
@@ -516,6 +544,9 @@
   height: 100%;
   background-color: var(--white);
   border: 0;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  cursor: pointer;
 }
 
 .btn-copy svg {
@@ -528,6 +559,28 @@
 .invitation-code-wrapper p {
   color: var(--white);
 }
+
+.copy-wrapper {
+  position: relative;
+  display: inline-block;
+  height: 100%;
+}
+
+.copied-popup {
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%) translateY(10px);
+  background-color: #333;
+  color: #fff;
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  opacity: 0;
+  z-index: 1000;
+  animation: fadeSlideUp 1.5s ease forwards;
+}
+
 
 .code-info {
   font-size: 0.8rem;
@@ -563,3 +616,24 @@
     gap: 15px;
   }
 }
+
+
+@keyframes fadeSlideUp {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(10px);
+  }
+  10% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  90% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-10px);
+  }
+}
+

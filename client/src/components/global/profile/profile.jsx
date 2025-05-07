@@ -16,7 +16,7 @@ const getMimeType = (ext) => {
     }
 };
 
-const Profile = ({ userId, styleCss, color }) => {
+const Profile = ({ userId, styleCss }) => {
     const [user, setUser] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
 
@@ -41,7 +41,6 @@ const Profile = ({ userId, styleCss, color }) => {
         }
         searchUser();
     }, [userId])
-
 
     if (!user) return null;
 

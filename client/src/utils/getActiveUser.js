@@ -7,7 +7,6 @@ export const getActiveUser = async () => {
       if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
 
       const data = await res.json();
-      console.log("Api para coger el usuario" + JSON.stringify(data));
       return data[0];
     } catch (err) {
       console.error("Error al obtener el usuario activo", err);

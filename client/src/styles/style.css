@@ -10,6 +10,7 @@
 
   --fondoNav: #1c1a21;
   --fondoNavBarMovil: #28272e;
+  --fondoBlue: #0c1023;
 
   --white: #fafafa;
   --secondText: #9f9f9f;
@@ -19,6 +20,7 @@
   --red: #e63237;
   --borderNav: #4e4d52;
   --verde: #3cdf5a;
+  --green: #44d788;
 }
 
 * {
@@ -96,6 +98,31 @@
   height: 100%;
   background-color: transparent;
 }
+
+
+/**************************/
+/*-------ANIMATIONS-------*/
+/**************************/
+
+.popup-animate {
+  animation: popupFadeIn 0.2s ease-out forwards;
+}
+
+@keyframes popupFadeIn {
+  from {
+    opacity: 0;
+    scale: 0.99;
+  }
+  to {
+    opacity: 1;
+    scale: 1;
+  }
+}
+
+
+/**************************/
+/*-------RESPONSIVEE------*/
+/**************************/
 
 
 @media (max-width: 479px) {/* Estils per ≤ 480px mòbils molt petits */

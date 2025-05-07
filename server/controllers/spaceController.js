@@ -14,7 +14,7 @@ exports.getSpace = (req, res) => {
   if (!allowedFields.includes(param)) {
     return res.status(400).json({ error: "Parámetro no permitido" });
   }
-  
+
   const query = `SELECT * FROM space WHERE ${param} = ?`;
 
   db.query(query, [value], (err, result) => {
@@ -29,7 +29,7 @@ exports.getSpace = (req, res) => {
 exports.getUserSpace = (req, res) => {
   const userId = req.params.id;
 
-  db.query(`SELECT s.id ,s.name, us.role, us.owner, s.file_type ,s.logo
+  db.query(`SELECT s.id ,s.name, us.role, us.owner, s.file_type ,s.color ,s.logo
             FROM space s
             JOIN user_space us ON s.id = us.space_id
             JOIN user u ON us.user_id = u.id
@@ -42,7 +42,34 @@ exports.getUserSpace = (req, res) => {
   });
 }
 
+exports.getInvitationsFilter = (req, res) => {
+  const param = req.params.param;
+  const value = req.params.value;
+
+  const allowedFields = ["user_id", "space_id", "status", "role"];
+
+  if (!allowedFields.includes(param)) {
+    return res.status(400).json({ error: "Parámetro no permitido" });
+  }
+
+  const query = `SELECT * FROM invitations WHERE ${param} = ?`;
+
+  db.query(query, [value], (err, result) => {
+    if (err) {
+      console.error("Error en la consulta:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Invitacion no encontrada" });
+    }
+    res.json(result);
+  });
+}
+
 //POST
+
+let colorIndex = 0;
+const colors = ['#3F5AB5', '#387C30', '#8B37DF', '#0F8860', '#B216AF', '#E36420'];
 
 exports.createSpace = (req, res) => {
   const { name, admin_id, plan_id, logo, file_type } = req.body;
@@ -55,9 +82,12 @@ exports.createSpace = (req, res) => {
   const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
   const invitationCode = crypto.randomBytes(12).toString('hex').slice(0, 12);
 
-  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  const selectedColor = colors[colorIndex];
+  colorIndex = (colorIndex + 1) % colors.length;
 
-  db.query(query, [name, admin_id, plan_id, logo, file_type, token, invitationCode], (err, result) => {
+  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type, color, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+
+  db.query(query, [name, admin_id, plan_id, logo, file_type, selectedColor, token, invitationCode], (err, result) => {
     if (err) {
       console.error("Error al insertar espacio:", err);
       return res.status(500).json({ error: "Error en la base de datos al crear espacio" });
@@ -89,14 +119,31 @@ exports.addUserSpace = (req, res) => {
 
   db.query(query, [userId, spaceId, role], (err, result) => {
     if (err) {
-      console.error("Error al eliminar usuario:", err);
+      console.error("Error al crear usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
     }
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    res.json({ message: "Usuario eliminado exitosamente" });
+    res.json({ message: "Usuario creado exitosamente" });
   });
+}
+
+exports.createInvitation = (req, res) => {
+  const { userId, spaceId, status, role } = req.body;
+
+  const query = "INSERT INTO invitations (user_id, space_id, status, role) VALUES (?, ?, ?, ?)";
+
+  db.query(query, [userId, spaceId, status, role], (err, result) => {
+    if (err) {
+      console.error("Error al crear la invitacion:", err);
+      return res.status(404).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Invitacion creada correctamente" });
+  })
 }
 
 //PUT
