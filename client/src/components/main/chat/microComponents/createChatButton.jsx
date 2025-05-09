@@ -5,7 +5,6 @@ const createChatButton = ({setDespAdd, despAdd}) => {
 
     const changeAddPopup = () => {
         setDespAdd(!despAdd);
-        console.log(despAdd);
     }
 
     return (

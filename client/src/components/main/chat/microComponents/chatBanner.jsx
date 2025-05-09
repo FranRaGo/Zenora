@@ -1,18 +1,25 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../../../global/profile/profile";
 
-
-
-const ChatBanner = ({ chat, idUser, setChats, filter, userFilter }) => {
+const ChatBanner = ({
+  chat,
+  idUser,
+  setChats,
+  filter,
+  userFilter,
+  setActiveChat,
+}) => {
   const [members, setMembers] = useState([]);
   const [message, setMessage] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(true);
   const [loadingMessage, setLoadingMessage] = useState(true);
   const [isImportant, setIsImportant] = useState(chat.important);
 
-  const changeChats = (id)=>{
-    //console.log("Chat clicado = "+id);
-  }
+  console.log(chat);
+
+  const changeChats = (id) => {
+    setActiveChat(chat);
+  };
 
   useEffect(() => {
     fetch(`http://localhost:3000/api/chatMembers/${idUser}/${chat.chat_id}`)
@@ -50,19 +57,21 @@ const ChatBanner = ({ chat, idUser, setChats, filter, userFilter }) => {
     const date = new Date(dateString);
     const today = new Date();
 
-    if(date.getDate() === today.getDate() &&
-    date.getMonth() === today.getMonth() &&
-    date.getFullYear() === today.getFullYear()){
+    if (
+      date.getDate() === today.getDate() &&
+      date.getMonth() === today.getMonth() &&
+      date.getFullYear() === today.getFullYear()
+    ) {
       return date.toLocaleTimeString("es-ES", {
         hour: "2-digit",
         minute: "2-digit",
         timeZone: "Europe/Madrid",
       });
-    }else{
+    } else {
       return date.toLocaleDateString("es-ES", {
         day: "2-digit",
         month: "2-digit",
-        timeZone: "Europe/Madrid"
+        timeZone: "Europe/Madrid",
       });
     }
   };
@@ -90,15 +99,14 @@ const ChatBanner = ({ chat, idUser, setChats, filter, userFilter }) => {
   };
 
   if (
-    (filter === 1 && chat.type !== 0) || 
-    (filter === 2 && chat.type === 0) || 
-    (filter === 3 && chat.important === 0) || (
-      userFilter !== '' &&
-      !members.some(member =>
+    (filter === 1 && chat.type !== 0) ||
+    (filter === 2 && chat.type === 0) ||
+    (filter === 3 && chat.important === 0) ||
+    (userFilter !== "" &&
+      !members.some((member) =>
         member.name.toLowerCase().includes(userFilter.toLowerCase())
       ) &&
-      !((chat.name || "").toLowerCase().includes(userFilter.toLowerCase()))
-    )
+      !(chat.name || "").toLowerCase().includes(userFilter.toLowerCase()))
   ) {
     return null;
   }
@@ -110,24 +118,24 @@ const ChatBanner = ({ chat, idUser, setChats, filter, userFilter }) => {
           <Profile userId={members[0]?.id} styleCss={"profile_icon"} />
         )}
         <div className="chatInfo">
-        {loadingMembers ? (
-  <p>Cargando...</p>
-) : chat.type !== 0 ? (
-  <div className="chatGroup">
-    <p className="chatName">{chat.name || "Sin nombre"}</p>
-    <p className="chatType">Group</p>
-  </div>
-) : members.length === 0 ? (
-  <p>No hay miembros</p>
-) : (
-  <p className="chatName">{members[0]?.name || "Sin nombre"}</p>
-)}
+          {loadingMembers ? (
+            <p>Cargando...</p>
+          ) : chat.type !== 0 ? (
+            <div className="chatGroup">
+              <p className="chatName">{chat.name || "Sin nombre"}</p>
+              <p className="chatType">Group</p>
+            </div>
+          ) : members.length === 0 ? (
+            <p>No hay miembros</p>
+          ) : (
+            <p className="chatName">{members[0]?.name || "Sin nombre"}</p>
+          )}
           {loadingMessage ? (
             <p>Cargando...</p>
           ) : message.length === 0 ? (
-            <p className="message">No hay mensajes</p>
+            <p className="l-message hidden">.</p>
           ) : (
-            <p className="message">{message[0]?.content}</p>
+            <p className="l-message">{message[0]?.content}</p>
           )}
         </div>
       </div>

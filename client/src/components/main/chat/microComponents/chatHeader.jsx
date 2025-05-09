@@ -1,0 +1,66 @@
+import React, { useState, useEffect } from "react";
+import Profile from "../../../global/profile/profile";
+import "../../../../styles/chat.css";
+
+const chatHeader = ({ idUser, activeChat }) => {
+  const [members, setMembers] = useState([]);
+  const [loadingMembers, setLoadingMembers] = useState(true);
+  
+  useEffect(() => {
+    fetch(
+      `http://localhost:3000/api/chatMembers/${idUser}/${activeChat.chat_id}`
+    )
+      .then((response) => {
+        if (!response.ok) throw new Error("Error al obtener los miembros");
+        return response.json();
+      })
+      .then((data) => {
+        setMembers(data);
+        setLoadingMembers(false);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+        setLoadingMembers(false);
+      });
+  }, [idUser, activeChat]);
+
+  if (loadingMembers) {
+    return null;
+  }
+
+  return (
+    <div className="chatHeader">
+      <div>
+        <div>
+        {!loadingMembers && activeChat.type === 0 && members[0]?.id && (
+            <Profile userId={members[0].id} styleCss={"profile_icon"} />
+        )}
+        </div>
+        {!loadingMembers && activeChat.type !== 0 ? (
+          <p className="chatName">{activeChat.name || "Sin nombre"}</p>
+        ) : members.length === 0 ? (
+          <p>No hay miembros</p>
+        ) : (
+          <p className="chatName">{members[0]?.name || "Sin nombre"}</p>
+        )}
+      </div>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+      >
+        <path
+          fill="none"
+          stroke="currentColor"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth="1"
+          d="M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm5-2v16"
+        />
+      </svg>
+    </div>
+  );
+};
+
+export default chatHeader;

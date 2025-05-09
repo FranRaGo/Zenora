@@ -18,7 +18,7 @@ exports.getModules = (req,res)=>{
 exports.getSpaceModules = (req,res)=>{
   space_id = req.params.spaceId;
 
-  db.query(`SELECT m.*
+  db.query(`SELECT m.*, ms.id AS modSpaceId
               FROM module m 
               JOIN mod_space ms ON m.id = ms.module_id
               WHERE ms.space_id = ?`,[space_id],(err,results)=>{

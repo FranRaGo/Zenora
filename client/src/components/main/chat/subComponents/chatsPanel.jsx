@@ -7,7 +7,7 @@ import CreateChatPopup from "../microComponents/createChatPopup";
 
 import "../../../../styles/chat.css";
 
-const ChatsPanel = ({idUser}) => {
+const ChatsPanel = ({idUser, setActiveChat}) => {
 
     const [chats, setChats] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ const ChatsPanel = ({idUser}) => {
         
         fetchChats();
         
-        const interval = setInterval(fetchChats, 3000);
+        const interval = setInterval(fetchChats, 1000);
         
         return () => clearInterval(interval);
       }, [idUser]);
@@ -43,6 +43,7 @@ const ChatsPanel = ({idUser}) => {
       
     return(
         <div className="chatPanel">
+          <p className="chatsCount">{'ALL THE CHATS: '+chats.length}</p>
           <div className="searchAdd">
             <SearchChat setUserFilter={setUserFilter}/>
             <CreateChatButton setDespAdd={setDespAdd} despAdd={despAdd}/>
@@ -54,7 +55,7 @@ const ChatsPanel = ({idUser}) => {
                 <p>No hay chats disponibles</p>
               ):(
                 chats.map((chat, index) => (
-                  < ChatBanner chat={chat} idUser={idUser} setChats={setChats} key={index} filter={filter} userFilter={userFilter}/>
+                  < ChatBanner chat={chat} idUser={idUser} setChats={setChats} key={index} filter={filter} userFilter={userFilter} setActiveChat={setActiveChat}/>
                 ))
               )
             }
