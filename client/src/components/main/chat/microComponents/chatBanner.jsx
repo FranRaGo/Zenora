@@ -119,19 +119,19 @@ const ChatBanner = ({
         )}
         <div className="chatInfo">
           {loadingMembers ? (
-            <p>Cargando...</p>
+            <p className="secondText">Loading...</p>
           ) : chat.type !== 0 ? (
             <div className="chatGroup">
               <p className="chatName">{chat.name || "Sin nombre"}</p>
               <p className="chatType">Group</p>
             </div>
           ) : members.length === 0 ? (
-            <p>No hay miembros</p>
+            <p className="secondText">There are no members</p>
           ) : (
             <p className="chatName">{members[0]?.name || "Sin nombre"}</p>
           )}
           {loadingMessage ? (
-            <p>Cargando...</p>
+            <p className="secondText">Loading...</p>
           ) : message.length === 0 ? (
             <p className="l-message hidden">.</p>
           ) : (

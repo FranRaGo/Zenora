@@ -27,6 +27,10 @@
   min-width: 320px;
 }
 
+.secondText{
+  color: var(--secondText);
+}
+
 .chats {
   display: flex;
   flex-direction: column;

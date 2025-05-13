@@ -52,7 +52,7 @@ const ChatsPanel = ({idUser, setActiveChat}) => {
           <div className="chats">
             {
               (chats.length < 1)?(
-                <p>No hay chats disponibles</p>
+                <p className="secondText">No chats available</p>
               ):(
                 chats.map((chat, index) => (
                   < ChatBanner chat={chat} idUser={idUser} setChats={setChats} key={index} filter={filter} userFilter={userFilter} setActiveChat={setActiveChat}/>
