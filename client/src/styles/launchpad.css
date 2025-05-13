@@ -303,6 +303,68 @@
 }
 
 
+/*JOINSPACE*/
+
+.container-joinWorkspace {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--fondo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.div-joinSpace {
+  background-color: var(--fondoBlue);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0px 10px #1d386b;
+  border: 0.5px solid var(--borderNav);
+  width: 550px;
+  height: 500px;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  color: var(--white);
+  position: relative;
+  z-index: 10;
+  position: relative;
+}
+
+.error-join-code {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: var(--red);
+  padding-left: 5px;
+  visibility: hidden;
+}
+
+.showError {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: var(--red);
+  padding-left: 5px;
+  visibility: visible;
+}
+
+.inputError {
+  border-color: var(--red) !important;
+}
+
+.inputError:hover {
+  border-color: var(--red) !important;
+}
+
+.inputError:focus {
+  border: 0.5px solid var(--red);
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
 @media (max-width: 480px) {
   .div-launchpad{
     padding: 20px;

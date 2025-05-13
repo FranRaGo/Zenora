@@ -20,7 +20,7 @@ const chatCcRoutes = require('./routes/CC/chatRoutes');
 const messageCcRoutes = require('./routes/CC/messageRoutes');
 
 
-// Middleware para JSON
+// Middleware para JSONs
 server.use(express.json());
 
 // Usar rutas

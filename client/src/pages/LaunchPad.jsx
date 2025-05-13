@@ -54,11 +54,11 @@ const LaunchPad = () => {
 
 
     const joinWorkspace = () => {
-        navigate('/joinWorkspace');
+        navigate('/launchpad/joinWorkspace');
     }
 
     const createWorkspace = () => {
-        navigate('/createWorkspace', { state: { id: user.id } });
+        navigate('/launchpad/createWorkspace', { state: { id: user.id } });
     }
 
     const changeStatus = () => {

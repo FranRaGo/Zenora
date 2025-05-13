@@ -32,7 +32,7 @@ exports.getUserTask = (req,res)=>{
     const userId = req.params.userId;
     const projectId = req.params.projectId;
 
-    db.query(`SELECT t.*,u*
+    db.query(`SELECT t.*
                 FROM pm_task t
                 JOIN pm_assig_task at ON t.id = at.task_id
                 JOIN pm_assig_project ap ON at.assing_project_id = ap.id
@@ -43,6 +43,22 @@ exports.getUserTask = (req,res)=>{
         }
         res.json(results);
     })
+}
+
+exports.getUsersTask = (req,res)=>{
+  const taskId = req.params.taskId;
+
+  db.query(`SELECT u.* 
+    FROM pm_assig_task t 
+    JOIN pm_assig_project p ON t.assing_project_id = p.id 
+    JOIN user u ON u.id = p.user_id 
+    WHERE t.task_id = ?;`,[taskId],(err,results)=>{
+      if (err) {
+        console.error('Error en la consulta:', err);
+        return res.status(500).json({ error: 'Error en la base de datos' });
+      }
+      res.json(results);
+  })
 }
 
 exports.getUserSubtask = (req,res)=>{

@@ -16,8 +16,8 @@ function App() {
         <Route path='/' element={< Main />} />
         <Route path='/signup' element={< SignUp />} />
         <Route path='/launchpad' element={< LaunchPad />} />
-        <Route path='/createWorkspace' element={< CreateWorkspace />} />
-        <Route path='/joinWorkspace' element={< JoinWorkspace />} />
+        <Route path='/launchpad/createWorkspace' element={< CreateWorkspace />} />
+        <Route path='/launchpad/joinWorkspace' element={< JoinWorkspace />} />
       </Routes>
     </Router>
   );

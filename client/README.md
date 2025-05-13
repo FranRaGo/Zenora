@@ -3,3 +3,6 @@
 ## -> public
 ## -> src
 ## 
+
+npm install react-beautiful-dnd
+npm install react-datepicker

@@ -52,8 +52,18 @@ const Main = () => {
     const idSpace = space?.id;
     const idUser = user?.id;
 
-    const [activeSection, setActiveSection] = useState("home");
+    const [activeSection, setActiveSection] = useState(() => {
+        return localStorage.getItem('lastSection') || 'home';
+    });
     const [isAddOpen, setIsAddOpen] = useState(false);
+
+    useEffect(() => {
+        localStorage.setItem('lastSection', activeSection);
+    }, [activeSection]);
+
+    
+    
+    
 
     return (
         <div id="main-wrapper">

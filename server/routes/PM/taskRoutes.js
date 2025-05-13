@@ -4,6 +4,7 @@ const taskController = require('../../controllers/PM/taskController');
 
 router.get('/task/:taskId',taskController.getTask);
 router.get('/subtask/:subtaskId',taskController.getSubtask);
+router.get('/usersTask/:taskId',taskController.getUsersTask);
 
 router.get('/userTask/:userId/:projectId',taskController.getUserTask);
 router.get('/userSubtask/:userId/:taskId',taskController.getUserSubtask);
@@ -23,5 +24,6 @@ router.delete('/task/:taskId',taskController.deleteTask);
 router.delete('/assigTask/:assigId',taskController.deleteAssigTask);
 router.delete('/subtask/:subtaskId',taskController.deleteSubtask);
 router.delete('/assigSubtask/:assigId',taskController.deleteAssigSubtask);
+
 
 module.exports = router;

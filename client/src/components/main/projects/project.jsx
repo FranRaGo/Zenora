@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../../../styles/projects.css";
 
 import MenuProjects from "./MenuProjects";
 import Overview from "./overview/overview";
-import List from "./List";
-import Kanban from "./Kanban";
-import Calendar from "./Calendar";
+import List from "./list/list";
+import Kanban from "./kanban/kanban";
+import Calendar from "./calendar/calendar";
 
 const Project = () => {
-    const [active, setActive] = useState('overview');
+    const [active, setActive] = useState(() => {
+        return localStorage.getItem('lastMenuProject') || 'overview';
+    });
 
-    console.log("El que está activo es:", active);
+    useEffect(() => {
+        localStorage.setItem('lastMenuProject', active);
+    }, [active]);
 
     return (
         <div className="main-projects-view">
