@@ -46,19 +46,16 @@ const ProfileIcon = ({ status, dropdown, setDropdown, setActiveSection}) => {
             )}
           </div>
         </div>
-        {dropdown && <SpaceDropdown space={space}/> }
+        {dropdown && <SpaceDropdown space={space} setActiveSection={setActiveSection}/> }
 
       </div>
     );
   } else {
     return (
       <div id="btn-profile-collapsed" onClick={desplegar}>
-        {/* Just avatar */}
         <div id="avatar-container" style={{ backgroundColor: space.color }}>
           <p id="workspace-letter">{space.name?.charAt(0).toUpperCase()}</p>
         </div>
-
-        {/* Only the dropdown icon */}
 
         <div id="dropdown-icon">
           {dropdown ? (

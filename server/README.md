@@ -52,7 +52,7 @@ http://localhost:3000/api/user/:userId
 ### 📥GET
 
 --Espacio en base a un parametro y valor.
-http://localhost:3000/api/usersSpace/:param/:value
+http://localhost:3000/api/space/:param/:value
 
 --Espacios de un usuario.
 http://localhost:3000/api/spaceUser/:userId
@@ -186,6 +186,9 @@ http://localhost:3000/api/projectTask/:projectId
 --Todas las tareas de un projecto y un usuario especifico.
 http://localhost:3000/api/userTask/:userId/:projectId
 
+--Todos los usuario de una tarea.
+http://localhost:3000/api/usersTask/:taskId
+
 --Subtarea mediante una ID.
 http://localhost:3000/api/subtask/:subtaskId
 
@@ -194,6 +197,8 @@ http://localhost:3000/api/taskSubtask/:taskId
 
 --Todas las subtareas de una tarea y un usuario especifico.
 http://localhost:3000/api/userSubtask/:userId/:taskId
+
+
 
 ### 📤POST
 

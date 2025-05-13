@@ -10,7 +10,7 @@ exports.getSpace = (req, res) => {
   const param = req.params.param;
   const value = req.params.value;
 
-  const allowedFields = ["id", "token"];
+  const allowedFields = ["id", "token", "invitation_code"];
   if (!allowedFields.includes(param)) {
     return res.status(400).json({ error: "Parámetro no permitido" });
   }

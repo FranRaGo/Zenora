@@ -46,7 +46,7 @@
         </div> */
 
 .notify{
-  width: 300px;
+  width: 350px;
   position: absolute;
   top: 30px;
   left: 50%;
@@ -90,22 +90,18 @@
 
 @keyframes show {
   from{
-    transform: translateY(-20px);
     opacity: 0;
   }
   to{
-    transform: translateY(0px);
     opacity: 1;
   }
 }
 
 @keyframes hide {
   from {
-    transform: translateY(0px);
     opacity: 1;
   }
   to {
-    transform: translateY(-20px);
     opacity: 0;
   }
 }

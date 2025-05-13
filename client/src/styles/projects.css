@@ -1,71 +1,71 @@
-
-.main-projects-view{
-    width: 100%;
-    padding: 10px 20px;
-    height: 100%;
-    overflow: hidden;
+.main-projects-view {
+  width: 100%;
+  padding: 10px 0px 0 0px;
+  height: 100%;
+  overflow: hidden;
 }
 
 /****************/
 /*------MENU----*/
 
-#menu-container{
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+#menu-container {
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-#menu-title{
-    font-size: 1.5rem;
-    font-weight: 400;
-    color: var(--white);
+#menu-title {
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--white);
 }
 
-.menu-content{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    border-bottom: 1px solid var(--borderNav);
+.menu-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid var(--borderNav);
 }
 
-.menu-buttons{
-    display: flex;
-    gap: 30px;
+.menu-buttons {
+  display: flex;
+  gap: 30px;
 }
 
-.menu-btn{
-    background-color: transparent;
-    border: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 3px;
-    height: 30px;
-    padding-bottom: 10px;
+.menu-btn {
+  background-color: transparent;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3px;
+  height: 30px;
+  padding-bottom: 10px;
 }
 
-.menu-btn svg{
-    width: 20px;    
-    height: 20px;    
-    color: var(--secondText);
+.menu-btn svg {
+  width: 20px;
+  height: 20px;
+  color: var(--secondText);
 }
 
-.menu-btn p{
-    color: var(--secondText);
-    font-size: 0.9rem;
+.menu-btn p {
+  color: var(--secondText);
+  font-size: 0.9rem;
 }
 
 .active {
-    border-bottom: 1px solid var(--white);
+  border-bottom: 1px solid var(--white);
 }
 
-.active svg{
-    color: var(--white) !important;
+.active svg {
+  color: var(--white) !important;
 }
 
-.active p{
-    color: var(--white) !important;
+.active p {
+  color: var(--white) !important;
 }
 
 /********************/
@@ -73,37 +73,422 @@
 /********************/
 
 #overview-container {
-    width: 100%;
-    height: 100%;
-    background-color: var(--blue);
+  width: 100%;
+  height: 100%;
+  background-color: var(--blue);
 }
 
-.overview-top{ 
-    display: flex;
-    gap: 10px;
+.overview-top {
+  display: flex;
+  gap: 10px;
 }
 
 .overview-tasks {
-    width: 33%;
-    background-color: var(--white);
+  width: 33%;
+  background-color: var(--white);
 }
 
 .overview-projects {
-    width: 66%;
-    background-color: var(--white);
+  width: 66%;
+  background-color: var(--white);
 }
 
 .overview-bottom {
-    display: flex;
-    gap: 10px;
+  display: flex;
+  gap: 10px;
 }
 
 .overview-activity {
-    width: 40%;
-    background-color: var(--white);
+  width: 40%;
+  background-color: var(--white);
 }
 
 .overview-calendar {
-    width: 59%;
-    background-color: var(--white);
+  width: 59%;
+  background-color: var(--white);
+}
+
+/*LIST PROJECTS*/
+.container-projects-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  color: var(--white);
+  padding-top: 10px;
+  overflow: auto;
+  padding: 10px 20px 0 20px;
+}
+
+.projects-list {
+  width: 100%;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 10px;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/*HEADER TITULO PROJECT*/
+
+.header-project {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-project button {
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+}
+
+.header-project p {
+  display: flex;
+}
+
+/*CONTAINER DE LOS ESTADOS*/
+.container-status {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.div-status {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  width: 100%;
+  border-radius: 10px;
+}
+
+#add-new-task {
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  color: var(--secondText);
+  cursor: pointer;
+  text-align: left;
+  padding: 8px 0px 8px 90px;
+  border-radius: 5px;
+  transition: all 0.2s;
+}
+
+#add-new-task:hover {
+  background-color: var(--f10);
+  color: var(--white);
+}
+
+/*POR CADA ESTADO*/
+.header-table {
+  width: 96%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 5px 10px 5px 10px;
+  border-bottom: 0.5px solid var(--borderNav);
+  margin-bottom: 5px;
+}
+
+.header-table p {
+  font-size: 0.9rem;
+  color: var(--secondText);
+}
+
+.status-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  user-select: none;
+}
+
+.status-header svg {
+  cursor: pointer;
+}
+
+.name-status-0{
+  padding: 3px 15px;
+  border-radius: 5px;
+  border: 0;
+  background-color: var(--f20);
+}
+
+.name-status-1{
+  padding: 3px 15px;
+  border-radius: 5px;
+  border: 0;
+  background-color: var(--blue);
+}
+
+.name-status-2{
+  padding: 3px 15px;
+  border-radius: 5px;
+  border: 0;
+  background-color: var(--green);
+}
+
+.num-tasks{
+  font-size: 0.9rem;
+  font-weight: 300;
+  color: var(--secondText);
+  margin-left: 10px;
+}
+
+
+/*TASKS-ITEM*/
+.task-list {
+  width: 100%;
+}
+
+.tasks-item {
+  display: flex;
+  width: 100%;
+  border: 0.5px solid transparent;
+  border-radius: 5px;
+  gap: 1%;
+}
+
+.task-drag-select {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 0 0 10px;
+  gap: 10px;
+}
+
+.task-item-content {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  background-color: var(--f10);
+  gap: 10px;
+  padding: 5px 10px;
+  position: relative;
+  border: 0.5px solid transparent;
+  border-radius: 5px;
+}
+
+.tasks-item:hover {
+  border: 0.5px solid var(--borderNav);
+  background-color: var(--f10);
+}
+
+.tasks-item:hover .task-item-content {
+  background-color: transparent;
+}
+
+.tasks-item:hover #gripDots {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.tasks-item:hover #checkbox-tasks {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.title-tasks {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+#checkbox-tasks {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.1s ease, visibility 0.1s ease;
+}
+
+#gripDots {
+  width: 20px;
+  height: 20px;
+  position: relative;
+  cursor: grab;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.1s ease, visibility 0.1s ease;
+}
+
+#gripDots svg {
+  color: var(--white);
+  pointer-events: auto;
+  width: 100%;
+  height: 100%;
+}
+
+.date-picker-custom {
+  padding: 0 !important;
+  text-align: left !important;
+}
+
+.btn-add-user {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: transparent;
+  border: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.btn-add-user svg {
+  width: 24px;
+  height: 24px;
+  color: var(--secondText);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-add-user svg:hover {
+  color: var(--white);
+}
+
+.date-picker-custom {
+  background-color: transparent;
+  border: none;
+  color: var(--white); /* o tu color personalizado */
+  font-size: 0.9rem;
+  padding: 5px;
+  text-align: center;
+  outline: none;
+}
+
+.date-picker-custom {
+  cursor: pointer;
+}
+
+.react-datepicker__tab-loop {
+  position: absolute;
+}
+
+/*BOTON PRIORIDAD*/
+.btn-priority {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  position: relative;
+}
+
+.btn-priority svg {
+  width: 20px;
+  height: 20px;
+}
+.btn-priority p {
+  font-weight: 300;
+  font-size: 0.9rem;
+  user-select: none;
+}
+
+/*Pop up priority*/
+.div-popup-priority{
+  position: absolute;
+  top: 30px;
+  left: -10px;
+  background-color: var(--fondoBlue);
+  padding: 10px;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+  gap: 5px;
+}
+
+.div-popup-priority button {
+  width: 100%;
+  display: flex;
+  background-color: transparent;
+  gap: 8px;
+  border: 0;
+  color: var(--white);
+  padding: 5px 5px 5px 5px;
+  border-radius: 5px;
+}
+
+.div-popup-priority button:hover {
+  background-color: var(--f10);
+  
+}
+
+
+/*RESPONSIVE*/
+
+@media (max-height: 800px) {
+  .container-projects-list {
+    max-height: 575px;
+  }
+}
+
+@media (max-height: 900px) {
+  .container-projects-list {
+    max-height: 675px !important;
+  }
+}
+
+@media (max-height: 1000px) {
+  .container-projects-list {
+    max-height: 785px;
+  }
+}
+
+/**************************/
+/*-------RESPONSIVEE------*/
+/**************************/
+
+@media (max-width: 479px) {
+  /* Estils per ≤ 480px mòbils molt petits */
+}
+
+@media (max-width: 767px) {
+  .header-table {
+    width: 88% !important;
+  }
+  /* Estils per ≤ 767px (inclou mòbils petits i normals) */
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .header-table {
+    width: 90% !important;
+  }
+  /* Estils per pantalles entre 768px i 991px */
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .header-table {
+    width: 93% !important;
+  }
+  /* Estils per pantalles entre 992px i 1199px */
+}
+
+@media (min-width: 1200px) and (max-width: 1349px) {
+  .header-table {
+    width: 94% !important;
+  }
+  /* Estils per pantalles de 1200px fins a 1599px */
+}
+
+
+@media (min-width: 1350px) and (max-width: 1599px) {
+  .header-table {
+    width: 95% !important;
+  }
+  /* Estils per pantalles de 1200px fins a 1599px */
+}
+
+@media (min-width: 1600px) {
+  .header-table {
+    width: 95.5% !important;
+  }
+  /* Estils per ≥ 1600px */
 }
