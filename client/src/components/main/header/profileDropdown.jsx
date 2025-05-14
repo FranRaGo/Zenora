@@ -14,9 +14,17 @@ const ProfileDropdown = ({ user, setActiveSection}) => {
     }
 
     const close = () => {
+        const activeToken = localStorage.getItem("activeToken");
+        const storedTokens = JSON.parse(localStorage.getItem("loggedTokens") || "[]");
+
+        const updatedTokens = storedTokens.filter(token => token !== activeToken && token !== "");
+
+        localStorage.setItem("loggedTokens", JSON.stringify(updatedTokens));
         localStorage.removeItem("activeToken");
+        localStorage.removeItem("activeSpace");
+
         navigate("/login");
-    }
+    };
 
     return (
         <div className="dropdown-popup">

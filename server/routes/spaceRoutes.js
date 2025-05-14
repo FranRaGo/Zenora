@@ -19,5 +19,6 @@ router.put('/updateSpaceUserRole/:userId/:spaceId', spaceController.updateUserRo
 
 router.delete('/deleteSpace/:spaceId', spaceController.deleteSpace);
 router.delete('/deleteUserSpace/:userId/:spaceId', spaceController.deleteUserSpace);
+router.delete('/deleteInvitation/:invitationId', spaceController.deleteInvitation);
 
 module.exports = router;

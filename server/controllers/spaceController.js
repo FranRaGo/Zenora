@@ -114,10 +114,11 @@ exports.createSpace = (req, res) => {
 
 exports.addUserSpace = (req, res) => {
   const { spaceId, userId, role } = req.body;
+  const owner = 0;
 
-  const query = "INSERT INTO user_space(user_id,space_id,role) VALUES (?,?,?)";
+  const query = "INSERT INTO user_space(user_id,space_id,role,owner) VALUES (?,?,?,?)";
 
-  db.query(query, [userId, spaceId, role], (err, result) => {
+  db.query(query, [userId, spaceId, role, owner], (err, result) => {
     if (err) {
       console.error("Error al crear usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
@@ -125,7 +126,7 @@ exports.addUserSpace = (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    res.json({ message: "Usuario creado exitosamente" });
+    res.json({ message: "Usuario unido exitosamente" });
   });
 }
 
@@ -267,3 +268,20 @@ exports.deleteUserSpace = (req, res) => {
     res.json({ message: "Usuario eliminado exitosamente" });
   });
 }
+
+exports.deleteInvitation = (req, res) => {
+  const invitationId = req.params.invitationId;
+
+  const query = "DELETE FROM invitations WHERE id = ?";
+
+  db.query(query, [invitationId], (err, result) => {
+    if (err) {
+      console.error("Error al eliminar invitacion:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Invitacion no encontrada" });
+    }
+    res.json({ message: "Invitation delete success" });
+  });
+};

@@ -206,13 +206,13 @@
   flex-direction: column;
   gap: 10px;
   padding: 10px 10px;
-  border: 0;
+  border: 0.5px solid var(--borderNav);
   border-radius: 8px;
-  /* background-color: var(--fondoNav); */
   background-color: #15142A;
   position: absolute;
   top: 45px;
   right: 0;
+  z-index: 1000;
 }
 
 #btn-profile-dropdown{

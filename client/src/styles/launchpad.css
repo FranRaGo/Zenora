@@ -365,6 +365,19 @@
 }
 
 
+.showInvitations{
+  position: absolute;
+  width: 200px;
+  background-color: var(--fondoBlue);
+  padding: 5px 10px;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 5px;
+  right: 0px;
+  bottom: 40px;
+  z-index: 1000;
+}
+
+
 @media (max-width: 480px) {
   .div-launchpad{
     padding: 20px;

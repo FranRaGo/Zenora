@@ -2,37 +2,39 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 
 import '../styles/launchpad.css';
-import ProfilePlus from "../components/global/profile/profilePlus";
 import { getActiveUser } from "../utils/getActiveUser";
 import { getUserSpaces } from "../utils/getUserSpaces";
 
+import ProfilePlus from "../components/global/profile/profilePlus";
+import AccountDropdown from "../components/launchpad/AccountDropdown/AccountDropdown";
+import ShowInvitations from "../components/launchpad/joinWorkspace/showInvitations";
 
 const LaunchPad = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [spaces, setSpaces] = useState([]);
     const [dropdown, setDrop] = useState(false);
-    const [popupAbiertoId, setPopupAbiertoId] = useState(false);
-    const [popupCoords, setPopupCoords] = useState({ top: 0, left: 0 });
+    const [showInv, setShow] = useState(false);
 
     const ownSpaces = spaces.filter(space => space.owner === 1);
     const joinedSpaces = spaces.filter(space => space.owner === 0);
     const color = user?.color;
     const idUser = user?.id;
 
+    const loadData = async () => {
+        const userData = await getActiveUser();
+        if (!userData) {
+            navigate("/login");
+            return;
+        }
+
+        setUser(userData);
+        const spaceData = await getUserSpaces(userData.id);
+        console.log(spaceData);
+        setSpaces(spaceData);
+    };
+
     useEffect(() => {
-        const loadData = async () => {
-            const userData = await getActiveUser();
-            if (!userData) {
-                navigate("/login");
-                return;
-            }
-
-            setUser(userData);
-            const spaceData = await getUserSpaces(userData.id); // ✅ nueva lógica
-            setSpaces(spaceData);
-        };
-
         loadData();
     }, [navigate]);
 
@@ -71,6 +73,10 @@ const LaunchPad = () => {
         console.log("poner predeterminado" + id);
     }
 
+    const funShowInvitations = () => {
+        setShow(!showInv);
+    }
+
     return (
         <div className="container-launchpad">
             <div id='redonda'></div>
@@ -78,19 +84,7 @@ const LaunchPad = () => {
 
                 <div className="div-perfil-pec" onClick={changeStatus}>
                     {idUser && <ProfilePlus userId={user.id} styleCss={"profile_icon_header"} dropdown={dropdown} />}
-                    {dropdown ? (
-                        <div className="dropdown-popup">
-                            <button>Añadir Cuenta</button>
-                            <button onClick={() => {
-                                localStorage.removeItem("activeToken");
-                                navigate("/login");
-                            }}>
-                                Cerrar sesión
-                            </button>
-                        </div>
-                    ) : (
-                        ""
-                    )}
+                    {dropdown && <AccountDropdown user={user} />}
                 </div>
 
                 <div className="myWorkspace">
@@ -133,9 +127,9 @@ const LaunchPad = () => {
                         {/* si hay espacios en los que te has unido los recorre */}
                         {joinedSpaces.length > 0 ? (
                             joinedSpaces.map((space) => (
-                                <div key={space.id} id={space.id} className="workspace-card">
+                                <div key={space.id} onClick={openWorkspace} id={space.id} className="workspace-card">
                                     {space.logo === null ? (
-                                        <div className="draft-logo">
+                                        <div className="draft-logo" style={{ backgroundColor: space.color }}>
                                             <p>{space.name[0]}</p>
                                         </div>
                                     ) : (
@@ -159,11 +153,12 @@ const LaunchPad = () => {
                     </div>
                 </div>
                 <div className="invitations">
-                    <button id="emailbox">
+                    <button id="emailbox" onClick={funShowInvitations}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 9v.906a2.25 2.25 0 0 1-1.183 1.981l-6.478 3.488M2.25 9v.906a2.25 2.25 0 0 0 1.183 1.981l6.478 3.488m8.839 2.51-4.66-2.51m0 0-1.023-.55a2.25 2.25 0 0 0-2.134 0l-1.022.55m0 0-4.661 2.51m16.5 1.615a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V8.844a2.25 2.25 0 0 1 1.183-1.981l7.5-4.039a2.25 2.25 0 0 1 2.134 0l7.5 4.039a2.25 2.25 0 0 1 1.183 1.98V19.5Z" />
                         </svg>
                     </button>
+                    {showInv && <ShowInvitations idUser={idUser} onJoined={loadData}  />}
                 </div>
             </div>
         </div>
