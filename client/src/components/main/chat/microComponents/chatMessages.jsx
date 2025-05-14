@@ -2,36 +2,22 @@ import React, { useState, useEffect, useRef } from "react";
 import Profile from "../../../global/profile/profile";
 import "../../../../styles/chat.css";
 
-const chatMessages = ({ idUser, activeChat }) => {
-  const [messages, setMessages] = useState([]);
-  const [loadingMessages, setLoadingMessages] = useState(true);
+const ChatMessages = ({ idUser, activeChat, setAnswer, messages }) => {
   const messagesEndRef = useRef(null);
 
+  const handleClick = (msgId) => {
+    setAnswer(msgId);
+  };
+
+  if (!messages) {
+    return null;
+  }
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
-
-  useEffect(() => {
-    const fetchMessages = () => {
-        fetch(`http://localhost:3000/api/messages/${activeChat.chat_id}`)
-          .then((res) => res.json())
-          .then((data) => {
-            setMessages(data);
-            setLoadingMessages(false);
-          })
-          .catch(() => setLoadingMessages(false));
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-
-    fetchMessages();
-
-    const interval = setInterval(fetchMessages, 1000);
-        
-    return () => clearInterval(interval);
-
   }, [activeChat]);
-
-  if (loadingMessages) return null;
 
   const reversed = messages.slice().reverse();
 
@@ -62,6 +48,31 @@ const chatMessages = ({ idUser, activeChat }) => {
 
         return (
           <React.Fragment key={i}>
+            {msg.answer &&
+              (() => {
+                const answeredMsg = messages.find(
+                  (m) => m.msg_id === msg.answer
+                );
+                return (
+                  <div className={`answerInfoMessage ${isMine && "myAnswer"}`}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="size-1"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3"
+                      />
+                    </svg>
+                    <p>{answeredMsg?.name+": "+answeredMsg?.content|| "Mensaje no disponible"}</p>
+                  </div>
+                );
+              })()}
             {showDate && <div className="date">{formatDate(msg.date)}</div>}
             {!isMine && showName && activeChat.type === 1 && (
               <div className="userInfoMessage">
@@ -70,8 +81,20 @@ const chatMessages = ({ idUser, activeChat }) => {
               </div>
             )}
 
-            <div className={`message ${isMine ? "myMessage" : "otherMessage"}`}>
-              <p>{msg.content}</p>
+            <div
+              className={`message ${isMine ? "myMessage" : "otherMessage"}`}
+              onClick={() => handleClick(msg.msg_id)}
+            >
+              <p>
+                {msg.file && msg.type?.startsWith("image/") && (
+                  <img
+                    src={`data:${msg.type};base64,${msg.file}`}
+                    alt="imagen"
+                    className="chat-image"
+                  />
+                )}
+                {msg.content}
+              </p>
               <p className="messageDate">{formatTime(msg.date)}</p>
             </div>
           </React.Fragment>
@@ -82,4 +105,4 @@ const chatMessages = ({ idUser, activeChat }) => {
   );
 };
 
-export default chatMessages;
+export default ChatMessages;

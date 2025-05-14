@@ -4,7 +4,6 @@ import Profile from "../../../global/profile/profile";
 const ChatBanner = ({
   chat,
   idUser,
-  setChats,
   filter,
   userFilter,
   setActiveChat,
@@ -15,7 +14,6 @@ const ChatBanner = ({
   const [loadingMessage, setLoadingMessage] = useState(true);
   const [isImportant, setIsImportant] = useState(chat.important);
 
-  console.log(chat);
 
   const changeChats = (id) => {
     setActiveChat(chat);
@@ -32,7 +30,6 @@ const ChatBanner = ({
         setLoadingMembers(false);
       })
       .catch((error) => {
-        console.error("Error:", error);
         setLoadingMembers(false);
       });
   }, [idUser, message]);
@@ -90,7 +87,6 @@ const ChatBanner = ({
         return response.json();
       })
       .then((data) => {
-        console.log("Actualizado con éxito", data);
         setIsImportant(important);
       })
       .catch((error) => {

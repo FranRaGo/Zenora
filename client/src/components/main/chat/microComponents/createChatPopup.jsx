@@ -17,7 +17,7 @@ const createChatPopup = ({ userId, setDespAdd }) => {
     const values = {
       name: null,
       type,
-      mod_space_id: space?.id || null,
+      mod_space_id: null,
       user_id: userId,
       user_id_2: null,
     };
