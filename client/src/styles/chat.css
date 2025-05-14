@@ -7,6 +7,8 @@
 
 .chatSection {
   height: 100%;
+  display: flex;
+  gap: 10px;
 }
 
 .chatPanel {
@@ -21,6 +23,11 @@
   gap: 25px;
   align-items: center;
   max-height: 100%;
+  min-width: 320px;
+}
+
+.secondText {
+  color: var(--secondText);
 }
 
 .chats {
@@ -78,9 +85,13 @@
   width: 35px;
 }
 
-.message {
+.l-message {
   font-size: 0.8rem;
   color: var(--secondText);
+  max-width: 150px;
+  overflow: hidden;
+  white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .chatName {
@@ -151,7 +162,7 @@
   width: 90%;
 }
 
-#inputSearch {
+#inputSearchAdd {
   width: 100%;
   border: 0.5px solid var(--secondText);
   background-color: #6e6e6e25;
@@ -161,7 +172,7 @@
   font-weight: 300;
 }
 
-#inputSearch:focus {
+#inputSearchAdd:focus {
   outline: none;
 }
 
@@ -223,46 +234,286 @@
   color: var(--white);
 }
 
-
 .input-type {
-    width: 80%;
-    background-color: var(--f10);
-    border: 1px solid var(--borderNav);
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    height: 40px;
-    width: 80px;
-    color: var(--white);
-    padding-inline: 5px;
-  }
-
-.input-email{
-    width: 80%;
-    background-color: var(--f10);
-    border: 1px solid var(--borderNav);
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    height: 40px;
-    width: 300px;
-    color: var(--white);
-    padding-inline: 5px;
+  width: 80%;
+  background-color: var(--f10);
+  border: 1px solid var(--borderNav);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  width: 80px;
+  color: var(--white);
+  padding-inline: 5px;
 }
 
-.createChatDown{
-    display: flex;
-    justify-content: space-between;
+.input-email {
+  width: 80%;
+  background-color: var(--f10);
+  border: 1px solid var(--borderNav);
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 40px;
+  width: 300px;
+  color: var(--white);
+  padding-inline: 5px;
 }
 
-.createChatDown button{
-    background-color: var(--blue);
-    color: var(--white);
-    border: 0;
-    border-radius: 5px;
-    font-size: 0.8rem;
-    padding-inline: 10px;
-    cursor: pointer;
+.createChatDown {
+  display: flex;
+  justify-content: space-between;
+}
+
+.createChatDown button {
+  background-color: var(--blue);
+  color: var(--white);
+  border: 0;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  padding-inline: 10px;
+  cursor: pointer;
+}
+
+.error-popup-chat {
+  font-size: 0.8rem;
+  color: var(--red);
+  margin-top: -10px;
+}
+
+.chatsCount {
+  color: var(--secondText);
+  font-size: 0.6rem;
+  width: 100%;
+  text-align: left;
+  margin-left: 5px;
+  margin-bottom: -15px;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.chatContainer {
+  display: flex;
+  background-color: var(--f02);
+  border: 0.5px solid var(--borderNav);
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+}
+
+.chatContent {
+  width: 100%;
+}
+
+.chatHeader {
+  display: flex;
+  justify-content: space-between;
+  color: var(--white);
+  width: 100%;
+  padding: 20px;
+  border-bottom: 0.5px var(--borderNav) solid;
+  height: 70px;
+  align-items: center;
+}
+
+.chatHeader div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.chatHeader svg {
+  transition: 0.5s;
+  color: var(--secondText);
+}
+
+.chatHeader svg:hover {
+  transition: 0.5s;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.profile_icon {
+  justify-content: center !important;
+}
+
+.message {
+  padding: 5px;
+  padding-inline: 8px;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  align-items: center;
+  width: fit-content !important;
+  max-width: 75%;
+  cursor: pointer;
+}
+
+.message p {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  text-align: left;
+}
+
+.messages {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 30px;
+  padding-right: 10px;
+  overflow: scroll;
+  max-height: 580px;
+}
+
+.myMessage {
+  text-align: right;
+  border-radius: 10px;
+  border-bottom-right-radius: 0px;
+  margin: 2px 0;
+  flex-direction: row-reverse;
+  background-color: var(--f30);
+  color: var(--white);
+  justify-content: right !important;
+  align-self: flex-end;
+}
+
+.otherMessage {
+  text-align: left;
+  background-color: #f1f0f0;
+  border-radius: 10px;
+  border-bottom-left-radius: 0px;
+  margin: 2px 0;
+  width: auto;
+  background-color: var(--f20);
+  color: var(--white);
+}
+
+.messageDate {
+  color: var(--secondText) !important;
+  font-size: 0.8rem;
+  text-align: center;
+  font-size: 0.8rem;
+  align-self: end;
+}
+
+.date {
+  color: var(--secondText) !important;
+  text-align: center;
+  margin: 20px;
+}
+
+.message-icon {
+  height: 25px;
+  width: 25px;
+  color: var(--white);
+}
+
+.chat-image {
+  max-width: 200px;
+  max-height: 200px;
+  margin-top: 8px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.userInfoMessage {
+  display: flex;
+  gap: 10px;
+  color: var(--secondText);
+  margin-top: 20px;
+}
+
+.inputComponent {
+  position: relative;
+}
+
+.inputContainer {
+  width: 100%;
+  padding: 20px;
+  position: relative;
+}
+
+.inputContainer input {
+  width: 100%;
+  height: 40px;
+  border-radius: 15px;
+  border: 0.5px solid var(--borderNav);
+  background-color: var(--f02);
+  padding: 10px;
+  padding-bottom: -10px;
+  color: var(--white);
+  padding-right: 50px;
+  padding-left: 50px;
+}
+
+.answerInfo {
+  position: absolute;
+  top: -4px;
+  left: 20px;
+  display: flex;
+  gap: 10px;
+  color: var(--secondText);
+  cursor: pointer;
+  z-index: 100;
+}
+
+.answerInfo svg,  .answerInfoMessage svg{
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+.answerInfo p, .answerInfoMessage p {
+  max-width: 400px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+
+.myAnswer{
+  align-self: flex-end;
+}
+
+.send-icon {
+  right: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  color: var(--secondText);
+  cursor: pointer;
+}
+
+.send-icon:hover {
+  color: var(--white);
+}
+
+.file-icon {
+  left: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  color: var(--secondText);
+  cursor: pointer;
+}
+
+.file-icon:hover {
+  color: var(--white);
+}
+
+.answerInfoMessage {
+  display: flex;
+  gap: 10px;
+  color: var(--secondText);
 }

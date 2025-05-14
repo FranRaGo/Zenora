@@ -8,38 +8,57 @@ const createChatPopup = ({ userId, setDespAdd }) => {
   const [members, setMembers] = useState([]);
   const [selectedUser, setSelectedUser] = useState("");
   const [groupName, setGroupName] = useState("");
-  const [error,setError] = useState(null);
+  const [error, setError] = useState(null);
 
   const createChat = () => {
-    const values = { "name":null, "type":null, "mod_space_id":null, "user_id":userId, "user_id_2":null};
-    console.log(type,selectedUser,groupName)
-    if(type === 0){
-        values.type = type;
+    let localError = null;
+    setError(null);
+
+    const values = {
+      name: null,
+      type,
+      mod_space_id: null,
+      user_id: userId,
+      user_id_2: null,
+    };
+
+    if (type === 0) {
+      if (selectedUser === "") {
+        localError = "User is required";
+      } else {
         values.user_id_2 = selectedUser;
-    }else{
-        values.type = type;
-        values.name = groupName;
+      }
+    } else {
+      if (!groupName.trim()) {
+        localError = "Group name is required";
+      } else {
+        values.name = groupName.trim();
+      }
+    }
+
+    if (localError) {
+      setError(localError);
+      return;
     }
 
     fetch("http://localhost:3000/api/chat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(values)
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    })
+      .then((response) => {
+        if (!response.ok) throw new Error("Error al crear el chat");
+        return response.json();
       })
-        .then((response) => {
-          if (!response.ok) throw new Error("Error al crear el chat");
-          return response.json();
-        })
-        .then((data) => {
-          setDespAdd(false);
-        })
-        .catch((error) => {
-          console.error("Error:", error);
-        });
+      .then(() => {
+        setDespAdd(false);
+      })
+      .catch((er) => {
+        setError(er.message || "Unexpected error");
+      });
   };
-
   useEffect(() => {
     const loadSpace = async () => {
       const data = await getActiveSpace();
@@ -58,7 +77,6 @@ const createChatPopup = ({ userId, setDespAdd }) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         setMembers(data);
       })
       .catch((error) => {
@@ -67,7 +85,7 @@ const createChatPopup = ({ userId, setDespAdd }) => {
   }, [space]);
 
   return (
-    <div className="popupAdd">
+    <div className="popupAdd popup-animate">
       <div className="header-popup">
         <h2>Create a new Chat</h2>
         <button className="btn-close-popup" onClick={() => setDespAdd(false)}>
@@ -80,7 +98,7 @@ const createChatPopup = ({ userId, setDespAdd }) => {
           value={selectedUser}
           onChange={(e) => setSelectedUser(e.target.value)}
         >
-                    <option value={null}></option>
+          <option value={null}></option>
 
           {members.length < 1 ? (
             <option disabled>No members available</option>
@@ -103,15 +121,14 @@ const createChatPopup = ({ userId, setDespAdd }) => {
           onChange={(e) => setGroupName(e.target.value)}
         />
       )}
-      {
-        error && (
-            <p className="error">{error}</p>
-        )
-      }
+      {error && <p className="error-popup-chat">{error}</p>}
       <div className="createChatDown">
         <select
           className="input-type"
-          onChange={(e) => setType(Number(e.target.value))}
+          onChange={(e) => {
+            setType(Number(e.target.value));
+            setError(null);
+          }}
         >
           <option value={0}>Chat</option>
           <option value={1}>Group</option>

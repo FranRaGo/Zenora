@@ -22,7 +22,6 @@ exports.getChatMembers = (req,res) => {
     const chatId = req.params.chatId;
     const userId = req.params.userId;
 
-
     db.query(`SELECT u.id, CONCAT(u.first_name,' ',u.last_name) AS name, u.email, u.file_type, u.profile_picture
         FROM cc_user_chat up
         JOIN user u ON up.user_id = u.id
@@ -51,7 +50,7 @@ exports.createChat = (req, res) => {
 
             const chatId = results.insertId;
 
-            db.query(`INSERT INTO cc_user_chat(user_id, chat_id, important) VALUES (?, ?, 0)`,
+            db.query(`INSERT INTO cc_user_chat(user_id, chat_id, important,admin) VALUES (?, ?, 0,1)`,
                 [user_id, chatId],
                 (err2) => {
                     if (err2) {
