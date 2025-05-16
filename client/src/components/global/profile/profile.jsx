@@ -21,6 +21,7 @@ const Profile = ({ userId, styleCss }) => {
     const [imageUrl, setImageUrl] = useState(null);
 
     useEffect(() => {
+        if (!userId) return;
         const searchUser = async () => {
             try {
                 const res = await fetch(`http://localhost:3000/api/usersFilter/id/${userId}`);

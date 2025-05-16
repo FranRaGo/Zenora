@@ -7,6 +7,7 @@ const ChatBanner = ({
   filter,
   userFilter,
   setActiveChat,
+  isMobile, setMobileSection
 }) => {
   const [members, setMembers] = useState([]);
   const [message, setMessage] = useState([]);
@@ -14,9 +15,16 @@ const ChatBanner = ({
   const [loadingMessage, setLoadingMessage] = useState(true);
   const [isImportant, setIsImportant] = useState(chat.important);
 
+  useEffect(() => {
+  setIsImportant(chat.important);
+}, [chat]);
+
 
   const changeChats = (id) => {
     setActiveChat(chat);
+    if(isMobile){
+      setMobileSection(2);
+    }
   };
 
   useEffect(() => {
@@ -88,11 +96,13 @@ const ChatBanner = ({
       })
       .then((data) => {
         setIsImportant(important);
+        
       })
       .catch((error) => {
         console.error("Error:", error);
       });
   };
+  
 
   if (
     (filter === 1 && chat.type !== 0) ||
@@ -122,7 +132,7 @@ const ChatBanner = ({
               <p className="chatType">Group</p>
             </div>
           ) : members.length === 0 ? (
-            <p className="secondText">There are no members</p>
+            <p className="secondText">No members</p>
           ) : (
             <p className="chatName">{members[0]?.name || "Sin nombre"}</p>
           )}
