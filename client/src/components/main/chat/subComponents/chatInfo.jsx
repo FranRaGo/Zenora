@@ -4,7 +4,14 @@ import ChatMessages from "../microComponents/chatMessages";
 import InputMessage from "../microComponents/inputmessage";
 import "../../../../styles/chat.css";
 
-const ChatInfo = ({ idUser, activeChat }) => {
+const ChatInfo = ({
+  idUser,
+  activeChat,
+  setSettings,
+  settings,
+  isMobile,
+  setMobileSection,
+}) => {
   const [answer, setAnswer] = useState(null);
   const [messages, setMessages] = useState([]);
 
@@ -25,7 +32,14 @@ const ChatInfo = ({ idUser, activeChat }) => {
   return (
     <div className="chatContainer">
       <div className="chatContent">
-        <ChatHeader idUser={idUser} activeChat={activeChat} />
+        <ChatHeader
+          idUser={idUser}
+          activeChat={activeChat}
+          setSettings={setSettings}
+          settings={settings}
+          isMobile={isMobile}
+          setMobileSection={setMobileSection}
+        />
         <ChatMessages
           idUser={idUser}
           activeChat={activeChat}

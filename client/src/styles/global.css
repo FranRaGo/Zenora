@@ -37,7 +37,6 @@
   }
 }
 
-
 /*NOTIFICATIONS*/
 /* 
 <div className={`notifi-${type}`}>
@@ -45,7 +44,7 @@
             <button className="close-btn" onClick={onClose}>x</button>
         </div> */
 
-.notify{
+.notify {
   width: 350px;
   position: absolute;
   top: 30px;
@@ -61,7 +60,7 @@
   animation: show 0.4s ease forwards;
 }
 
-.success{
+.success {
   background-color: var(--verde);
 }
 
@@ -87,12 +86,11 @@
   animation: hide 0.4s ease forwards;
 }
 
-
 @keyframes show {
-  from{
+  from {
     opacity: 0;
   }
-  to{
+  to {
     opacity: 1;
   }
 }
@@ -106,3 +104,52 @@
   }
 }
 
+.confirmPopup {
+  position: absolute;
+  background-color: var(--fondoNav);
+  border: 0.5px solid var(--borderNav);
+  border-radius: 12px;
+  color: var(--white);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 30px;
+  text-align: center;
+  align-items: center;
+}
+
+.confirmPopup div {
+  display: flex;
+  gap: 100px;
+  margin-top: 10px;
+}
+
+.confirmPopup p {
+  max-width: 300px;
+}
+
+.acceptPopup,
+.cancelPopup {
+  padding: 10px;
+  padding-inline: 15px;
+  background-color: var(--f20);
+  color: var(--white);
+  border: 0;
+  border-radius: 5px;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.acceptPopup {
+  background-color: var(--red);
+}
+
+.alertIconPopup {
+  color: var(--red);
+  height: 100px;
+  width: 100px;
+}

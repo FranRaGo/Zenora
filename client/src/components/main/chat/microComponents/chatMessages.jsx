@@ -17,7 +17,7 @@ const ChatMessages = ({ idUser, activeChat, setAnswer, messages }) => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
-  }, [activeChat]);
+  }, [messages.length, activeChat]);
 
   const reversed = messages.slice().reverse();
 
@@ -48,6 +48,7 @@ const ChatMessages = ({ idUser, activeChat, setAnswer, messages }) => {
 
         return (
           <React.Fragment key={i}>
+            {showDate && <div className="date">{formatDate(msg.date)}</div>}
             {msg.answer &&
               (() => {
                 const answeredMsg = messages.find(
@@ -69,11 +70,13 @@ const ChatMessages = ({ idUser, activeChat, setAnswer, messages }) => {
                         d="m15 15 6-6m0 0-6-6m6 6H9a6 6 0 0 0 0 12h3"
                       />
                     </svg>
-                    <p>{answeredMsg?.name+": "+answeredMsg?.content|| "Mensaje no disponible"}</p>
+                    <p>
+                      {answeredMsg?.name + ": " + answeredMsg?.content ||
+                        "Mensaje no disponible"}
+                    </p>
                   </div>
                 );
               })()}
-            {showDate && <div className="date">{formatDate(msg.date)}</div>}
             {!isMine && showName && activeChat.type === 1 && (
               <div className="userInfoMessage">
                 <Profile userId={msg.id} styleCss="profile_icon message-icon" />
