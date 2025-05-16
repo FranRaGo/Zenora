@@ -8,7 +8,7 @@ import ProfilePlus from "../../global/profile/profilePlus";
 import ProfileDropdown from "./profileDropdown";
 
 
-const Header = ({user, setActiveSection}) => {
+const Header = ({ user, setActiveSection }) => {
     const navigate = useNavigate();
     const isMobile = useIsMobile(480);
 
@@ -34,7 +34,7 @@ const Header = ({user, setActiveSection}) => {
     } else {
         return (
             <div id="header-container">
-                <div id="logo" onClick={() => {navigate('/')}}>
+                <div id="logo" onClick={() => { navigate('/') }}>
                     <Logo />
                 </div>
                 <div className="header-search">
@@ -49,7 +49,8 @@ const Header = ({user, setActiveSection}) => {
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m21 7.5-9-5.25L3 7.5m18 0-9 5.25m9-5.25v9l-9 5.25M3 7.5l9 5.25M3 7.5v9l9 5.25m0-9v9" />
                         </svg>
-                        <p>Update plan</p></button>
+                        <p>Update plan</p>
+                    </button>
 
                     <button id="btn-add-options">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
@@ -68,7 +69,7 @@ const Header = ({user, setActiveSection}) => {
                     <div className="btn-user-options" onClick={showDropdown}>
                         {userId && <ProfilePlus userId={userId} styleCss={"profile-main"} dropdown={dropdown} />}
                         {dropdown ? (
-                            < ProfileDropdown user={user} setActiveSection={setActiveSection}/>
+                            < ProfileDropdown user={user} setActiveSection={setActiveSection} />
                         ) : (
                             ""
                         )}

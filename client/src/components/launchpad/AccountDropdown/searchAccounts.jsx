@@ -6,12 +6,7 @@ import { getLoggedUsers } from "../../../utils/getLoggedUsers";
 
 const SearchAccounts = () => {
     const navigate = useNavigate();
-    const [subDropdown, setSubDropdown] = useState(false);
     const [users, setUsers] = useState(null);
-
-    const showDropdown = () => {
-        setSubDropdown(!subDropdown);
-    }
 
     useEffect(() => {
         const fetchUsers = async () => {
@@ -33,6 +28,9 @@ const SearchAccounts = () => {
     const changeUser = (user) => {
         const token = user.token;
         localStorage.setItem("activeToken", token);
+        localStorage.removeItem("activeSpace");
+        localStorage.removeItem("listProject");
+        localStorage.removeItem("section");
         navigate("/launchpad");
         window.location.reload();
     }

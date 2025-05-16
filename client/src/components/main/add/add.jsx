@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import '../../../styles/app.css';
 
 const Add = ({ onClose }) => {
     return (

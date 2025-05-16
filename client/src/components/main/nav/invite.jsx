@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getActiveSpace } from "../../../utils/getActiveSpace";
 import Notification from "../../global/notifications";
+import useClickOutside from "../../../utils/useClickOutside";
 
-const Invite = ({ onClose }) => {
+const Invite = ({ onClose, clickOut }) => {
     const [user, setUser] = useState(null);
     const [users, setUsers] = useState(null);
     const [space, setSpace] = useState(null);
@@ -11,7 +12,9 @@ const Invite = ({ onClose }) => {
     const [copied, setCopied] = useState(null);
     const [isValidEmail, setIsValidEmail] = useState(false);
 
-
+    const ref = useRef();
+    useClickOutside(ref, onClose);
+    
     /*Recoje el espacio activo */
     useEffect(() => {
         const loadSpace = async () => {
@@ -149,7 +152,7 @@ const Invite = ({ onClose }) => {
     return (
         <>
             {notification && (<Notification message={notification.message} type={notification.type} onClose={() => setNotification(null)} />)}
-            <div className="invite-popup popup-animate">
+            <div className="invite-popup popup-animate" ref={ref}>
 
                 <div className="header-invite">
                     <h2>Invite someone to your space</h2>

@@ -22,6 +22,8 @@ const ProfileDropdown = ({ user, setActiveSection}) => {
         localStorage.setItem("loggedTokens", JSON.stringify(updatedTokens));
         localStorage.removeItem("activeToken");
         localStorage.removeItem("activeSpace");
+        localStorage.removeItem("listProject");
+        localStorage.removeItem("section");
 
         navigate("/login");
     };

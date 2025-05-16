@@ -113,7 +113,7 @@
   border: 0;
   color: var(--white);
   gap: 10px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   transition: all 0.3s ease;
   border-radius: 8px;
@@ -123,6 +123,35 @@
 
 #btn-profile-expanded:hover {
   background-color: var(--f20);
+}
+
+.options-space-div {
+  display: flex;
+  flex-direction: column;
+  border-top: 0.5px solid var(--borderNav);
+  padding: 10px 0;
+  gap: 5px;
+}
+
+.options-space-div button {
+  display: flex;
+  color: var(--white);
+  background-color: transparent;
+  border: 0;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 0 5px 5px;
+  border-radius: 8px;
+}
+
+.options-space-div button:hover {
+  background-color: var(--f20);
+}
+
+.options-space-div button svg {
+  width: 24px;
+  height: 24px;
 }
 
 #avatar-container-expanded {
@@ -179,7 +208,7 @@
 }
 
 /*Dropdown*/
-.dropdown-space{
+.dropdown-space {
   width: 200px;
   display: flex;
   flex-direction: column;
@@ -187,10 +216,12 @@
   padding: 10px 10px;
   border: 0;
   border-radius: 8px;
-  background-color: #15142A;
+  background-color: #15142a;
   position: absolute;
   top: 50px;
   left: 0;
+  z-index: 1000;
+  border: 0.5px solid var(--borderNav);
 }
 
 /*div global nav*/
@@ -508,12 +539,12 @@
   cursor: pointer;
 }
 
-#errorEmail { 
+#errorEmail {
   color: var(--red);
   font-size: 0.8rem;
 }
 
-.inputError{
+.inputError {
   border-color: var(--red) !important;
 }
 
@@ -555,7 +586,6 @@
   color: var(--fondo);
 }
 
-
 .invitation-code-wrapper p {
   color: var(--white);
 }
@@ -580,7 +610,6 @@
   z-index: 1000;
   animation: fadeSlideUp 1.5s ease forwards;
 }
-
 
 .code-info {
   font-size: 0.8rem;
@@ -617,7 +646,6 @@
   }
 }
 
-
 @keyframes fadeSlideUp {
   0% {
     opacity: 0;
@@ -636,4 +664,3 @@
     transform: translateX(-50%) translateY(-10px);
   }
 }
-

@@ -3,17 +3,17 @@ import "../../../styles/projects.css";
 
 import MenuProjects from "./MenuProjects";
 import Overview from "./overview/overview";
-import List from "./list/list";
-import Kanban from "./kanban/kanban";
+import List from "./list/List";
+import Kanban from "./kanban/Kanban";
 import Calendar from "./calendar/calendar";
 
 const Project = () => {
     const [active, setActive] = useState(() => {
-        return localStorage.getItem('lastMenuProject') || 'overview';
+        return localStorage.getItem('listProject') || 'overview';
     });
 
     useEffect(() => {
-        localStorage.setItem('lastMenuProject', active);
+        localStorage.setItem('listProject', active);
     }, [active]);
 
     return (

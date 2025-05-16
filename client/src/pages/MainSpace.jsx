@@ -20,15 +20,14 @@ const Main = () => {
     const [space, setSpace] = useState(null);
     const [isAddOpen, setIsAddOpen] = useState(false);
 
-    // Validar tokens al principio
     useEffect(() => {
         const userToken = localStorage.getItem("activeToken");
         const spaceToken = localStorage.getItem("activeSpace");
+
         if (!userToken) navigate('/login');
         else if (!spaceToken) navigate('/launchpad');
     }, [navigate]);
 
-    // Obtener usuario y espacio activos
     useEffect(() => {
         const fetchData = async () => {
             const userToken = localStorage.getItem("activeToken");
@@ -43,7 +42,6 @@ const Main = () => {
         fetchData();
     }, []);
 
-    // Validar datos cargados
     useEffect(() => {
         if (user === null || space === null) return;
         if (!user?.id) navigate('/login');
@@ -54,55 +52,14 @@ const Main = () => {
     const idUser = user?.id;
 
     const [activeSection, setActiveSection] = useState(() => {
-        try {
-            const raw = localStorage.getItem("key");
-            if (!raw) return "home";
-
-            const parsed = JSON.parse(raw);
-            return parsed.menu || "home";
-        } catch (err) {
-            console.error("Error al parsear localStorage 'key':", err);
-            return "home";
-        }
+        return localStorage.getItem("section") || "home";
     });
 
     useEffect(() => {
-        try {
-            const raw = localStorage.getItem("key");
-            const previous = raw ? JSON.parse(raw) : {};
-
-            const userToken = localStorage.getItem("activeToken");
-            const spaceToken = localStorage.getItem("activeSpace");
-            const context = {
-                menu: "home",
-                project: "overview",
-                userToken,
-                spaceToken
-            };
-
-            if (userToken && spaceToken && userToken === previous.userToken && spaceToken === previous.spaceToken) {
-                context.menu = activeSection;
-                context.project = previous.project || "overview";
-            }
-            localStorage.setItem("key", JSON.stringify(context));
-        } catch (err) {
-            console.error("Error al guardar contexto:", err);
-        }
-    }, [activeSection]);
+        localStorage.setItem("section", activeSection)
+    },[activeSection])
 
 
-    useEffect(() => {
-        const userToken = localStorage.getItem("activeToken");
-        const spaceToken = localStorage.getItem("activeSpace");
-
-        if (!userToken || !spaceToken) return;
-
-        const raw = JSON.parse(localStorage.getItem("key"));
-
-        if (raw) {
-            setActiveSection(raw?.menu || "home");
-        }
-    }, []);
 
 
     return (

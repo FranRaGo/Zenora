@@ -208,7 +208,7 @@
   padding: 10px 10px;
   border: 0.5px solid var(--borderNav);
   border-radius: 8px;
-  background-color: #15142A;
+  background-color: var(--fondoBlue);
   position: absolute;
   top: 45px;
   right: 0;

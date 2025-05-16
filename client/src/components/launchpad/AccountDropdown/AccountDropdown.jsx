@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { getActiveUser } from "../../../utils/getActiveUser";
 
 import Profile from "../../global/profile/profile";
-import SearchAccounts from "./searchAccounts";
+import SearchAccounts from "./SearchAccounts";
 
 const AccountDropdown = ({ user }) => {
     const navigate = useNavigate();

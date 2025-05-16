@@ -1,6 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import useClickOutside from "../../../../../utils/useClickOutside";
 
-const DropdownPriority = ({ priority, taskId, setPriority }) => {
+const PriorityDropdown = ({ priority, taskId, setPriority, onClose }) => {
+    const ref = useRef();
+    useClickOutside(ref, onClose);
+
     const changePriority = async (e) => {
         const selected = parseInt(e.currentTarget.id);
 
@@ -33,7 +37,7 @@ const DropdownPriority = ({ priority, taskId, setPriority }) => {
     };
 
     return (
-        <div className="div-popup-priority">
+        <div className="div-popup-priority" ref={ref}>
             <button id="4" className={priority === 4 ? "selected" : ""} onClick={(e) => changePriority(e)}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#e63237" viewBox="0 0 24 24" strokeWidth="1" stroke="#e63237">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
@@ -56,7 +60,7 @@ const DropdownPriority = ({ priority, taskId, setPriority }) => {
                 <svg xmlns="http://www.w3.org/2000/svg" fill="#606060" viewBox="0 0 24 24" strokeWidth="1" stroke="#606060">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M3 3v1.5M3 21v-6m0 0 2.77-.693a9 9 0 0 1 6.208.682l.108.054a9 9 0 0 0 6.086.71l3.114-.732a48.524 48.524 0 0 1-.005-10.499l-3.11.732a9 9 0 0 1-6.085-.711l-.108-.054a9 9 0 0 0-6.208-.682L3 4.5M3 15V4.5" />
                 </svg>
-                <p>Baja</p>
+                <p>Low</p>
             </button>
             <button id="0" className={priority === 0 ? "selected" : ""} onClick={(e) => changePriority(e)}>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="2" stroke="#9f9f9f">
@@ -69,4 +73,4 @@ const DropdownPriority = ({ priority, taskId, setPriority }) => {
     );
 }
 
-export default DropdownPriority;
+export default PriorityDropdown;

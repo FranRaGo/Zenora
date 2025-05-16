@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, use } from "react";
 import { getActiveSpace } from "../../../../utils/getActiveSpace";
 import { DragDropContext } from "react-beautiful-dnd";
 
-import TaskColumn from "./taskColumn";
+import TaskColumn from "./TaskColumn";
 import Notification from "../../../global/notifications";
+import Profile from "../../../global/profile/profile";
+import FromProject from "../forms/FormProject";
 
 const List = () => {
     const [space, setSpace] = useState(null);
@@ -11,7 +13,10 @@ const List = () => {
     const [projects, setProjects] = useState([]);
     const [dropdowns, setDropdowns] = useState({});
     const [reloadProyectos, setReloadProyectos] = useState(null);
+    const [projectUsers, setProjectUsers] = useState({});
+    const [formProject, setFormProject] = useState(false);
 
+    //get active space. recoge info del espacio actual
     useEffect(() => {
         const loadSpace = async () => {
             const data = await getActiveSpace();
@@ -20,6 +25,7 @@ const List = () => {
         loadSpace();
     }, []);
 
+    //coge el modulo del espacio, para saber si tiene el modulo de projects.
     useEffect(() => {
         const getModulSpace = async () => {
             if (!space) return;
@@ -44,6 +50,7 @@ const List = () => {
         getModulSpace();
     }, [space]);
 
+    //
     useEffect(() => {
         const getProjects = async () => {
             if (!moduls || moduls.length === 0) return;
@@ -52,6 +59,17 @@ const List = () => {
                 if (res.ok) {
                     const data = await res.json();
                     setProjects(data);
+                    const usersPorProyecto = {};
+
+                    for (const p of data) {
+                        try {
+                            const users = await searchUsers(p.id);
+                            usersPorProyecto[p.id] = users;
+                        } catch {
+                            usersPorProyecto[p.id] = [];
+                        }
+                    }
+                    setProjectUsers(usersPorProyecto);
                     const inicial = {};
                     data.forEach(p => {
                         inicial[p.id] = true;
@@ -69,16 +87,10 @@ const List = () => {
         console.log(result);
         const { source, destination, draggableId } = result;
 
-        // Si no hay destino (por ejemplo, se soltó fuera de una columna válida), salimos
         if (!destination) return;
 
         // Si se soltó en el mismo sitio donde estaba, no hacemos nada
         if (source.droppableId === destination.droppableId) return;
-
-        console.log("🔽 Resultado del drop:");
-        console.log("👉 ID de la tarea:", draggableId);
-        console.log("👉 Desde:", source.droppableId);
-        console.log("👉 Hacia:", destination.droppableId);
 
         // Extraer el ID del proyecto del droppable destino: formato esperado "4-1"
         const [proyectoDestinoId, estadoDestino] = destination.droppableId.split("-");
@@ -90,11 +102,7 @@ const List = () => {
             // showNotification("No puedes mover tareas a otro proyecto", "error");
             return;
         }
-
-
-        // Si es válido, simulamos el cambio de estado
-        console.log(`✅ Cambiar estado de tarea ${draggableId} a ${estadoDestino} en proyecto ${proyectoDestinoId}`);
-        try{
+        try {
             const res = await fetch(`http://localhost:3000/api/task/${draggableId}`);
             if (!res.ok) throw new Error("No se pudo cargar la tarea");
 
@@ -109,7 +117,7 @@ const List = () => {
                 status: parseInt(estadoDestino),
                 priority: data.priority
             };
-            
+
             console.log("new tarea", updateTarea);
 
             const updateRes = await fetch(`http://localhost:3000/api/task/${data.id}`, {
@@ -123,18 +131,21 @@ const List = () => {
             if (!updateRes.ok) throw new Error("Error al actualizar la tarea");
             console.log("✅ Tarea actualizada correctamente");
             setReloadProyectos(prev => !prev);
-            
-        }catch(err){
+        } catch (err) {
             console.error("error al coger los datos de la tarea", err);
         }
-
-        
-
-        //         --Actualizar una tarea.
-// http://localhost:3000/api/task/:taskId
-// { *title, *description, due_date, status, priority }
-        // Aquí iría la lógica para actualizar el estado en la base de datos o en el frontend
     };
+
+    const searchUsers = async (id) => {
+        try {
+            const users = await fetch(`http://localhost:3000/api/projectUsers/${id}`);
+            if (!users.ok) throw new Error("Error searching users project", users.status);
+            const usersData = await users.json();
+            return usersData;
+        } catch (err) {
+            console.log("Error ", err);
+        }
+    }
 
     const changeDropdown = (projectId) => {
         setDropdowns((prev) => ({
@@ -145,38 +156,67 @@ const List = () => {
 
 
     return (
-        <DragDropContext onDragEnd={manejarDrop}>
-            <div className="container-projects-list">
-                {projects && projects.map((pr) => (
-                    <div key={pr.id} className="projects-list">
-                        <div className="header-project">
-                            <button onClick={() => changeDropdown(pr.id)}>
-                                {dropdowns[pr.id] ? (
-                                    <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                                        <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-                                    </svg>
-                                ) : (
-                                    <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" >
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                                    </svg>
+        <>
+            {formProject && <FromProject onClose={() => setFormProject(false)} />}
+            <DragDropContext onDragEnd={manejarDrop}>
+                <div className="container-projects-list">
+                    {projects && projects.length > 0 ? (
+                        projects.map((pr) => (
+                            <div key={pr.id} className="projects-list">
+                                <div className="header-project">
+                                    <button onClick={() => changeDropdown(pr.id)}>
+                                        {dropdowns[pr.id] ? (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                                            </svg>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" >
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                            </svg>
+                                        )}
+                                    </button>
+
+                                    <p>{pr.title}</p>
+                                    <div className="assigned-users">
+                                        {projectUsers[pr.id] && projectUsers[pr.id].length > 0 ? (
+                                            <>
+                                                {projectUsers[pr.id].map((persona) => (
+                                                    <Profile key={persona.id} userId={persona.id} styleCss="profile_project" />
+                                                ))}
+                                            </>
+                                        ) : (
+                                            <p></p>
+                                        )}
+                                    </div>
+                                    <button id="btn-assignUser-project">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3 m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11 a6.375 6.375 0 0 1 12.75 0v.109 A12.318 12.318 0 0 1 9.374 21 c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                {dropdowns[pr.id] && (
+                                    <>
+                                        <TaskColumn status={0} project={pr} users={projectUsers[pr.id] || []} />
+                                        <TaskColumn status={1} project={pr} users={projectUsers[pr.id] || []} />
+                                        <TaskColumn status={2} project={pr} users={projectUsers[pr.id] || []} />
+                                    </>
                                 )}
-                            </button>
+                            </div>
+                        ))
+                    ) : (
+                        <div className="no-projects">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.75V12A2.25 2.25 0 0 1 4.5 9.75h15A2.25 2.25 0 0 1 21.75 12v.75m-8.69-6.44-2.12-2.12a1.5 1.5 0 0 0-1.061-.44H4.5A2.25 2.25 0 0 0 2.25 6v12a2.25 2.25 0 0 0 2.25 2.25h15A2.25 2.25 0 0 0 21.75 18V9a2.25 2.25 0 0 0-2.25-2.25h-5.379a1.5 1.5 0 0 1-1.06-.44Z" />
+                            </svg>
 
-                            <p>{pr.title}</p>
+                            <p className="empty-text">No projects yet</p>
+                            <p className="empty-subtext">Projects help you organize and track your work easily.</p>
+                            <button id="btn-add-project" onClick={() => setFormProject(true)}>Add project</button>
                         </div>
-                        {dropdowns[pr.id] && (
-                            <>
-                                <TaskColumn status={0} project={pr} />
-                                <TaskColumn status={1} project={pr} />
-                                <TaskColumn status={2} project={pr} />
-                            </>
-                        )}
-
-                    </div>
-                ))}
-            </div>
-        </DragDropContext>
-
+                    )}
+                </div>
+            </DragDropContext>
+        </>
     );
 }
 
