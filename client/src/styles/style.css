@@ -47,6 +47,11 @@ body{
   stroke-miterlimit: 10;
 }
 
+.transparent{
+  background-color: transparent;
+  border: 0;
+}
+
 /*Fondo*/
 #main-wrapper {
   width: 100%;

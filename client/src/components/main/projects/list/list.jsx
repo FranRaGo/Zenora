@@ -1,4 +1,4 @@
-import React, { useState, useEffect, use } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { getActiveSpace } from "../../../../utils/getActiveSpace";
 import { DragDropContext } from "react-beautiful-dnd";
 
@@ -7,14 +7,21 @@ import Notification from "../../../global/notifications";
 import Profile from "../../../global/profile/profile";
 import FromProject from "../forms/FormProject";
 
+import OptionsProject from "./OptionsProject";
+import AssignProject from "./AssignProject";
+
 const List = () => {
     const [space, setSpace] = useState(null);
-    const [moduls, setModuls] = useState(null);
+    const [modul, setModul] = useState(null);
     const [projects, setProjects] = useState([]);
     const [dropdowns, setDropdowns] = useState({});
     const [reloadProyectos, setReloadProyectos] = useState(null);
     const [projectUsers, setProjectUsers] = useState({});
     const [formProject, setFormProject] = useState(false);
+    const [usersSpace, setUsersSpace] = useState(null);
+    const [openOptionsProject, setOpenOptionsProject] = useState(false);
+    const [openAssignProject, setOpenAssignProject] = useState(false);
+    const [usersAssigned, setUsersAssigned] = useState([]);
 
     //get active space. recoge info del espacio actual
     useEffect(() => {
@@ -36,11 +43,11 @@ const List = () => {
                     console.log(data);
                     for (let i = 0; i < data.length; i++) {
                         if (data[i].id === 1) {
-                            setModuls(data[i]);
+                            setModul(data[i]);
                             console.log("El modulo agregado", data[i]);
                         }
                     }
-                    setModuls(data);
+                    setModul(data);
                     console.log(JSON.stringify(data));
                 }
             } catch (err) {
@@ -53,9 +60,9 @@ const List = () => {
     //
     useEffect(() => {
         const getProjects = async () => {
-            if (!moduls || moduls.length === 0) return;
+            if (!modul || modul.length === 0) return;
             try {
-                const res = await fetch(`http://localhost:3000/api/projects/${moduls[0].modSpaceId}`);
+                const res = await fetch(`http://localhost:3000/api/projects/${modul[0].modSpaceId}`);
                 if (res.ok) {
                     const data = await res.json();
                     setProjects(data);
@@ -81,7 +88,7 @@ const List = () => {
             }
         }
         getProjects();
-    }, [moduls, reloadProyectos]);
+    }, [modul, reloadProyectos]);
 
     const manejarDrop = async (result) => {
         console.log(result);
@@ -154,10 +161,29 @@ const List = () => {
         }));
     };
 
+    useEffect(() => {
+        const loadUserSpace = async () => {
+            if (!space) return;
+            try {
+                const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
+                if (res.ok) {
+                    const resData = await res.json();
+                    console.log("Usuarios del espacio", resData);
+                    setUsersSpace(resData);
+                }
+            } catch (err) {
+                console.error("Error al cargar usuarios del espacio", err);
+            }
+        }
+
+        loadUserSpace();
+    }, [space]);
+
+    
 
     return (
         <>
-            {formProject && <FromProject onClose={() => setFormProject(false)} />}
+            {formProject && <FromProject onClose={() => setFormProject(false)} usersSpace={usersSpace} modul={modul} />}
             <DragDropContext onDragEnd={manejarDrop}>
                 <div className="container-projects-list">
                     {projects && projects.length > 0 ? (
@@ -166,12 +192,12 @@ const List = () => {
                                 <div className="header-project">
                                     <button onClick={() => changeDropdown(pr.id)}>
                                         {dropdowns[pr.id] ? (
-                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                             </svg>
                                         ) : (
-                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" >
-                                                <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                            <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" >
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                             </svg>
                                         )}
                                     </button>
@@ -188,12 +214,21 @@ const List = () => {
                                             <p></p>
                                         )}
                                     </div>
-                                    <button id="btn-assignUser-project">
+                                    <button id="btn-assignUser-project" onClick={() => setOpenAssignProject(!openAssignProject)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3 m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11 a6.375 6.375 0 0 1 12.75 0v.109 A12.318 12.318 0 0 1 9.374 21 c-2.331 0-4.512-.645-6.374-1.766Z" />
                                         </svg>
                                     </button>
+                                    {openAssignProject && <AssignProject/>}
+                                    
+                                    <button id="option-project" onClick={() => setOpenOptionsProject(!openOptionsProject)}>
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
+                                        </svg>
+                                    </button>
+                                    {openOptionsProject && <OptionsProject/>}
                                 </div>
+
                                 {dropdowns[pr.id] && (
                                     <>
                                         <TaskColumn status={0} project={pr} users={projectUsers[pr.id] || []} />

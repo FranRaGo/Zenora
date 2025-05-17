@@ -40,7 +40,7 @@ exports.getUsersFilter = (req,res)=>{
 exports.getUsersSpace = (req,res)=>{
   const spaceId = req.params.id;
 
-  db.query(`SELECT u.*
+  db.query(`SELECT u.*, us.*
             FROM user u
             JOIN user_space us ON u.id = us.user_id
             JOIN space s ON us.space_id = s.id

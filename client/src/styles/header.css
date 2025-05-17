@@ -215,46 +215,46 @@
   z-index: 1000;
 }
 
-#btn-profile-dropdown{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    background-color: transparent;
-    border: 0;
-    color: var(--white);
-    font-size: 0.9rem;
-    padding: 8px 5px;
-    border-radius: 8px;
+#btn-profile-dropdown {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  font-size: 0.9rem;
+  padding: 8px 5px;
+  border-radius: 8px;
 }
 
-#btn-profile-dropdown:hover{
-    background-color: var(--f20);
+#btn-profile-dropdown:hover {
+  background-color: var(--f20);
 }
 
 /*Perfil icono xl*/
-.profile_icon{
-    width: 24px;
-    height: 24px;
-    border: 0;
-    border-radius: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+.profile_icon {
+  width: 24px;
+  height: 24px;
+  border: 0;
+  border-radius: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
 }
 
-.profile_icon p{
-    text-align: center;
+.profile_icon p {
+  text-align: center;
 }
 
-.profile_icon img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.profile_icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.profile_icon_header{
+.profile_icon_header {
   width: 30px;
   height: 30px;
   border: 0;
@@ -265,138 +265,145 @@
   overflow: hidden;
 }
 
-.profile_icon_header p{
+.profile_icon_header p {
   text-align: center;
 }
 
-.profile_icon_header img{
+.profile_icon_header img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-
-.div-options-btn{
-    display: flex;
-    flex-direction: column;
-    border-top: 0.5px solid var(--borderNav);
-    border-bottom: 0.5px solid var(--borderNav);
-    padding: 10px 0;
-    gap: 5px;
+.div-options-btn {
+  display: flex;
+  flex-direction: column;
+  border-top: 0.5px solid var(--borderNav);
+  border-bottom: 0.5px solid var(--borderNav);
+  padding: 10px 0;
+  gap: 5px;
 }
 
-.div-options-btn button{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 5px;
-    background-color: transparent;
-    border: 0;
-    color: var(--white);
-    font-size: 0.9rem;
-    padding: 8px 5px;
-    border-radius: 8px;
+.div-options-btn button {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  font-size: 0.9rem;
+  padding: 8px 5px;
+  border-radius: 8px;
 }
 
-.div-options-btn button svg{
-    width: 20px;
-    height: 20px;
+.div-options-btn button svg {
+  width: 20px;
+  height: 20px;
 }
 
-.div-options-btn button:hover{
-    background-color: var(--f20);
+.div-options-btn button:hover {
+  background-color: var(--f20);
 }
 
 /*DROPDOWN LOGGEDS*/
-.dropdown-loggeds{
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+.dropdown-loggeds {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.btn-profile-loggeds{
-    width: 100%;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    background-color: transparent;
-    border: 0;
-    color: var(--white);
-    font-size: 0.9rem;
-    padding: 8px 5px;
-    border-radius: 5px;
+.users-list-loggeds {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 130px;
+  overflow: auto;
 }
 
-.btn-profile-loggeds p{
-    white-space: nowrap;
+.btn-profile-loggeds {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  font-size: 0.9rem;
+  padding: 8px 5px;
+  border-radius: 5px;
 }
 
-.btn-profile-loggeds:hover{
-    background-color: var(--f20);
+.btn-profile-loggeds p {
+  white-space: nowrap;
 }
 
-.btn-profile-loggeds:hover #option-profile{
-    display: flex;
+.btn-profile-loggeds:hover {
+  background-color: var(--f20);
 }
 
-#option-profile{
-    display: none;
-    border: 0;
-    background-color: transparent;
-    width: 20px;
-    height: 20px;
-    border-radius: 40px;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s;
+.btn-profile-loggeds:hover #option-profile {
+  display: flex;
 }
 
-#option-profile svg{
-    width: 100%;
-    height: 100%; 
+#option-profile {
+  display: none;
+  border: 0;
+  background-color: transparent;
+  width: 20px;
+  height: 20px;
+  border-radius: 40px;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.3s;
 }
 
-#option-profile:hover{
-    background-color: var(--f20);
+#option-profile svg {
+  width: 100%;
+  height: 100%;
 }
 
-#btn-add-user{
-    width: 100%;
-    background-color: transparent;
-    border: 0;
-    border-radius: 8px;
-    padding: 3px 0;
-    color: var(--secondText);
-    cursor: pointer;
-    transition: all 0.2s;
+#option-profile:hover {
+  background-color: var(--f20);
 }
 
-#btn-add-user:hover{
-    background-color: var(--f20);
-    color: var(--white);
+#btn-add-user {
+  width: 100%;
+  background-color: transparent;
+  border: 0;
+  border-radius: 8px;
+  padding: 3px 0;
+  color: var(--secondText);
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-#btn-logout{
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 5px;
-    background-color: transparent;
-    border: 0;
-    color: var(--white);
-    font-size: 0.9rem;
-    padding: 8px 5px;
-    border-radius: 8px;
+#btn-add-user:hover {
+  background-color: var(--f20);
+  color: var(--white);
 }
 
-#btn-logout svg{
-    width: 20px;
-    height: 20px;
+#btn-logout {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 5px;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  font-size: 0.9rem;
+  padding: 8px 5px;
+  border-radius: 8px;
 }
 
-#btn-logout:hover{
-    background-color: var(--f20);
+#btn-logout svg {
+  width: 20px;
+  height: 20px;
+}
+
+#btn-logout:hover {
+  background-color: var(--f20);
 }
 
 @media (max-width: 479px) {

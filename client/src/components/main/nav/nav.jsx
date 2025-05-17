@@ -5,6 +5,8 @@ import Menu from "./menu";
 import '../../../styles/nav.css';
 import useIsMobile from "../../global/useIsMobile";
 import Invite from "./invite";
+import { getActiveSpace } from "../../../utils/getActiveSpace";
+import { getActiveUser } from "../../../utils/getActiveUser";
 
 
 const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
@@ -12,6 +14,47 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
     const isMobile = useIsMobile(480);
     const [dropdown, setDropdown] = useState(false);
     const [invite, setInvite] = useState(false);
+
+    const [user, setUser] = useState(null);
+    const [userRole, setUserRole] = useState(null);
+    const [space, setSpace] = useState(null);
+
+    useEffect(() => {
+        const loadUser = async () => {
+            const data = await getActiveUser();
+            setUser(data);
+        }
+        loadUser();
+    }, []);
+
+    useEffect(() => {
+        const loadSpace = async () => {
+            const data = await getActiveSpace();
+            setSpace(data);
+        }
+        loadSpace();
+    }, []);
+
+    useEffect(() => {
+        const loadUserSpace = async () => {
+            if (!user) return;
+            if (!space) return;
+            try {
+                const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
+                if (res.ok) {
+                    const resData = await res.json();
+                    console.log("Usuarios del espacio", resData);
+                    const userFind = resData.find((us) => us.id === user.id);
+                    console.log(userFind);
+                    setUserRole(userFind);
+                }
+            } catch (err) {
+                console.error("Error al cargar usuarios del espacio", err);
+            }
+        }
+
+        loadUserSpace();
+    }, [space]);
 
     const changeStatus = () => {
         setStatus(!status);
@@ -22,10 +65,13 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
         console.log("abrir pop up invitar");
     }
 
+
+
+
     if (isMobile) {
         return (
             <div id="navbar-mobile">
-                <Menu status={false} activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} onlyIcons={true}/>
+                <Menu status={false} activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} onlyIcons={true} />
             </div>
         );
     } else {
@@ -41,10 +87,16 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
                     </button>
                 </div>
 
-                < Menu status={status} activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
+                < Menu status={status} activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen}  />
 
                 <div className={status ? "expandedPerfil invitar" : "invitar"}>
-                    <button id="btn-addPeople" className={status ? "" : "colapsed"} onClick={openInvite}>
+                    <button
+                        id="btn-addPeople"
+                        className={`${status ? "" : "colapsed"} ${userRole?.role === "client" ? "disabled-btn" : ""}`}
+                        onClick={userRole?.role !== "client" ? openInvite : null}
+                        disabled={userRole?.role === "client"}
+                        title={userRole?.role === "client" ? "No tienes permisos para invitar usuarios" : ""}
+                    >
                         <div className="icon-add-people">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" className="size-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
@@ -52,12 +104,11 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
                             <div id="icon-plus">+</div>
                         </div>
                         {status ? <p>Invite</p> : ""}
-
                     </button>
                     <button id="btn-question">?</button>
                 </div>
                 {invite ? (
-                    <Invite onClose={() => setInvite(false)} clickOut={() => setInvite(false)}/>
+                    <Invite onClose={() => setInvite(false)} clickOut={() => setInvite(false)} />
                 ) : null}
             </div>
         );

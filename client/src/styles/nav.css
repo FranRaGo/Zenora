@@ -351,6 +351,11 @@
   border-radius: 10px;
 }
 
+.disabled-btn{
+  cursor: not-allowed !important;
+  opacity: 1;
+}
+
 .colapsed {
   width: 100% !important;
 }
