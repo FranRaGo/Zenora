@@ -43,9 +43,7 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
                 const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
                 if (res.ok) {
                     const resData = await res.json();
-                    console.log("Usuarios del espacio", resData);
                     const userFind = resData.find((us) => us.id === user.id);
-                    console.log(userFind);
                     setUserRole(userFind);
                 }
             } catch (err) {
@@ -62,11 +60,7 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
 
     const openInvite = () => {
         setInvite(!invite);
-        console.log("abrir pop up invitar");
     }
-
-
-
 
     if (isMobile) {
         return (

@@ -10,85 +10,10 @@ import FromProject from "../forms/FormProject";
 import OptionsProject from "./OptionsProject";
 import AssignProject from "./AssignProject";
 
-const List = () => {
-    const [space, setSpace] = useState(null);
-    const [modul, setModul] = useState(null);
-    const [projects, setProjects] = useState([]);
-    const [dropdowns, setDropdowns] = useState({});
-    const [reloadProyectos, setReloadProyectos] = useState(null);
-    const [projectUsers, setProjectUsers] = useState({});
+const List = ({ user, space, modul, projectData, setProjectData, usersSpace, getProjects }) => {
     const [formProject, setFormProject] = useState(false);
-    const [usersSpace, setUsersSpace] = useState(null);
     const [openOptionsProject, setOpenOptionsProject] = useState(false);
     const [openAssignProject, setOpenAssignProject] = useState(false);
-    const [usersAssigned, setUsersAssigned] = useState([]);
-
-    //get active space. recoge info del espacio actual
-    useEffect(() => {
-        const loadSpace = async () => {
-            const data = await getActiveSpace();
-            setSpace(data);
-        }
-        loadSpace();
-    }, []);
-
-    //coge el modulo del espacio, para saber si tiene el modulo de projects.
-    useEffect(() => {
-        const getModulSpace = async () => {
-            if (!space) return;
-            try {
-                const res = await fetch(`http://localhost:3000/api/modules/${space.id}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    console.log(data);
-                    for (let i = 0; i < data.length; i++) {
-                        if (data[i].id === 1) {
-                            setModul(data[i]);
-                            console.log("El modulo agregado", data[i]);
-                        }
-                    }
-                    setModul(data);
-                    console.log(JSON.stringify(data));
-                }
-            } catch (err) {
-                console.error("Error en el get modulos", err);
-            }
-        }
-        getModulSpace();
-    }, [space]);
-
-    //
-    useEffect(() => {
-        const getProjects = async () => {
-            if (!modul || modul.length === 0) return;
-            try {
-                const res = await fetch(`http://localhost:3000/api/projects/${modul[0].modSpaceId}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setProjects(data);
-                    const usersPorProyecto = {};
-
-                    for (const p of data) {
-                        try {
-                            const users = await searchUsers(p.id);
-                            usersPorProyecto[p.id] = users;
-                        } catch {
-                            usersPorProyecto[p.id] = [];
-                        }
-                    }
-                    setProjectUsers(usersPorProyecto);
-                    const inicial = {};
-                    data.forEach(p => {
-                        inicial[p.id] = true;
-                    });
-                    setDropdowns(inicial);
-                }
-            } catch (err) {
-                console.error("Error en el get modulos", err);
-            }
-        }
-        getProjects();
-    }, [modul, reloadProyectos]);
 
     const manejarDrop = async (result) => {
         console.log(result);
@@ -143,17 +68,6 @@ const List = () => {
         }
     };
 
-    const searchUsers = async (id) => {
-        try {
-            const users = await fetch(`http://localhost:3000/api/projectUsers/${id}`);
-            if (!users.ok) throw new Error("Error searching users project", users.status);
-            const usersData = await users.json();
-            return usersData;
-        } catch (err) {
-            console.log("Error ", err);
-        }
-    }
-
     const changeDropdown = (projectId) => {
         setDropdowns((prev) => ({
             ...prev,
@@ -161,37 +75,21 @@ const List = () => {
         }));
     };
 
-    useEffect(() => {
-        const loadUserSpace = async () => {
-            if (!space) return;
-            try {
-                const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
-                if (res.ok) {
-                    const resData = await res.json();
-                    console.log("Usuarios del espacio", resData);
-                    setUsersSpace(resData);
-                }
-            } catch (err) {
-                console.error("Error al cargar usuarios del espacio", err);
-            }
-        }
-
-        loadUserSpace();
-    }, [space]);
-
-    
-
     return (
         <>
-            {formProject && <FromProject onClose={() => setFormProject(false)} usersSpace={usersSpace} modul={modul} />}
+            {formProject && <FromProject onClose={() => setFormProject(false)} usersSpace={usersSpace} modul={modul} onReload={getProjects} />}
             <DragDropContext onDragEnd={manejarDrop}>
                 <div className="container-projects-list">
-                    {projects && projects.length > 0 ? (
-                        projects.map((pr) => (
+                    {projectData && projectData.length > 0 ? (
+                        projectData.map((pr, index) => (
                             <div key={pr.id} className="projects-list">
                                 <div className="header-project">
-                                    <button onClick={() => changeDropdown(pr.id)}>
-                                        {dropdowns[pr.id] ? (
+                                    <button className="btn-open-see" onClick={() => {
+                                        const updated = [...projectData];
+                                        updated[index].isOpen = !updated[index].isOpen;
+                                        setProjectData(updated);
+                                    }}>
+                                        {pr.isOpen ? (
                                             <svg xmlns="http://www.w3.org/2000/svg" width={16} height={16} fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
                                             </svg>
@@ -203,37 +101,54 @@ const List = () => {
                                     </button>
 
                                     <p>{pr.title}</p>
+
                                     <div className="assigned-users">
-                                        {projectUsers[pr.id] && projectUsers[pr.id].length > 0 ? (
-                                            <>
-                                                {projectUsers[pr.id].map((persona) => (
-                                                    <Profile key={persona.id} userId={persona.id} styleCss="profile_project" />
-                                                ))}
-                                            </>
-                                        ) : (
-                                            <p></p>
-                                        )}
+
                                     </div>
-                                    <button id="btn-assignUser-project" onClick={() => setOpenAssignProject(!openAssignProject)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3 m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11 a6.375 6.375 0 0 1 12.75 0v.109 A12.318 12.318 0 0 1 9.374 21 c-2.331 0-4.512-.645-6.374-1.766Z" />
-                                        </svg>
-                                    </button>
-                                    {openAssignProject && <AssignProject/>}
-                                    
-                                    <button id="option-project" onClick={() => setOpenOptionsProject(!openOptionsProject)}>
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+
+                                    <div className="btn-assign-project" onClick={() => setOpenAssignProject(!openAssignProject)}>
+                                        {pr.users && pr.users.length > 0 ? (
+                                            <div className="assigned-users">
+                                                {pr.users.slice(0, 3).map((user) => (
+                                                    <Profile key={user.id} userId={user.id} styleCss="profile-stack" />
+                                                ))}
+                                                {pr.users.length > 3 && (
+                                                    <div className="profile_project extra-count">+{pr.users.length - 3}</div>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                            </svg>
+                                        )}
+
+                                        {openAssignProject && <AssignProject
+                                            project={pr}
+                                            usersAssignedInit={pr.users}
+                                            usersSpace={usersSpace}
+                                            getProjects={getProjects}
+                                            onClose={() => setOpenAssignProject(false)}
+                                        />}
+                                    </div>
+
+                                    <div id="option-project" className="transparent" onClick={() => setOpenOptionsProject(true)}>
+                                        <svg className="svg-option-project" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                         </svg>
-                                    </button>
-                                    {openOptionsProject && <OptionsProject/>}
+                                        {openOptionsProject && <OptionsProject
+                                            project={pr}
+                                            getProjects={getProjects}
+                                            onClose={() => setOpenOptionsProject(false)}
+                                        />}
+                                    </div>
+
                                 </div>
 
-                                {dropdowns[pr.id] && (
+                                {pr.isOpen && (
                                     <>
-                                        <TaskColumn status={0} project={pr} users={projectUsers[pr.id] || []} />
-                                        <TaskColumn status={1} project={pr} users={projectUsers[pr.id] || []} />
-                                        <TaskColumn status={2} project={pr} users={projectUsers[pr.id] || []} />
+                                        <TaskColumn status={0} project={pr} users={pr.users} />
+                                        <TaskColumn status={1} project={pr} users={pr.users} />
+                                        <TaskColumn status={2} project={pr} users={pr.users} />
                                     </>
                                 )}
                             </div>

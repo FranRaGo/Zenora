@@ -5,8 +5,8 @@ import MyProjects from "./myProjects";
 import Activity from "./myProjects";
 import Calendar from "./myProjects";
 
-const Overview = () => {
-
+const Overview = ({user, space, modul, projectData, usersSpace}) => {
+  
   return (
     <div id="overview-container">
       <div className="overview-top">

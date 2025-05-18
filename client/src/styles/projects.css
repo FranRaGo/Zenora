@@ -78,7 +78,6 @@
 #overview-container {
   width: 100%;
   height: 100%;
-  background-color: var(--blue);
 }
 
 .overview-top {
@@ -123,6 +122,7 @@
   padding-top: 10px;
   overflow: auto;
   padding: 10px 20px 0 20px;
+  min-height: 700px;
 }
 
 .projects-list {
@@ -182,7 +182,7 @@
   position: relative;
 }
 
-.header-project button {
+.btn-open-see {
   background-color: transparent;
   border: 0;
   color: var(--white);
@@ -635,6 +635,7 @@
   color: var(--fondoBlue);
   font-weight: 500;
   box-shadow: -2px 5px 8px var(--fondoBlue);
+  font-size: 0.9rem;
 
 }
 
@@ -646,6 +647,7 @@
   height: 30px;
   padding: 5px;
   transition: all 0.2s;
+  position: relative;
 }
 
 #btn-assignUser-project svg {
@@ -669,9 +671,11 @@
   height: 30px;
   padding: 5px;
   transition: all 0.2s;
+  position: relative;
+  cursor: pointer;
 }
 
-#option-project svg {
+.svg-option-project{
   color: var(--secondText);
   width: 100%;
   height: 100%;
@@ -681,7 +685,7 @@
   background-color: var(--f20);
 }
 
-#option-project:hover svg {
+#option-project:hover .svg-option-project {
   color: var(--white);
 }
 
@@ -689,7 +693,7 @@
   width: 200px;
   position: absolute;
   top: 30px;
-  left: 105px;
+  left: 0;
   z-index: 200;
   background-color: var(--fondoBlue);
   border: 0.5px solid var(--borderNav);
@@ -697,13 +701,36 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+  gap: 10px;
 }
 
-.btns-options-projec button{
+.btns-options-project button{
   display: flex;
-  flex-direction: row;
-  
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  color: var(--white);
+  border: 0;
+  font-size: 0.9rem;
+  padding: 5px 10px;
+  border-radius: 8px;
+  background-color: transparent;
 }
+
+.btns-options-project button:hover{
+  background-color: var(--f10);
+}
+
+.btns-options-project button svg{
+  width: 20px !important;
+  height: 20px !important;
+  color: var(--secondText);
+}
+
+.btns-options-project button:hover svg{
+  color: var(--white);
+}
+
 
 /*------------------------------------------------------------*/
 /*-------------------------KANBAN-----------------------------*/
@@ -895,12 +922,13 @@ input:focus {
 
 /*------ASSIGN------*/
 .btn-assign-project {
-  width: 24px;
+  width: auto;
   display: flex;
   background-color: transparent;
   border: 0;
   position: relative;
   color: var(--white);
+  cursor: pointer;
 }
 
 .btn-assign-project svg {
@@ -926,10 +954,36 @@ input:focus {
   overflow: auto;
 }
 
+.popup-assign-user-list{
+  position: absolute;
+  width: 300px;
+  top: 35px;
+  left: 0;
+  background-color: var(--fondoBlue);
+  padding: 5px 20px;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 8px;
+  color: var(--white);
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 250px;
+  overflow: auto;
+}
+
 .popup-assign-user h4 {
   font-size: 0.9rem;
   font-weight: 300;
   margin-top: 10px;
+  color: var(--secondText);
+}
+
+.popup-assign-user-list h4 {
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-top: 10px;
+  text-align: left;
   color: var(--secondText);
 }
 

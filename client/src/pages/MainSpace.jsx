@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { getActiveSpace } from "../utils/getActiveSpace";
@@ -57,8 +57,95 @@ const Main = () => {
 
     useEffect(() => {
         localStorage.setItem("section", activeSection)
-    },[activeSection])
+    }, [activeSection])
 
+    //get all users of space
+    const [usersSpace, setUsersSpace] = useState(null);
+    useEffect(() => {
+        const loadUserSpace = async () => {
+            if (!space) return;
+            try {
+                const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
+                if (res.ok) {
+                    const resData = await res.json();
+                    setUsersSpace(resData);
+                }
+            } catch (err) {
+                console.error("Error al cargar usuarios del espacio", err);
+            }
+        }
+        loadUserSpace();
+    }, [space]);
+
+    //get los modulos del espacio para saber que modulos tiene
+    const [modul, setModul] = useState(null);
+
+    useEffect(() => {
+        const getModulSpace = async () => {
+            if (!space) return;
+            try {
+                const res = await fetch(`http://localhost:3000/api/modules/${space.id}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    for (let i = 0; i < data.length; i++) {
+                        if (data[i].id === 1) {
+                            setModul(data[i]);
+                        }
+                    }
+                }
+            } catch (err) {
+                console.error("Error en el get modulos", err);
+            }
+        }
+        getModulSpace();
+    }, [space]);
+
+    //cargar los proyectos del espacio y guardar la informacion de usuarios asignados y estado del dropdown
+    const [projectData, setProjectData] = useState([]);
+
+    const searchUsers = async (id) => {
+        try {
+            const users = await fetch(`http://localhost:3000/api/projectUsers/${id}`);
+            if (!users.ok) throw new Error("Error searching users project", users.status);
+            const usersData = await users.json();
+            return usersData;
+        } catch (err) {
+            console.log("Error ", err);
+        }
+    }
+
+    const getProjects = useCallback(async () => {
+        if (!modul || !modul.modSpaceId) return;
+        try {
+            const res = await fetch(`http://localhost:3000/api/projects/${modul.modSpaceId}`);
+            if (!res.ok) throw new Error("No se pudo obtener proyectos");
+            const data = await res.json();
+            const result = [];
+
+            for (const p of data) {
+                let users = [];
+                try {
+                    users = await searchUsers(p.id);
+                } catch {
+                    users = [];
+                }
+                result.push({
+                    ...p,
+                    users,
+                    isOpen: true
+                });
+            }
+
+            // console.log("🧩 projectData actualizado:", result);
+            setProjectData(result);
+        } catch (err) {
+            console.error("Error en getProjects:", err);
+        }
+    }, [modul, setProjectData]);
+
+    useEffect(() => {
+        getProjects();
+    }, [getProjects]);
 
 
 
@@ -71,8 +158,8 @@ const Main = () => {
                     < NavBar activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
                     <div className={`${activeSection === "chat" ? "chatActive" : "main-view"}`}>
                         {activeSection === "home" && <Home />}
-                        {activeSection === "projects" && <Projects />}
-                        {isAddOpen === true && < Add onClose={() => setIsAddOpen(false)} />}
+                        {activeSection === "projects" && <Projects usersSpace={usersSpace} modul={modul} setProjectData={setProjectData} getProjects={getProjects} />}
+                        {isAddOpen === true && < Add onClose={() => setIsAddOpen(false)} usersSpace={usersSpace} modul={modul} getProjects={getProjects} />}
                         {activeSection === "employees" && <Employees />}
                         {activeSection === "chat" && <Chat idUser={idUser} />}
                         {activeSection === "settings" && <Settings />}

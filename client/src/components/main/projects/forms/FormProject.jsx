@@ -6,7 +6,7 @@ import ExpandableInput from "./ExpandableInput";
 import Profile from "../../../global/profile/profile";
 
 
-const FromProject = ({ onClose, usersSpace, modul }) => {
+const FromProject = ({ onClose, usersSpace, modul, onReload }) => {
     const [desc, setDesc] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
     const [usersAssigned, setUsersAssigned] = useState([]);
@@ -69,7 +69,7 @@ const FromProject = ({ onClose, usersSpace, modul }) => {
             return;
         }
 
-        const modSpaceId = modul[0].modSpaceId;
+        const modSpaceId = modul.modSpaceId;
         const dueDate = selectedDate ? selectedDate.toISOString().split("T")[0] : null;
 
         const bannerInput = document.getElementById("banner");
@@ -78,26 +78,41 @@ const FromProject = ({ onClose, usersSpace, modul }) => {
         let fileType = null;
 
         if (file && file.type.startsWith("image/")) {
-            const arrayBuffer = await file.arrayBuffer();
-            banner = Array.from(new Uint8Array(arrayBuffer));
+            const base64 = await new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onloadend = () => resolve(reader.result);
+                reader.onerror = reject;
+                reader.readAsDataURL(file);
+            });
+            banner = base64;
             fileType = file.type;
+        }
+
+        const projectData = {
+            title,
+            description,
+            due_date: dueDate,
+            mod_space_id: modSpaceId,
+            banner,
+            file_type: fileType
         }
 
         try {
             const res = await fetch("http://localhost:3000/api/project", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    title,
-                    description,
-                    due_date: dueDate,
-                    mod_space_id: modSpaceId,
-                    banner,
-                    file_type: fileType
-                })
+                body: JSON.stringify(projectData)
             });
 
-            const data = await res.json();
+            const text = await res.text();
+            let data;
+            try {
+                data = JSON.parse(text);
+            } catch {
+                console.error("❌ No se pudo parsear como JSON:", text);
+                throw new Error("Respuesta no válida del servidor");
+            }
+
             if (!res.ok) throw new Error(data.error || "Error creating project");
 
             const projectId = data.userId;
@@ -115,8 +130,7 @@ const FromProject = ({ onClose, usersSpace, modul }) => {
                     })
                 });
             }
-
-            alert("Project created successfully");
+            onReload?.();
             onClose();
         } catch (err) {
             console.error(err);
@@ -202,8 +216,6 @@ const FromProject = ({ onClose, usersSpace, modul }) => {
                         }
                     />
                 </div>
-
-
 
                 <button className="btn-assign-project" onClick={() => setOpenSelectAssign(true)}>
                     {usersAssigned.length > 0 ? (

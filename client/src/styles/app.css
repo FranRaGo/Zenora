@@ -1,5 +1,10 @@
 .modal-backdrop{
     position: absolute;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--fondoNav);
+    padding: 15px;
+    border: 0.5px solid var(--borderNav);
+    border-radius: 8px;
     
 }

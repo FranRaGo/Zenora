@@ -31,7 +31,7 @@ exports.getProjects = (req,res)=>{
 exports.getUserProjects = (req,res)=>{
     const userId = req.params.id;
 
-    db.query(`SELECT p.*  FROM pm_project p 
+    db.query(`SELECT p.*, ap.* FROM pm_project p 
                 JOIN pm_assig_project ap ON p.id = ap.project_id
                 JOIN user u ON ap.user_id = u.id
                 WHERE u.id = ?`,[userId],(err,results)=>{
@@ -46,7 +46,7 @@ exports.getUserProjects = (req,res)=>{
 exports.getProjectUsers = (req,res)=>{
   const projectId = req.params.projectId;
 
-  db.query(`SELECT u.*  
+  db.query(`SELECT u.*, ap.id as id_assign, ap.manager
               FROM pm_project p 
               JOIN pm_assig_project ap ON p.id = ap.project_id
               JOIN user u ON ap.user_id = u.id
