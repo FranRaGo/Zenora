@@ -29,10 +29,12 @@ const OptionsProject = ({ project, onClose, getProjects }) => {
                     method: "DELETE",
                 });
                 if (res.ok) {
+                    console.log("✅ Proyecto eliminado");
                     await getProjects();
                     onClose();
                 } else {
-                    console.error("Error al eliminar el proyecto");
+                    const text = await res.text();
+                    console.error("❌ Error al eliminar el proyecto:", text);
                 }
             } catch (err) {
                 console.error("Error al conectar con la API:", err);

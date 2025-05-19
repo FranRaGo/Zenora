@@ -6,14 +6,16 @@ import TaskColumn from "./TaskColumn";
 import Notification from "../../../global/notifications";
 import Profile from "../../../global/profile/profile";
 import FromProject from "../forms/FormProject";
+import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 
 import OptionsProject from "./OptionsProject";
 import AssignProject from "./AssignProject";
 
 const List = ({ user, space, modul, projectData, setProjectData, usersSpace, getProjects }) => {
     const [formProject, setFormProject] = useState(false);
-    const [openOptionsProject, setOpenOptionsProject] = useState(false);
-    const [openAssignProject, setOpenAssignProject] = useState(false);
+    const [confirmPopupProject, setConfirmPopupProject] = useState(null); // contiene el proyecto a borrar
+    const [confirmedDelete, setConfirmedDelete] = useState(false);
+
 
     const manejarDrop = async (result) => {
         console.log(result);
@@ -77,12 +79,13 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
 
     return (
         <>
-            {formProject && <FromProject onClose={() => setFormProject(false)} usersSpace={usersSpace} modul={modul} onReload={getProjects} />}
+            {formProject && <FromProject user={user} onClose={() => setFormProject(false)} usersSpace={usersSpace} modul={modul} onReload={getProjects} />}
             <DragDropContext onDragEnd={manejarDrop}>
                 <div className="container-projects-list">
                     {projectData && projectData.length > 0 ? (
                         projectData.map((pr, index) => (
                             <div key={pr.id} className="projects-list">
+
                                 <div className="header-project">
                                     <button className="btn-open-see" onClick={() => {
                                         const updated = [...projectData];
@@ -105,8 +108,13 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
                                     <div className="assigned-users">
 
                                     </div>
+                                    
 
-                                    <div className="btn-assign-project" onClick={() => setOpenAssignProject(!openAssignProject)}>
+                                    <div className="btn-assign-project" onClick={() => {
+                                        const updated = [...projectData];
+                                        updated[index].showAssignPopup = !updated[index].showAssignPopup;
+                                        setProjectData(updated);
+                                    }}>
                                         {pr.users && pr.users.length > 0 ? (
                                             <div className="assigned-users">
                                                 {pr.users.slice(0, 3).map((user) => (
@@ -122,33 +130,50 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
                                             </svg>
                                         )}
 
-                                        {openAssignProject && <AssignProject
-                                            project={pr}
-                                            usersAssignedInit={pr.users}
-                                            usersSpace={usersSpace}
-                                            getProjects={getProjects}
-                                            onClose={() => setOpenAssignProject(false)}
-                                        />}
+                                        {pr.showAssignPopup && (
+                                            <AssignProject
+                                                project={pr}
+                                                usersAssignedInit={pr.users}
+                                                usersSpace={usersSpace}
+                                                getProjects={getProjects}
+                                                onClose={() => {
+                                                    const updated = [...projectData];
+                                                    updated[index].showAssignPopup = false;
+                                                    setProjectData(updated);
+                                                }}
+                                            />
+                                        )}
                                     </div>
 
-                                    <div id="option-project" className="transparent" onClick={() => setOpenOptionsProject(true)}>
+                                    <div id="option-project" className="transparent" onClick={() => {
+                                        const updated = [...projectData];
+                                        updated[index].showOptionsPopup = true;
+                                        setProjectData(updated);
+                                    }}
+                                    >
                                         <svg className="svg-option-project" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                         </svg>
-                                        {openOptionsProject && <OptionsProject
-                                            project={pr}
-                                            getProjects={getProjects}
-                                            onClose={() => setOpenOptionsProject(false)}
-                                        />}
+                                        {pr.showOptionsPopup && (
+                                            <OptionsProject
+                                                project={pr}
+                                                getProjects={getProjects}
+                                                onClose={() => {
+                                                    const updated = [...projectData];
+                                                    updated[index].showOptionsPopup = false;
+                                                    setProjectData(updated);
+                                                }}
+                                            />
+                                        )}
+
                                     </div>
 
                                 </div>
-
                                 {pr.isOpen && (
                                     <>
-                                        <TaskColumn status={0} project={pr} users={pr.users} />
-                                        <TaskColumn status={1} project={pr} users={pr.users} />
-                                        <TaskColumn status={2} project={pr} users={pr.users} />
+                                        <TaskColumn status={0} project={pr} users={pr.users} user={user} />
+                                        <TaskColumn status={1} project={pr} users={pr.users} user={user} />
+                                        <TaskColumn status={2} project={pr} users={pr.users} user={user} />
                                     </>
                                 )}
                             </div>
@@ -161,7 +186,19 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
 
                             <p className="empty-text">No projects yet</p>
                             <p className="empty-subtext">Projects help you organize and track your work easily.</p>
-                            <button id="btn-add-project" onClick={() => setFormProject(true)}>Add project</button>
+                            <button id="btn-add-project"
+                                onClick={() => {
+                                    if (user?.role !== "client" && user?.owner === 1) {
+                                        setFormProject(true);
+                                    }
+                                }}
+                                disabled={user?.role === "client" && user?.owner === 0}
+                                style={{
+                                    cursor: user?.role === "client" && user?.owner === 0 ? "not-allowed" : "pointer",
+                                    opacity: user?.role === "client" && user?.owner === 0 ? 0.5 : 1
+                                }} >
+                                + Añadir proyecto
+                            </button>
                         </div>
                     )}
                 </div>

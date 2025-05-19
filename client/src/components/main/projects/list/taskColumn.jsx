@@ -4,7 +4,9 @@ import TaskItem from "./item/TaskItem";
 import FormTask from "../forms/FormTask";
 import SelectionBar from "./SelectionBar";
 
-const TaskColumn = ({ status, project, users }) => {
+const TaskColumn = ({ status, project, users, user }) => {
+
+
     const [tareas, setTareas] = useState([]);
     const [dropdown, setDropdown] = useState(true);
     const [fromTask, setFromTask] = useState(false);
@@ -95,8 +97,9 @@ const TaskColumn = ({ status, project, users }) => {
                                     })}
                                     {provided.placeholder}
                                 </div>
-
-                                {tareasFiltradas.length === 0 && <button id="add-new-task" onClick={() => setFromTask(true)}>+ Añadir tareas</button>}
+                                {user?.role !== 'client' && user?.owner === 1 && tareasFiltradas.length === 0 && (
+                                    <button id="add-new-task" onClick={() => setFromTask(true)}>+ Añadir tareas</button>
+                                )}
                             </>
                         )}
                     </div>

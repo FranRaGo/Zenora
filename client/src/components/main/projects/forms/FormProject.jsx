@@ -6,7 +6,7 @@ import ExpandableInput from "./ExpandableInput";
 import Profile from "../../../global/profile/profile";
 
 
-const FromProject = ({ onClose, usersSpace, modul, onReload }) => {
+const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
     const [desc, setDesc] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
     const [usersAssigned, setUsersAssigned] = useState([]);
@@ -18,21 +18,31 @@ const FromProject = ({ onClose, usersSpace, modul, onReload }) => {
     useClickOutside(ref, onClose);
     useClickOutside(popupRef, () => setOpenSelectAssign(false));
 
-    const assignUser = (user) => {
+    useEffect(() => {
+        if (user) {
+            // Asigna al creador como manager
+            setUsersAssigned([{ ...user, isMember: true }]);
+        }
+    }, [user]);
+
+    const assignUser = (newUser) => {
+        if (newUser.id === user.id) return; // No volver a asignar al creador
         setUsersAssigned((prev) => {
-            if (prev.find((u) => u.id === user.id)) return prev;
-            return [...prev, user];
+            if (prev.find((u) => u.id === newUser.id)) return prev;
+            return [...prev, { ...newUser, isMember: false }];
         });
     };
 
     const removeUser = (userId) => {
+        if (userId === user.id) return; // No se puede quitar al creador
         setUsersAssigned((prev) => prev.filter((u) => u.id !== userId));
     };
 
     const toggleMember = (userId) => {
+        if (userId === user.id) return; // El creador siempre es manager
         setUsersAssigned((prev) =>
-            prev.map((user) =>
-                user.id === userId ? { ...user, isMember: !user.isMember } : user
+            prev.map((u) =>
+                u.id === userId ? { ...u, isMember: !u.isMember } : u
             )
         );
     };
@@ -46,10 +56,7 @@ const FromProject = ({ onClose, usersSpace, modul, onReload }) => {
             e.target.value = "";
             return;
         }
-
-        const shortName =
-            file.name.length > 20 ? file.name.slice(0, 20) + "..." : file.name;
-
+        const shortName = file.name.length > 20 ? file.name.slice(0, 20) + "..." : file.name;
         setBannerFileName(shortName);
     };
 
@@ -58,8 +65,6 @@ const FromProject = ({ onClose, usersSpace, modul, onReload }) => {
         setBannerFileName("Choose a banner");
         document.getElementById("banner").value = "";
     };
-
-    /* código existente */
 
     const handleCreateProject = async () => {
         const title = document.getElementById("title").value.trim();
@@ -94,14 +99,14 @@ const FromProject = ({ onClose, usersSpace, modul, onReload }) => {
             due_date: dueDate,
             mod_space_id: modSpaceId,
             banner,
-            file_type: fileType
-        }
+            file_type: fileType,
+        };
 
         try {
             const res = await fetch("http://localhost:3000/api/project", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(projectData)
+                body: JSON.stringify(projectData),
             });
 
             const text = await res.text();
@@ -115,21 +120,29 @@ const FromProject = ({ onClose, usersSpace, modul, onReload }) => {
 
             if (!res.ok) throw new Error(data.error || "Error creating project");
 
-            const projectId = data.userId;
-
+            const projectId = data.projectId;
             console.log("Users assigned:", usersAssigned);
 
             for (const user of usersAssigned) {
-                await fetch("http://localhost:3000/api/assigProject", {
+                const manager = user.isMember === true ? 1 : 0;
+                const assignRes = await fetch("http://localhost:3000/api/assigProject", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
                         projectId,
                         userId: user.id,
-                        manager: user.isMember ? 1 : 0
+                        manager
                     })
                 });
+
+                const assignText = await assignRes.text();
+                if (!assignRes.ok) {
+                    console.error("❌ Error al asignar usuario", user.id, assignText);
+                } else {
+                    console.log("✅ Usuario asignado:", user.id);
+                }
             }
+
             onReload?.();
             onClose();
         } catch (err) {

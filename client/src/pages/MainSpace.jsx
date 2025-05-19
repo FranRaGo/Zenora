@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import { getActiveSpace } from "../utils/getActiveSpace";
@@ -68,6 +68,7 @@ const Main = () => {
                 const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
                 if (res.ok) {
                     const resData = await res.json();
+                    console.log("usuarios del espacio", resData);
                     setUsersSpace(resData);
                 }
             } catch (err) {
@@ -100,54 +101,15 @@ const Main = () => {
         getModulSpace();
     }, [space]);
 
-    //cargar los proyectos del espacio y guardar la informacion de usuarios asignados y estado del dropdown
-    const [projectData, setProjectData] = useState([]);
-
-    const searchUsers = async (id) => {
-        try {
-            const users = await fetch(`http://localhost:3000/api/projectUsers/${id}`);
-            if (!users.ok) throw new Error("Error searching users project", users.status);
-            const usersData = await users.json();
-            return usersData;
-        } catch (err) {
-            console.log("Error ", err);
-        }
-    }
-
-    const getProjects = useCallback(async () => {
-        if (!modul || !modul.modSpaceId) return;
-        try {
-            const res = await fetch(`http://localhost:3000/api/projects/${modul.modSpaceId}`);
-            if (!res.ok) throw new Error("No se pudo obtener proyectos");
-            const data = await res.json();
-            const result = [];
-
-            for (const p of data) {
-                let users = [];
-                try {
-                    users = await searchUsers(p.id);
-                } catch {
-                    users = [];
-                }
-                result.push({
-                    ...p,
-                    users,
-                    isOpen: true
-                });
-            }
-
-            // console.log("🧩 projectData actualizado:", result);
-            setProjectData(result);
-        } catch (err) {
-            console.error("Error en getProjects:", err);
-        }
-    }, [modul, setProjectData]);
+    //getUsuario y sus permisos
+    const [userFinal, setUserFinal] = useState(null);
 
     useEffect(() => {
-        getProjects();
-    }, [getProjects]);
-
-
+        if (user && usersSpace) {
+            const found = usersSpace.find(us => us.id === user.id);
+            setUserFinal(found);
+        }
+    }, [user, usersSpace]);
 
     return (
         <div id="main-wrapper">
@@ -158,8 +120,8 @@ const Main = () => {
                     < NavBar activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
                     <div className={`${activeSection === "chat" ? "chatActive" : "main-view"}`}>
                         {activeSection === "home" && <Home />}
-                        {activeSection === "projects" && <Projects usersSpace={usersSpace} modul={modul} setProjectData={setProjectData} getProjects={getProjects} />}
-                        {isAddOpen === true && < Add onClose={() => setIsAddOpen(false)} usersSpace={usersSpace} modul={modul} getProjects={getProjects} />}
+                        {activeSection === "projects" && <Projects user={userFinal} usersSpace={usersSpace} modul={modul} />}
+                        {isAddOpen === true && < Add user={userFinal} onClose={() => setIsAddOpen(false)} usersSpace={usersSpace} modul={modul} />}
                         {activeSection === "employees" && <Employees />}
                         {activeSection === "chat" && <Chat idUser={idUser} />}
                         {activeSection === "settings" && <Settings />}
