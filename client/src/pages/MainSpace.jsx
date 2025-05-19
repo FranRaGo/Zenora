@@ -160,7 +160,7 @@ const Main = () => {
                         {activeSection === "home" && <Home />}
                         {activeSection === "projects" && <Projects usersSpace={usersSpace} modul={modul} setProjectData={setProjectData} getProjects={getProjects} />}
                         {isAddOpen === true && < Add onClose={() => setIsAddOpen(false)} usersSpace={usersSpace} modul={modul} getProjects={getProjects} />}
-                        {activeSection === "employees" && <Employees />}
+                        {activeSection === "employees" && <Employees idUser={idUser} space={space} />}
                         {activeSection === "chat" && <Chat idUser={idUser} />}
                         {activeSection === "settings" && <Settings />}
                         {activeSection === "changePlan" && <ChangePlan />}
