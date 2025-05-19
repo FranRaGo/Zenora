@@ -8,30 +8,31 @@ const FormTask = ({ project, status, users, onClose }) => {
     const ref = useRef();
     useClickOutside(ref, onClose);
 
+    const createTasks = () => {
+        console.log("crear tarea");
+    }
+
     return(
         <div className="formPopUp form-task" ref={ref}>
             <h2>Task</h2>
-            <select name="" id="">
-                {/*select de proyecetos */}
-            </select>
-            
+            {project ? ( 
+                <p>tiene proyecto entonces no select</p>
+            ):(
+                <p>No tiene proyecto selected</p>
+            )}
+
             <label htmlFor="title" className="sr-only">Tasks name</label>
             <input type="text" name="title" id="title" placeholder="Name of the tasks" />
 
             <ExpandableInput value={desc} onChange={setDesc} />
 
             <div className="options">
-                <select name="" id="">
-                    {/*select de estado */}
-                </select>
-                <select name="" id="">
-                    {/*select de usuarios del proyecto */}
-                </select>
-                
-                {/*input select duedate */}
-                {/*input select prioridad */}
+                <button>Stauts</button>
+                <button>Assigne</button>
+                <button>DueDate</button>
+                <button>Priority</button>
 
-                <button>Create Tasks</button>
+                <button onClick={createTasks}>Create Tasks</button>
             </div>
         </div>
     )

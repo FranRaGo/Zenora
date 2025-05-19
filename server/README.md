@@ -140,6 +140,9 @@ http://localhost:3000/api/userProjects/:id
 --Todos los usuarios de un proyecto.
 http://localhost:3000/api/projectUsers/:projectId
 
+--Todos los proyectos segun modulo asignado, user, role
+http://localhost:3000/api/projectsByUser/:modSpaceId/:userId/:role
+
 ### 📤POST
 
 --Crear nuevo proyecto.
