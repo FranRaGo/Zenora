@@ -32,10 +32,10 @@
 }
 
 .right-border {
-  border-top-right-radius: 10px;
+  border-top-right-radius: 8px;
 }
 .left-border {
-  border-top-left-radius: 10px;
+  border-top-left-radius: 8px;
 }
 
 .dark-table tbody td {
@@ -60,3 +60,7 @@
     cursor: pointer;
 }
 
+.roleEmployeeIcon{
+     height: 20px;
+    cursor: pointer;
+}

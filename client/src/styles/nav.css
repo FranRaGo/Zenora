@@ -82,6 +82,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 
 #dropdown-icon {
@@ -143,6 +144,7 @@
   gap: 5px;
   padding: 5px 0 5px 5px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .options-space-div button:hover {

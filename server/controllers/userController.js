@@ -85,15 +85,24 @@ exports.createUser = (req, res) => {
 
 exports.updateUser = (req, res) => {
   const userId = req.params.userId;
-  const { first_name, last_name, email, pass, private } = req.body;
+  const { first_name, last_name, email, pass } = req.body;
 
-  if (!first_name || !last_name || !email || !pass) {
+  if (!first_name || !last_name || !email) {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
   }
 
-  const query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ?, private = ? WHERE id = ?";
+  let query;
+  let params;
 
-  db.query(query, [first_name, last_name, email, pass, private, userId], (err, result) => {
+  if (pass && pass.trim() !== "") {
+    query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ? WHERE id = ?";
+    params = [first_name, last_name, email, pass, userId];
+  } else {
+    query = "UPDATE user SET first_name = ?, last_name = ?, email = ? WHERE id = ?";
+    params = [first_name, last_name, email, userId];
+  }
+
+  db.query(query, params, (err, result) => {
     if (err) {
       console.error("Error al actualizar usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
