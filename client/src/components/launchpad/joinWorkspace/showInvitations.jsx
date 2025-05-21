@@ -88,16 +88,19 @@ const ShowInvitations = ({ idUser, onJoined }) => {
 
     return (
         <div className="showInvitations">
+            <p className="title-invitatios">Invitations</p>
             {invitations.length > 0 ? (
                 invitations.map(({ space, role, invitationId }) => (
                     <div key={space.id} className="invitation-card">
-                        <p>{space.name}</p>
-                        <button onClick={() => joinSpace(space.id, role, invitationId)}>Aceptar</button>
-                        <button onClick={() => deleteInvitation(invitationId)}>Cancelar</button>
+                        <p><span>title: </span>{space.name}</p>
+                        <div className="div-options-invitation">
+                            <button className="btn-aceptar-invitation" onClick={() => joinSpace(space.id, role, invitationId)}>Aceptar</button>
+                            <button className="btn-cancel-invitation" onClick={() => deleteInvitation(invitationId)}>Cancelar</button>
+                        </div>
                     </div>
                 ))
             ) : (
-                <p>No tienes invitaciones pendientes.</p>
+                <p className="mesaje-notifi-invite">You don't have invitations pending.</p>
             )}
         </div>
     );

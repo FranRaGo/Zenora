@@ -206,7 +206,7 @@ http://localhost:3000/api/userSubtask/:userId/:taskId
 ### 📤POST
 
 --Crear nueva tarea.
-http://localhost:3000/api/task
+http://localhost:3000/api/task/:projectId
 { *title, *description, status, priority, due_date }
 
 --Asignar usuario a tarea.

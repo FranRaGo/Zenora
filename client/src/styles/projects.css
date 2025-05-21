@@ -121,8 +121,8 @@
   color: var(--white);
   padding-top: 10px;
   overflow: auto;
-  padding: 10px 20px 0 20px;
-  min-height: 400px;
+  padding: 10px 20px 10px 20px;
+  height: 100%;
 }
 
 .projects-list {
@@ -191,6 +191,50 @@
 .header-project p {
   display: flex;
 }
+
+.project-selected{
+  color: var(--white) !important;
+}
+
+.select-project-box {
+  background-color: transparent;
+  padding: 8px 12px;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: #6e6e6f;
+  position: relative;
+}
+
+.project-list {
+  left: 0;
+  top: 35px;
+  background-color: var(--fondoNav);
+  border: 0.5px solid var(--borderNav);
+  border-radius: 6px;
+  max-height: 200px;
+  overflow-y: auto;
+  position: absolute;
+}
+
+.project-item {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: var(--white);
+  transition: all 0.2s;
+}
+
+.project-item:hover {
+  background-color: var(--f20);
+}
+
+.empty-message {
+  padding: 8px 12px;
+  color: #888;
+}
+
 
 /*CONTAINER DE LOS ESTADOS*/
 .container-status {
@@ -284,6 +328,9 @@
 /*TASKS-ITEM*/
 .task-list {
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
 .tasks-item {
@@ -786,6 +833,7 @@
 .header-fromPopUp h2 {
   font-size: 1rem;
   font-weight: 400;
+  color: var(--white);
 }
 
 .header-fromPopUp button {
@@ -921,6 +969,10 @@ input:focus {
 }
 
 /*------ASSIGN------*/
+.div-assign-project{
+  position: relative;
+}
+
 .btn-assign-project {
   width: auto;
   display: flex;
@@ -970,6 +1022,10 @@ input:focus {
   gap: 10px;
   height: 250px;
   overflow: auto;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }
 
 .popup-assign-user h4 {
@@ -998,6 +1054,7 @@ input:focus {
   font-weight: 300;
   border: 0;
   border-radius: 8px;
+  
   transition: all 0.2s ease
 }
 
@@ -1031,6 +1088,16 @@ input:focus {
   transition: all 0.2s;
 }
 
+.btnDisabled{
+  opacity: 0.5 !important;
+  pointer-events: none !important;
+  cursor: not-allowed !important;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
 #remove-assign-project:hover{
   color: var(--red);
 }
@@ -1049,8 +1116,35 @@ input:focus {
 .form-task {
   display: flex;
   flex-direction: column;
+  gap: 10px;
   width: 500px;
-  height: 400px;
+  height: 500px;
+}
+
+
+.btn-clean {
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  display: flex;
+  align-items: center;
+  color: var(--white);
+}
+
+.btn-clean svg {
+  width: 20px;
+  height: 20px;
+  color: var(--secondText);
+}
+
+.options{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px 0;
 }
 
 /*------------------------------------------------------------*/
