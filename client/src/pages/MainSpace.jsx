@@ -19,6 +19,7 @@ const Main = () => {
     const [user, setUser] = useState(null);
     const [space, setSpace] = useState(null);
     const [isAddOpen, setIsAddOpen] = useState(false);
+    const [changeSettings, setChangeSettings] = useState(false);
 
     useEffect(() => {
         const userToken = localStorage.getItem("activeToken");
@@ -40,7 +41,7 @@ const Main = () => {
             setSpace(fetchedSpace);
         };
         fetchData();
-    }, []);
+    }, [changeSettings]);
 
     useEffect(() => {
         if (user === null || space === null) return;
@@ -68,7 +69,6 @@ const Main = () => {
                 const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
                 if (res.ok) {
                     const resData = await res.json();
-                    console.log("usuarios del espacio", resData);
                     setUsersSpace(resData);
                 }
             } catch (err) {
@@ -122,9 +122,9 @@ const Main = () => {
                         {activeSection === "home" && <Home />}
                         {activeSection === "projects" && <Projects user={userFinal} usersSpace={usersSpace} modul={modul} />}
                         {isAddOpen === true && < Add user={userFinal} onClose={() => setIsAddOpen(false)} usersSpace={usersSpace} modul={modul} />}
-                        {activeSection === "employees" && <Employees />}
+                        {activeSection === "employees" && <Employees idUser={idUser} space={space} userInfo={userFinal}/>}
                         {activeSection === "chat" && <Chat idUser={idUser} />}
-                        {activeSection === "settings" && <Settings />}
+                        {activeSection === "settings" && <Settings setChangeSettings={setChangeSettings} changeSettings={changeSettings} space={space} userInfo={userFinal}/>}
                         {activeSection === "changePlan" && <ChangePlan />}
                     </div>
                 </div>

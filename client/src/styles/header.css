@@ -100,6 +100,7 @@
   justify-content: center;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
 }
 
 .btn-upload-plan svg {
@@ -135,6 +136,7 @@
   border: 0;
   border-radius: 20px;
   transition: all 0.3s;
+  cursor: pointer;
 }
 
 .btn-user-options:hover {
@@ -226,6 +228,7 @@
   font-size: 0.9rem;
   padding: 8px 5px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 #btn-profile-dropdown:hover {
@@ -295,6 +298,7 @@
   font-size: 0.9rem;
   padding: 8px 5px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 .div-options-btn button svg {
@@ -395,6 +399,7 @@
   font-size: 0.9rem;
   padding: 8px 5px;
   border-radius: 8px;
+  cursor: pointer;
 }
 
 #btn-logout svg {
