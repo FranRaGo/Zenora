@@ -34,6 +34,7 @@ const Project = ({ user, usersSpace, modul }) => {
 
     //cargar los proyectos del espacio y guardar la informacion de usuarios asignados y estado del dropdown
     const [projectData, setProjectData] = useState([]);
+    console.log(projectData);
 
     const searchUsers = async (id) => {
         try {
@@ -90,7 +91,7 @@ const Project = ({ user, usersSpace, modul }) => {
         <div className="main-projects-view">
             <MenuProjects active={active} setActive={setActive} />
             {active === "overview" && <Overview user={user} space={space} modul={modul} projectData={projectData} usersSpace={usersSpace} />}
-            {active === "list" && <List user={user} space={space} modul={modul} projectData={projectData} setProjectData={setProjectData} usersSpace={usersSpace} getProjects={getProjects} />}
+            {active === "list" && <List user={user} modul={modul} projectData={projectData} setProjectData={setProjectData} usersSpace={usersSpace} getProjects={getProjects} />}
             {active === "kanban" && <Kanban user={user} space={space} />}
             {active === "calendar" && <Calendar user={user} space={space} />}
         </div>

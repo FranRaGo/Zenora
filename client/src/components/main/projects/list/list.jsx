@@ -6,16 +6,41 @@ import TaskColumn from "./TaskColumn";
 import Notification from "../../../global/notifications";
 import Profile from "../../../global/profile/profile";
 import FromProject from "../forms/FormProject";
-import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 
+import ConfirmProjects from "../../../global/popup/ConfirmProjects";
 import OptionsProject from "./OptionsProject";
 import AssignProject from "./AssignProject";
 
-const List = ({ user, space, modul, projectData, setProjectData, usersSpace, getProjects }) => {
+const List = ({ user, modul, projectData, setProjectData, usersSpace, getProjects }) => {
     const [formProject, setFormProject] = useState(false);
     const [confirmPopupProject, setConfirmPopupProject] = useState(null); // contiene el proyecto a borrar
     const [confirmedDelete, setConfirmedDelete] = useState(false);
 
+    useEffect(() => {
+        if (!confirmedDelete || !confirmPopupProject) return;
+
+        const deleteProject = async () => {
+            try {
+                const res = await fetch(`http://localhost:3000/api/project/${confirmPopupProject.id}`, {
+                    method: "DELETE",
+                });
+
+                if (res.ok) {
+                    console.log("✅ Proyecto eliminado");
+                    await getProjects();
+                    setConfirmPopupProject(null);
+                } else {
+                    const text = await res.text();
+                    console.error("❌ Error al eliminar el proyecto:", text);
+                }
+            } catch (err) {
+                console.error("Error al conectar con la API:", err);
+            }
+            setConfirmedDelete(false);
+        };
+
+        deleteProject();
+    }, [confirmedDelete, confirmPopupProject, getProjects]);
 
     const manejarDrop = async (result) => {
         console.log(result);
@@ -64,7 +89,7 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
 
             if (!updateRes.ok) throw new Error("Error al actualizar la tarea");
             console.log("✅ Tarea actualizada correctamente");
-            setReloadProyectos(prev => !prev);
+            await getProjects();
         } catch (err) {
             console.error("error al coger los datos de la tarea", err);
         }
@@ -77,8 +102,17 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
         }));
     };
 
+    const confirmDelete = () => {
+        setConfirmedDelete(true);
+    };
+
     return (
         <>
+            {confirmPopupProject && (<ConfirmProjects
+                text={`¿Quieres eliminar el proyecto "${confirmPopupProject.title}"?`}
+                onCancel={() => setConfirmPopupProject(null)}
+                onAccept={confirmDelete}
+            />)}
             {formProject && <FromProject user={user} onClose={() => setFormProject(false)} usersSpace={usersSpace} modul={modul} onReload={getProjects} />}
             <DragDropContext onDragEnd={manejarDrop}>
                 <div className="container-projects-list">
@@ -105,35 +139,33 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
 
                                     <p>{pr.title}</p>
 
-                                    <div className="assigned-users">
-
-                                    </div>
-                                    
-
-                                    <div className="btn-assign-project" onClick={() => {
-                                        const updated = [...projectData];
-                                        updated[index].showAssignPopup = !updated[index].showAssignPopup;
-                                        setProjectData(updated);
-                                    }}>
-                                        {pr.users && pr.users.length > 0 ? (
-                                            <div className="assigned-users">
-                                                {pr.users.slice(0, 3).map((user) => (
-                                                    <Profile key={user.id} userId={user.id} styleCss="profile-stack" />
-                                                ))}
-                                                {pr.users.length > 3 && (
-                                                    <div className="profile_project extra-count">+{pr.users.length - 3}</div>
-                                                )}
-                                            </div>
-                                        ) : (
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                                                <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
-                                            </svg>
-                                        )}
+                                    <div className="div-assign-project">
+                                        <button className="btn-assign-project" onClick={() => {
+                                            const updated = [...projectData];
+                                            updated[index].showAssignPopup = !updated[index].showAssignPopup;
+                                            setProjectData(updated);
+                                        }}>
+                                            {pr.users && pr.users.length > 0 ? (
+                                                <div className="assigned-users">
+                                                    {pr.users.slice(0, 3).map((user) => (
+                                                        <Profile key={user.id} userId={user.id} styleCss="profile-stack" />
+                                                    ))}
+                                                    {pr.users.length > 3 && (
+                                                        <div className="profile_project extra-count">+{pr.users.length - 3}</div>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M18 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0ZM3 19.235v-.11a6.375 6.375 0 0 1 12.75 0v.109A12.318 12.318 0 0 1 9.374 21c-2.331 0-4.512-.645-6.374-1.766Z" />
+                                                </svg>
+                                            )}
+                                        </button>
 
                                         {pr.showAssignPopup && (
                                             <AssignProject
                                                 project={pr}
-                                                usersAssignedInit={pr.users}
+                                                user={user}
+                                                usersProject={pr.users}
                                                 usersSpace={usersSpace}
                                                 getProjects={getProjects}
                                                 onClose={() => {
@@ -157,12 +189,15 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
                                         {pr.showOptionsPopup && (
                                             <OptionsProject
                                                 project={pr}
+                                                user={user}
+                                                usersProject={pr.users}
                                                 getProjects={getProjects}
                                                 onClose={() => {
                                                     const updated = [...projectData];
                                                     updated[index].showOptionsPopup = false;
                                                     setProjectData(updated);
                                                 }}
+                                                onAskDelete={() => setConfirmPopupProject(pr)}
                                             />
                                         )}
 
@@ -171,9 +206,9 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
                                 </div>
                                 {pr.isOpen && (
                                     <>
-                                        <TaskColumn status={0} project={pr} users={pr.users} user={user} />
-                                        <TaskColumn status={1} project={pr} users={pr.users} user={user} />
-                                        <TaskColumn status={2} project={pr} users={pr.users} user={user} />
+                                        <TaskColumn status={0} project={pr} users={pr.users} user={user}/>
+                                        <TaskColumn status={1} project={pr} users={pr.users} user={user}/>
+                                        <TaskColumn status={2} project={pr} users={pr.users} user={user}/>
                                     </>
                                 )}
                             </div>
@@ -188,7 +223,7 @@ const List = ({ user, space, modul, projectData, setProjectData, usersSpace, get
                             <p className="empty-subtext">Projects help you organize and track your work easily.</p>
                             <button id="btn-add-project"
                                 onClick={() => {
-                                    if (user?.role !== "client" && user?.owner === 1) {
+                                    if (user?.role !== "client" || user?.owner === 1) {
                                         setFormProject(true);
                                     }
                                 }}

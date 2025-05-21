@@ -4,13 +4,22 @@ import TaskItem from "./item/TaskItem";
 import FormTask from "../forms/FormTask";
 import SelectionBar from "./SelectionBar";
 
-const TaskColumn = ({ status, project, users, user }) => {
-
-
+const TaskColumn = ({ status, project, users, user}) => {
     const [tareas, setTareas] = useState([]);
     const [dropdown, setDropdown] = useState(true);
     const [fromTask, setFromTask] = useState(false);
     const [selectedTasks, setSelectedTasks] = useState([]);
+
+    const [usuarioComplet, setUsuarioComplet] = useState(null);
+    
+    useEffect(() => {
+        if (user && users?.length > 0) {
+            const usuarioConPermisos = users.find(us => us.id === user.id);
+            if (usuarioConPermisos) {
+                setUsuarioComplet({ ...user, ...usuarioConPermisos });
+            }
+        }
+    }, [user, users]);
 
     const selectedData = useMemo(() => {
         return tareas.filter(t => selectedTasks.includes(t.id));
@@ -37,7 +46,7 @@ const TaskColumn = ({ status, project, users, user }) => {
 
     return (
         <>
-            {fromTask && <FormTask project={project} status={status} users={users} onClose={() => setFromTask(false)} />}
+            {fromTask && <FormTask projects={null} project={project} status={status} users={users} onClose={() => setFromTask(false)} />}
             <Droppable droppableId={`${project.id}-${status}`}>
                 {(provided) => (
                     <div className="div-status" ref={provided.innerRef} {...provided.droppableProps}>
@@ -97,7 +106,7 @@ const TaskColumn = ({ status, project, users, user }) => {
                                     })}
                                     {provided.placeholder}
                                 </div>
-                                {user?.role !== 'client' && user?.owner === 1 && tareasFiltradas.length === 0 && (
+                                {usuarioComplet?.manager === 1 || usuarioComplet?.owner === 1 && tareasFiltradas.length === 0 && (
                                     <button id="add-new-task" onClick={() => setFromTask(true)}>+ Añadir tareas</button>
                                 )}
                             </>

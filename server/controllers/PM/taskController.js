@@ -127,7 +127,7 @@ exports.createTask = (req, res) => {
       console.error("Error al insertar projecto:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
     }
-    res.status(201).json({ message: "Projecto creado exitosamente", userId: result.insertId });
+    res.status(201).json({ message: "Projecto creado exitosamente", taskId: result.insertId });
   });
 };
 

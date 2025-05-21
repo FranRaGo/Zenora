@@ -11,6 +11,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [usersAssigned, setUsersAssigned] = useState([]);
     const [openSelectAssign, setOpenSelectAssign] = useState(false);
+
     const [bannerFileName, setBannerFileName] = useState("Choose a banner");
 
     const ref = useRef();
@@ -18,9 +19,9 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
     useClickOutside(ref, onClose);
     useClickOutside(popupRef, () => setOpenSelectAssign(false));
 
+    /* Assign */
     useEffect(() => {
         if (user) {
-            // Asigna al creador como manager
             setUsersAssigned([{ ...user, isMember: true }]);
         }
     }, [user]);
@@ -47,6 +48,8 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
         );
     };
 
+    /* Banner */
+
     const isImage = (file) => file && file.type.startsWith("image/");
 
     const handleBannerChange = (e) => {
@@ -66,7 +69,8 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
         document.getElementById("banner").value = "";
     };
 
-    const handleCreateProject = async () => {
+    /* Crear project */
+    const createProject = async () => {
         const title = document.getElementById("title").value.trim();
         const description = desc.trim();
         if (!title || !description) {
@@ -155,7 +159,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
     return (
         <div className="formPopUp form-project" ref={ref}>
             <div className="header-fromPopUp">
-                <h2>Project</h2>
+                <h2>Create Project</h2>
                 <button onClick={onClose}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1" stroke="currentColor" width="20" height="20">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
@@ -180,15 +184,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
                             </button>
                         )}
                     </label>
-                    <input
-                        type="file"
-                        name="banner"
-                        id="banner"
-                        className="input-file"
-                        accept="image/*"
-                        onChange={handleBannerChange}
-                        hidden
-                    />
+                    <input type="file" name="banner" id="banner" className="input-file" accept="image/*" onChange={handleBannerChange} hidden/>
                 </div>
 
                 <div className={selectedDate ? "input-with-duedate date-wrapper" : "input-without-duedate date-wrapper"}>
@@ -290,7 +286,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
                 )}
             </div>
 
-            <button className="btn-create" onClick={handleCreateProject}>Create Project</button>
+            <button className="btn-create" onClick={createProject}>Create Project</button>
         </div>
     );
 };

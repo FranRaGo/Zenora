@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Table } from "@chakra-ui/react";
 import Profile from "../../global/profile/profile";
 import "../../../styles/employees.css";
 import ConfirmPopup from "../../global/popup/ConfirmPopup";
@@ -10,9 +9,6 @@ const Employees = ({ idUser, space }) => {
   const [popupDelete, setPopupDelete] = useState(false);
   const [deleteEmployeeConfirm, setDeleteEmployeeConfirm] = useState(false);
   const [employeeSelect, setEmployeeSelect] = useState(null);
-
-
-
 
   useEffect(() => {
     if (deleteEmployeeConfirm && employeeSelect) {
