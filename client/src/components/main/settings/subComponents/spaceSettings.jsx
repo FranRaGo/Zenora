@@ -12,7 +12,7 @@ const SpaceSettings = ({
   space,
 }) => {
   const [name, setName] = useState(userInfo?.name || "");
-
+  const [role, setRole] = useState(null);
   const [selectedBanner, setSelectedBanner] = useState(null);
   const [notification, setNotification] = useState(null);
   const navigate = useNavigate();
@@ -37,6 +37,31 @@ const SpaceSettings = ({
       setName(space.name || "");
     }
   }, [space]);
+
+  useEffect(() => {
+    console.log(userInfo);
+  }, [userInfo]);
+
+  useEffect(() => {
+    if (userInfo && space) {
+      fetch(
+        `http://localhost:3000/api/userSpaceRole/${userInfo.id}/${space.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((data) => {
+          setRole(data[0].role);
+        })
+        .catch((er) => {
+          console.log(er.message || "Unexpected error");
+        });
+    }
+  }, [userInfo]);
 
   const handleBannerChange = (e) => {
     const file = e.target.files[0];
@@ -104,16 +129,14 @@ const SpaceSettings = ({
   const handleSave = () => {
     setSpaceError("");
 
-    
     if (!name.trim()) {
       setSpaceError("Name of space is required.");
       return;
     }
 
     const updatedData = {
-        name: name,
-    }
-   
+      name: name,
+    };
 
     fetch(`http://localhost:3000/api/updateSpaceName/${space.id}`, {
       method: "PUT",
@@ -137,7 +160,6 @@ const SpaceSettings = ({
       .catch((er) => {
         console.log(er.message || "Unexpected error");
       });
-      
   };
   return (
     <>
@@ -197,19 +219,21 @@ const SpaceSettings = ({
                   value={name}
                   className="inputSetting"
                   onChange={(e) => setName(e.target.value)}
+                  disabled={role !== "admin"}
                 />
               </div>
             </div>
           </div>
           {spaceError !== "" && <p className="errorSettings">{spaceError}</p>}
         </div>
-
-        <div className="settingsButtons">
-          <button onClick={handleSave}>Save changes</button>
-          <button className="red" onClick={() => setPopupDelete(true)}>
-            Delete Space
-          </button>
-        </div>
+        {role === "admin" && (
+          <div className="settingsButtons">
+            <button onClick={handleSave}>Save changes</button>
+            <button className="red" onClick={() => setPopupDelete(true)}>
+              Delete Space
+            </button>
+          </div>
+        )}
       </div>
       {popupDelete && (
         <ConfirmPopup

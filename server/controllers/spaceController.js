@@ -42,6 +42,24 @@ exports.getUserSpace = (req, res) => {
   });
 }
 
+exports.getUserRole = (req, res) => {
+  const userId = req.params.userId;
+  const spaceId = req.params.spaceId;
+
+
+  db.query(`SELECT s.name, us.role AS role
+            FROM space s
+            JOIN user_space us ON s.id = us.space_id
+            JOIN user u ON us.user_id = u.id
+            WHERE u.id = ? AND s.id = ?;`, [userId, spaceId], (err, results) => {
+    if (err) {
+      console.error('Error en la consulta:', err);
+      return res.status(500).json({ error: 'Error en la base de datos' });
+    }
+    res.json(results);
+  });
+}
+
 exports.getInvitationsFilter = (req, res) => {
   const param = req.params.param;
   const value = req.params.value;

@@ -60,6 +60,9 @@ http://localhost:3000/api/spaceUser/:userId
 --Invitaciones en base a un parametro y valor.
 http://localhost:3000/api/invitations/:param/:value
 
+--Rol de un usuario en un espacio.
+http://localhost:3000/api/userSpaceRole/:userId/:spaceId
+
 
 ### 📤POST
 
