@@ -8,6 +8,7 @@ import { getUserSpaces } from "../utils/getUserSpaces";
 import ProfilePlus from "../components/global/profile/profilePlus";
 import AccountDropdown from "../components/launchpad/AccountDropdown/AccountDropdown";
 import ShowInvitations from "../components/launchpad/joinWorkspace/showInvitations";
+import SpaceIcon from "../components/global/profile/spaceIcon";
 
 const LaunchPad = () => {
     const navigate = useNavigate();
@@ -95,13 +96,7 @@ const LaunchPad = () => {
                         {ownSpaces.length > 0 ? (
                             ownSpaces.map((space) => (
                                 <div key={space.id} id={space.id} onClick={openWorkspace} className="workspace-card">
-                                    {space.logo === null ? (
-                                        <div className="draft-logo" style={{ backgroundColor: space.color }}>
-                                            <p>{space.name[0]}</p>
-                                        </div>
-                                    ) : (
-                                        <p>el logo</p>
-                                    )}
+                                    <SpaceIcon spaceId={space.id} styleCss={"profile_icon"} />
                                     <p>{space.name}</p>
                                     <button id="option-space" onClick={(e) => optionsNav(space.id, e)}>
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">

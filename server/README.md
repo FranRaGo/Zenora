@@ -78,7 +78,7 @@ http://localhost:3000/api/invitation
 ### ♻️PUT
 
 --Actualizar nombre de un espacio.
-http://localhost:3000/api/upadateSpaceName/:spaceId
+http://localhost:3000/api/updateSpaceName/:spaceId
 { name }
 
 --Actualizar plan de un espacio.
@@ -86,7 +86,7 @@ http://localhost:3000/api/upadateSpacePlan/:spaceId
 { plan_id }
 
 --Actualizar foto de logo de un espacio.
-http://localhost:3000/api/upadateSpaceLogo/:userId
+http://localhost:3000/api/updateSpaceLogo/:spaceId
 { image, file_type }
 
 --Actualizar rol de un usuario en un espacio.

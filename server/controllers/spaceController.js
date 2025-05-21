@@ -85,9 +85,9 @@ exports.createSpace = (req, res) => {
   const selectedColor = colors[colorIndex];
   colorIndex = (colorIndex + 1) % colors.length;
 
-  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type, color, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  const query = "INSERT INTO space (name, plan_id, logo, file_type, color, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  db.query(query, [name, admin_id, plan_id, logo, file_type, selectedColor, token, invitationCode], (err, result) => {
+  db.query(query, [name, plan_id, logo, file_type, selectedColor, token, invitationCode], (err, result) => {
     if (err) {
       console.error("Error al insertar espacio:", err);
       return res.status(500).json({ error: "Error en la base de datos al crear espacio" });
@@ -190,7 +190,7 @@ exports.updateSpaceName = (req, res) => {
 };
 
 exports.updateSpaceLogo = (req, res) => {
-  const spaceId = req.params.userId;
+  const spaceId = req.params.spaceId;
   const { image, file_type } = req.body;
 
   if (!image) {

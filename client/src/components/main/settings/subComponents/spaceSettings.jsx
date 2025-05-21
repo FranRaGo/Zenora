@@ -1,28 +1,32 @@
 import React, { useState, useEffect } from "react";
 import "../../../../styles/settings.css";
-import Profile from "../../../global/profile/profile";
+import SpaceIcon from "../../../global/profile/spaceIcon";
 import Notifications from "../../../global/notifications";
 import ConfirmPopup from "../../../global/popup/ConfirmPopup";
+import { useNavigate } from "react-router-dom";
 
-const SpaceSettings = ({ setChangeSettings, userInfo, changeSettings, space }) => {
+const SpaceSettings = ({
+  setChangeSettings,
+  userInfo,
+  changeSettings,
+  space,
+}) => {
   const [name, setName] = useState(userInfo?.name || "");
-
 
   const [selectedBanner, setSelectedBanner] = useState(null);
   const [notification, setNotification] = useState(null);
+  const navigate = useNavigate();
 
-const [deleteSpaceConfirm, setDeleteSpaceConfirm] = useState(null);
-const [popupDelete, setPopupDelete] = useState(null);
+  const [deleteSpaceConfirm, setDeleteSpaceConfirm] = useState(null);
+  const [popupDelete, setPopupDelete] = useState(null);
 
   const [spaceError, setSpaceError] = useState("");
 
-  const [bannerFileName, setBannerFileName] = useState(
-    "Change logo space"
-  );
+  const [bannerFileName, setBannerFileName] = useState("Change logo space");
 
   const clearBanner = (e) => {
     e.stopPropagation();
-    setBannerFileName("Change profile picture");
+    setBannerFileName("Change space logo");
     document.getElementById("banner").value = "";
   };
 
@@ -31,7 +35,6 @@ const [popupDelete, setPopupDelete] = useState(null);
   useEffect(() => {
     if (space) {
       setName(space.name || "");
-      
     }
   }, [space]);
 
@@ -49,7 +52,7 @@ const [popupDelete, setPopupDelete] = useState(null);
     setSelectedBanner(file);
   };
 
-  const uploadProfilePicture = async () => {
+  const uploadSpaceLogo = async () => {
     if (!selectedBanner) return;
 
     const reader = new FileReader();
@@ -58,7 +61,7 @@ const [popupDelete, setPopupDelete] = useState(null);
       const fileType = selectedBanner.type;
 
       try {
-        await fetch(`http://localhost:3000/api/userPhoto/${userInfo.id}`, {
+        await fetch(`http://localhost:3000/api/updateSpaceLogo/${space.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -73,54 +76,46 @@ const [popupDelete, setPopupDelete] = useState(null);
       }
 
       setSelectedBanner(null);
-      setBannerFileName("Change profile picture");
+      setBannerFileName("Change space logo");
     };
 
     reader.readAsDataURL(selectedBanner);
   };
 
-   useEffect(() => {
-      if (deleteSpaceConfirm) {
-        fetch(
-          `http://localhost:3000/api/user/${userInfo.id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-          .then(() => {
-            setDeleteSpaceConfirm(false);
-          })
-          .catch((er) => {
-            setError(er.message || "Unexpected error");
-          });
-      }
-    }, [deleteSpaceConfirm]);
+  useEffect(() => {
+    if (deleteSpaceConfirm) {
+      fetch(`http://localhost:3000/api/deleteSpace/${space.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(() => {
+          localStorage.removeItem("activeSpace");
+          setDeleteSpaceConfirm(false);
+          navigate("/launchpad");
+        })
+        .catch((er) => {
+          console.log(er.message || "Unexpected error");
+        });
+    }
+  }, [deleteSpaceConfirm]);
 
   const handleSave = () => {
     setSpaceError("");
+
     
-/*
-    if (!firstName.trim() || !lastName.trim() || !email.trim()) {
-      setSpaceError("All personal info fields must be filled.");
+    if (!name.trim()) {
+      setSpaceError("Name of space is required.");
       return;
     }
 
-  
-
     const updatedData = {
-      first_name: firstName,
-      last_name: lastName,
-      email: email,
-    };
-
-    if (wantsToChangePassword) {
-      updatedData.pass = newPassword;
+        name: name,
     }
+   
 
-    fetch(`http://localhost:3000/api/user/${userInfo.id}`, {
+    fetch(`http://localhost:3000/api/updateSpaceName/${space.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -129,7 +124,7 @@ const [popupDelete, setPopupDelete] = useState(null);
     })
       .then(() => {
         if (selectedBanner) {
-          return uploadProfilePicture();
+          return uploadSpaceLogo();
         }
       })
       .then(() => {
@@ -142,7 +137,7 @@ const [popupDelete, setPopupDelete] = useState(null);
       .catch((er) => {
         console.log(er.message || "Unexpected error");
       });
-      */
+      
   };
   return (
     <>
@@ -158,7 +153,7 @@ const [popupDelete, setPopupDelete] = useState(null);
           <h2>Space Information</h2>
           <div className="sectionChanges">
             <div className="settingSubSecction">
-              <Profile userId={userInfo?.id} styleCss={"profile_icon"} />
+              <SpaceIcon spaceId={space?.id} styleCss={"profile_icon"} />
               <div className="banner-upload">
                 <label htmlFor="banner" className="banner-label-wrapper">
                   <span className="banner-label">{bannerFileName}</span>
@@ -209,13 +204,14 @@ const [popupDelete, setPopupDelete] = useState(null);
           {spaceError !== "" && <p className="errorSettings">{spaceError}</p>}
         </div>
 
-       
         <div className="settingsButtons">
           <button onClick={handleSave}>Save changes</button>
-          <button className="red" onClick={()=>setPopupDelete(true)}>Delete Space</button>
+          <button className="red" onClick={() => setPopupDelete(true)}>
+            Delete Space
+          </button>
         </div>
       </div>
-       {popupDelete && (
+      {popupDelete && (
         <ConfirmPopup
           text={"Are you sure you want to delete this Space?"}
           set={setDeleteSpaceConfirm}
