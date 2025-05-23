@@ -4,6 +4,8 @@ import ChatMessages from "../microComponents/ChatMessages";
 import InputMessage from "../microComponents/InputMessage";
 import "../../../../styles/chat.css";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const ChatInfo = ({
   idUser,
   activeChat,
@@ -17,7 +19,7 @@ const ChatInfo = ({
 
   useEffect(() => {
     const fetchMessages = () => {
-      fetch(`http://localhost:3000/api/messages/${activeChat.chat_id}`)
+      fetch(`${apiURL}/api/messages/${activeChat.chat_id}`)
         .then((res) => res.json())
         .then((data) => {
           setMessages(data);

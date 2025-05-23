@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import "../../../../styles/chat.css";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const InputMessage = ({ idUser, activeChat, answer, setAnswer, messages }) => {
   const [message, setMessage] = useState("");
   const [file, setFile] = useState(null);
@@ -45,7 +47,7 @@ const InputMessage = ({ idUser, activeChat, answer, setAnswer, messages }) => {
       formData.append("type", "");
     }
 
-    fetch("http://localhost:3000/api/message", {
+    fetch(`${apiURL}/api/message`, {
       method: "POST",
       body: formData,
     })

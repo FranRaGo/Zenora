@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Profile from "../../../global/profile/Profile";
 import "../../../../styles/chat.css";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const chatHeader = ({
   idUser,
   activeChat,
@@ -19,7 +21,7 @@ const chatHeader = ({
 
   useEffect(() => {
     fetch(
-      `http://localhost:3000/api/chatMembers/${idUser}/${activeChat.chat_id}`
+      `${apiURL}/api/chatMembers/${idUser}/${activeChat.chat_id}`
     )
       .then((response) => {
         if (!response.ok) throw new Error("Error al obtener los miembros");

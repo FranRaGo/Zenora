@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import "../../../../styles/chat.css";
 import { getActiveSpace } from "../../../../utils/getActiveSpace";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const createChatPopup = ({ userId, setDespAdd }) => {
   const [type, setType] = useState(0);
   const [space, setSpace] = useState(null);
@@ -41,7 +43,7 @@ const createChatPopup = ({ userId, setDespAdd }) => {
       return;
     }
 
-    fetch("http://localhost:3000/api/chat", {
+    fetch(`${apiURL}/api/chat`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -71,7 +73,7 @@ const createChatPopup = ({ userId, setDespAdd }) => {
   useEffect(() => {
     if (!space) return;
 
-    fetch(`http://localhost:3000/api/usersSpace/${space.id}`)
+    fetch(`${apiURL}/api/usersSpace/${space.id}`)
       .then((response) => {
         if (!response.ok) throw new Error("Error al obtener los miembros");
         return response.json();

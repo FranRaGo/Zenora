@@ -4,6 +4,8 @@ import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 import AddUserGroupPopup from "../microComponents/AddUserGroupPopup";
 import Notifications from "../../../global/Notifications";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const ChatSettings = ({
   settings,
   setSettings,
@@ -44,7 +46,7 @@ const ChatSettings = ({
 
   useEffect(() => {
     if (deleteChatConfirm) {
-      fetch(`http://localhost:3000/api/chat/${activeChat.chat_id}`, {
+      fetch(`${apiURL}/api/chat/${activeChat.chat_id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +77,7 @@ const ChatSettings = ({
         chatId: activeChat.chat_id,
       };
 
-      fetch(`http://localhost:3000/api/userChat`, {
+      fetch(`${apiURL}/api/userChat`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -99,7 +101,7 @@ const ChatSettings = ({
 
   useEffect(() => {
     if (leaveChatConfirm) {
-      fetch(`http://localhost:3000/api/userChat`, {
+      fetch(`${apiURL}/api/userChat`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -126,7 +128,7 @@ const ChatSettings = ({
 
   useEffect(() => {
     fetch(
-      `http://localhost:3000/api/chatMembers/${idUser}/${activeChat.chat_id}`
+      `${apiURL}/api/chatMembers/${idUser}/${activeChat.chat_id}`
     )
       .then((response) => {
         if (!response.ok) throw new Error("Error al obtener los miembros");

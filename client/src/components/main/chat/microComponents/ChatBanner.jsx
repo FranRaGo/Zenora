@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Profile from "../../../global/profile/Profile";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const ChatBanner = ({
   chat,
   idUser,
@@ -28,7 +30,7 @@ const ChatBanner = ({
   };
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/chatMembers/${idUser}/${chat.chat_id}`)
+    fetch(`${apiURL}/api/chatMembers/${idUser}/${chat.chat_id}`)
       .then((response) => {
         if (!response.ok) throw new Error("Error al obtener los miembros");
         return response.json();
@@ -43,7 +45,7 @@ const ChatBanner = ({
   }, [idUser, message]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/api/messages/${chat.chat_id}`)
+    fetch(`${apiURL}/api/messages/${chat.chat_id}`)
       .then((response) => {
         if (!response.ok) throw new Error("Error al obtener los chats");
         return response.json();
@@ -82,7 +84,7 @@ const ChatBanner = ({
   };
 
   const setImportant = (id, important) => {
-    fetch(`http://localhost:3000/api/important`, {
+    fetch(`${apiURL}/api/important`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
