@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import '../../styles/createWorkspace.css';
-import StepFeatures from './createWorkspace/stepFeatures';
-import StepName from './createWorkspace/stepName';
-import StepPlan from './createWorkspace/changePlan';
+import StepFeatures from './createWorkspace/StepFeatures';
+import StepName from './createWorkspace/StepName';
+import StepPlan from './createWorkspace/ChangePlan';
 
 const createWorkspace = () => {
     const [step, setStep] = useState(1);
