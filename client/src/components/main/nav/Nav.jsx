@@ -10,6 +10,7 @@ import useIsMobile from "../../global/useIsMobile";
 import { getActiveSpace } from "../../../utils/getActiveSpace";
 import { getActiveUser } from "../../../utils/getActiveUser";
 
+const apiURL = import.meta.env.VITE_API_URL;
 
 const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
     const [status, setStatus] = useState(false);
@@ -42,7 +43,7 @@ const NavBar = ({ activeSection, setActiveSection, setIsAddOpen }) => {
             if (!user) return;
             if (!space) return;
             try {
-                const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
+                const res = await fetch(`${apiURL}/api/usersSpace/${space.id}`);
                 if (res.ok) {
                     const resData = await res.json();
                     const userFind = resData.find((us) => us.id === user.id);

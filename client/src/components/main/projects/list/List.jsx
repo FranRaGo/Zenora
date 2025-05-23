@@ -11,6 +11,8 @@ import ConfirmProjects from "../../../global/popup/ConfirmProjects";
 import OptionsProject from "./OptionsProject";
 import AssignProject from "./AssignProject";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const List = ({ user, modul, projectData, setProjectData, usersSpace, getProjects }) => {
     const [formProject, setFormProject] = useState(false);
     const [confirmPopupProject, setConfirmPopupProject] = useState(null);
@@ -22,7 +24,7 @@ const List = ({ user, modul, projectData, setProjectData, usersSpace, getProject
 
         const deleteProject = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/project/${confirmPopupProject.id}`, {
+                const res = await fetch(`${apiURL}/api/project/${confirmPopupProject.id}`, {
                     method: "DELETE",
                 });
 
@@ -63,7 +65,7 @@ const List = ({ user, modul, projectData, setProjectData, usersSpace, getProject
             return;
         }
         try {
-            const res = await fetch(`http://localhost:3000/api/task/${draggableId}`);
+            const res = await fetch(`${apiURL}/api/task/${draggableId}`);
             if (!res.ok) throw new Error("No se pudo cargar la tarea");
 
             const resData = await res.json();
@@ -80,7 +82,7 @@ const List = ({ user, modul, projectData, setProjectData, usersSpace, getProject
 
             console.log("new tarea", updateTarea);
 
-            const updateRes = await fetch(`http://localhost:3000/api/task/${data.id}`, {
+            const updateRes = await fetch(`${apiURL}/api/task/${data.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

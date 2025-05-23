@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import AssingDropdown from "./AssingDropdown";
 import Profile from "../../../../global/profile/Profile";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Assigne = ({ tarea, users }) => {
     const [assignDrop, setAssignDrop] = useState(false);
     const [userAssigned, setUserAssigned] = useState(null);
@@ -10,7 +12,7 @@ const Assigne = ({ tarea, users }) => {
     const loadUsersAssigned = async () => {
         if (!tarea?.id) return;
         try {
-            const res = await fetch(`http://localhost:3000/api/usersTask/${tarea.id}`);
+            const res = await fetch(`${apiURL}/api/usersTask/${tarea.id}`);
             if (res.ok) {
                 const resData = await res.json();
                 setUserAssigned(resData);

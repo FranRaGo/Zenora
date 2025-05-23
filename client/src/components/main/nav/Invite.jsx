@@ -3,6 +3,8 @@ import { getActiveSpace } from "../../../utils/getActiveSpace";
 import Notification from "../../global/Notifications";
 import useClickOutside from "../../../utils/useClickOutside";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Invite = ({ onClose, clickOut }) => {
     const [user, setUser] = useState(null);
     const [users, setUsers] = useState(null);
@@ -36,7 +38,7 @@ const Invite = ({ onClose, clickOut }) => {
 
         const loadUsers = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
+                const res = await fetch(`${apiURL}/api/usersSpace/${space.id}`);
                 if (res.ok) {
                     const dataSpace = await res.json();
                     setUsers(dataSpace);
@@ -55,7 +57,7 @@ const Invite = ({ onClose, clickOut }) => {
         const inputInvite = document.querySelector(".input-email-invite");
         const value = e.currentTarget.value;
         try {
-            const res = await fetch(`http://localhost:3000/api/usersFilter/email/${value}`);
+            const res = await fetch(`${apiURL}/api/usersFilter/email/${value}`);
             if (res.ok) {
                 const data = await res.json();
                 const foundUser = data[0];
@@ -71,7 +73,7 @@ const Invite = ({ onClose, clickOut }) => {
                     inputInvite.classList.add("inputError");
                 }
 
-                const resInv = await fetch(`http://localhost:3000/api/invitations/user_id/${foundUser.id}`);
+                const resInv = await fetch(`${apiURL}/api/invitations/user_id/${foundUser.id}`);
                 if (resInv.ok) {
                     const dataInv = await resInv.json();
                     const pendingInvite = dataInv.find(inv => inv.space_id === space.id && inv.status === "invited");
@@ -129,7 +131,7 @@ const Invite = ({ onClose, clickOut }) => {
         };
 
         try {
-            const response = await fetch('http://localhost:3000/api/invitation', {
+            const response = await fetch(`${apiURL}/api/invitation`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(invitation)

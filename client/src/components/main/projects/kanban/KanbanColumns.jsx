@@ -5,6 +5,8 @@ import TaskItemKanban from "./TaskItemKanban";
 import FormTask from "../forms/FormTask";
 import TaskInfo from "../task/TaskInfo";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const KanbanColumns = ({ status, project, users, user }) => {
     const [fromTask, setFromTask] = useState(false);
     const [taskToView, setTaskToView] = useState(null);
@@ -21,7 +23,7 @@ const KanbanColumns = ({ status, project, users, user }) => {
     useEffect(() => {
         if (!project) return;
         const loadTasks = async () => {
-            const res = await fetch(`http://localhost:3000/api/projectTask/${project.id}`);
+            const res = await fetch(`${apiURL}/api/projectTask/${project.id}`);
             if (res.ok) {
                 const data = await res.json();
                 console.log("projectska", data);

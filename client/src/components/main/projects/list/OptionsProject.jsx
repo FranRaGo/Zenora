@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 
+
 const OptionsProject = ({ user, usersProject, project, onClose, getProjects, onAskDelete }) => {
     const ref = useRef();
     const [usuarioComplet, setUsuarioComplet] = useState(null);

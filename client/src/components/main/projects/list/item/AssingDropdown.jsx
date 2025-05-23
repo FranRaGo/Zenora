@@ -2,6 +2,7 @@ import React, { useRef } from "react";
 import Profile from "../../../../global/profile/Profile";
 import useClickOutside from "../../../../../utils/useClickOutside";
 
+const apiURL = import.meta.env.VITE_API_URL;
 
 const AssingDropdown = ({ tarea, users, userAssigned, reloadAssigned, setUserAssigned, onClose }) => {
     const ref = useRef();
@@ -10,7 +11,7 @@ const AssingDropdown = ({ tarea, users, userAssigned, reloadAssigned, setUserAss
     const assignUser = async (user) => {
         console.log("Add user a la task", user);
         try {
-            const res = await fetch(`http://localhost:3000/api/assigTask/${tarea.id}`, {
+            const res = await fetch(`${apiURL}/api/assigTask/${tarea.id}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ assigId: user.id_assign }),
@@ -31,7 +32,7 @@ const AssingDropdown = ({ tarea, users, userAssigned, reloadAssigned, setUserAss
     const removeUser = async (user) => {
         console.log("Delete user a la task", user);
         try {
-            const res = await fetch(`http://localhost:3000/api/assigTask/${user.id_assign_task}`, {
+            const res = await fetch(`${apiURL}/api/assigTask/${user.id_assign_task}`, {
                 method: "DELETE",
             });
             if (res.ok) {

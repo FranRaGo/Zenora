@@ -5,6 +5,7 @@ import FormTask from "../forms/FormTask";
 import SelectionBar from "./SelectionBar";
 import TaskInfo from '../task/TaskInfo';
 
+const apiURL = import.meta.env.VITE_API_URL;
 
 const TaskColumn = ({ status, project, users, user, selectedTasks, setSelectedTasks, getProjects }) => {
     const [tareas, setTareas] = useState([]);
@@ -43,7 +44,7 @@ const TaskColumn = ({ status, project, users, user, selectedTasks, setSelectedTa
     useEffect(() => {
         if (!project) return;
         const loadTasks = async () => {
-            const res = await fetch(`http://localhost:3000/api/projectTask/${project.id}`);
+            const res = await fetch(`${apiURL}/api/projectTask/${project.id}`);
             if (res.ok) {
                 const data = await res.json();
                 setTareas(data);

@@ -10,6 +10,8 @@ import List from "./list/List";
 import Kanban from "./kanban/Kanban";
 import Calendar from "./calendar/Calendar";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Project = ({ user, usersSpace, modul }) => {
     //get el menu activo
     const [active, setActive] = useState(() => {
@@ -37,7 +39,7 @@ const Project = ({ user, usersSpace, modul }) => {
 
     const searchUsers = async (id) => {
         try {
-            const users = await fetch(`http://localhost:3000/api/projectUsers/${id}`);
+            const users = await fetch(`${apiURL}/api/projectUsers/${id}`);
             if (!users.ok) throw new Error("Error searching users project", users.status);
             const usersData = await users.json();
             return usersData;
@@ -51,7 +53,7 @@ const Project = ({ user, usersSpace, modul }) => {
 
         try {
             const { modSpaceId } = modul;
-            const res = await fetch(`http://localhost:3000/api/projectsByUser/${modSpaceId}/${user.id}/${user.role}`);
+            const res = await fetch(`${apiURL}/api/projectsByUser/${modSpaceId}/${user.id}/${user.role}`);
             if (!res.ok) throw new Error("No se pudieron obtener los proyectos");
             const data = await res.json();
 

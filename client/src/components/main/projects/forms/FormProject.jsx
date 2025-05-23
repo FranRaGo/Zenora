@@ -7,6 +7,7 @@ import useClickOutside from "../../../../utils/useClickOutside";
 import ExpandableInput from "./ExpandableInput";
 import Profile from "../../../global/profile/Profile";
 
+const apiURL = import.meta.env.VITE_API_URL;
 
 const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
     const [desc, setDesc] = useState('');
@@ -111,7 +112,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
         };
 
         try {
-            const res = await fetch("http://localhost:3000/api/project", {
+            const res = await fetch(`${apiURL}/api/project`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(projectData),
@@ -133,7 +134,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
 
             for (const user of usersAssigned) {
                 const manager = user.isMember === true ? 1 : 0;
-                const assignRes = await fetch("http://localhost:3000/api/assigProject", {
+                const assignRes = await fetch(`${apiURL}/api/assigProject`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({

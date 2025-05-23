@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import Profile from "../../../global/profile/Profile";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const AssignProject = ({ project, user, usersProject, usersSpace, onClose, getProjects }) => {
     const [usersAssigned, setUsersAssigned] = useState(usersProject || []);
     const ref = useRef();
@@ -38,7 +40,7 @@ const AssignProject = ({ project, user, usersProject, usersSpace, onClose, getPr
     const unassigned = usersSpace.filter(u => !usersAssigned.some(a => a.id === u.id));
 
     const assignUser = async (user) => {
-        const res = await fetch("http://localhost:3000/api/assigProject", {
+        const res = await fetch(`${apiURL}/api/assigProject`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
@@ -56,7 +58,7 @@ const AssignProject = ({ project, user, usersProject, usersSpace, onClose, getPr
         const newManager = user.manager === 1 ? 0 : 1;
 
         try {
-            const res = await fetch(`http://localhost:3000/api/userManager/${user.id_assign}`, {
+            const res = await fetch(`${apiURL}/api/userManager/${user.id_assign}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ manager: newManager })
@@ -70,7 +72,7 @@ const AssignProject = ({ project, user, usersProject, usersSpace, onClose, getPr
 
     const removeUser = async (user) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/assigProject/${user.id_assign}`, {
+            const res = await fetch(`${apiURL}/api/assigProject/${user.id_assign}`, {
                 method: "DELETE"
             });
             const data = await res.json();

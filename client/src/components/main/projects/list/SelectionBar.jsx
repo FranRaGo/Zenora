@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const SelectionBar = ({ selected, onClear, onView, getProjects }) => {
   console.log("Selecciona tareas", selected);
 
   const deleteTask = async () => {
     for (const id of selected) {
       try {
-        const res = await fetch(`http://localhost:3000/api/task/${id}`, {
+        const res = await fetch(`${apiURL}/api/task/${id}`, {
           method: 'DELETE',
         });
         if (!res.ok) {

@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import useClickOutside from "../../../../../utils/useClickOutside";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const PriorityDropdown = ({ priority, taskId, setPriority, onClose }) => {
     const ref = useRef();
     useClickOutside(ref, onClose);
@@ -9,7 +11,7 @@ const PriorityDropdown = ({ priority, taskId, setPriority, onClose }) => {
         const selected = parseInt(e.currentTarget.id);
 
         try {
-            const res = await fetch(`http://localhost:3000/api/task/${taskId}`);
+            const res = await fetch(`${apiURL}/api/task/${taskId}`);
             const data = await res.json();
             const tarea = data[0];
 
@@ -21,7 +23,7 @@ const PriorityDropdown = ({ priority, taskId, setPriority, onClose }) => {
                 priority: selected,
             };
 
-            const updateRes = await fetch(`http://localhost:3000/api/task/${taskId}`, {
+            const updateRes = await fetch(`${apiURL}/api/task/${taskId}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(updatedTask)

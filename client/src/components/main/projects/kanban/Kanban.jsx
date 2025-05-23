@@ -8,6 +8,8 @@ import Profile from "../../../global/profile/Profile";
 import AssignProject from "../list/AssignProject";
 import OptionsProject from "../list/OptionsProject";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Kanban = ({ user, modul, projectData, setProjectData, usersSpace, getProjects }) => {
     const [formProject, setFormProject] = useState(false);
 

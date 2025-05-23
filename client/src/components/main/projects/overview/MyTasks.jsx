@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const MyTasks = ({ user, modul, projectData, usersSpace }) => {
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedDate, setSelectedDate] = useState(() => {
@@ -11,7 +13,7 @@ const MyTasks = ({ user, modul, projectData, usersSpace }) => {
   //api para recoger datos de las tareas del proyecto seleccionado
   const loadTask = async (projectId, date) => {
     try {
-      const res = await fetch(`http://localhost:3000/api/projectTaskDate/${projectId}/${date}`);
+      const res = await fetch(`${apiURL}/api/projectTaskDate/${projectId}/${date}`);
       const data = await res.json();
       console.log("Tareas recibidas:", data);
       setTasks(data);

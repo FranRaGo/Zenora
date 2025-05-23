@@ -6,6 +6,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Profile from "../../../global/profile/Profile";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const FormTask = ({ projects, project, status, users, onClose }) => {
     const [projectSelected, setProjectSelected] = useState(project || null);
     const [openChangeProject, setOpenChangeProject] = useState(null);
@@ -133,7 +135,7 @@ const FormTask = ({ projects, project, status, users, onClose }) => {
         };
 
         try {
-            const res = await fetch(`http://localhost:3000/api/task/${projectSelected.id}`, {
+            const res = await fetch(`${apiURL}/api/task/${projectSelected.id}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(taskData),
@@ -168,7 +170,7 @@ const FormTask = ({ projects, project, status, users, onClose }) => {
             }
 
             for (const user of assignSelected) {
-                const assignRes = await fetch(`http://localhost:3000/api/assigTask/${taskId}`, {
+                const assignRes = await fetch(`${apiURL}/api/assigTask/${taskId}`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -198,7 +200,7 @@ const FormTask = ({ projects, project, status, users, onClose }) => {
         const loadUsersProjectSelected = async () => {
             if (!projectSelected) return;
             try {
-                const res = await fetch(`http://localhost:3000/api/projectUsers/${projectSelected.id}`);
+                const res = await fetch(`${apiURL}/api/projectUsers/${projectSelected.id}`);
                 if (res.ok) {
                     const data = await res.json();
                     console.log("Usuarios de ese proyecto", data);

@@ -3,6 +3,8 @@ import "../../../styles/employees.css";
 import Profile from "../../global/profile/Profile";
 import ConfirmPopup from "../../global/popup/ConfirmPopup";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Employees = ({ idUser, space, userInfo }) => {
   const [employees, setEmployees] = useState(null);
   const [popupDelete, setPopupDelete] = useState(false);
@@ -16,7 +18,7 @@ const Employees = ({ idUser, space, userInfo }) => {
   useEffect(() => {
     if (deleteEmployeeConfirm && employeeSelect) {
       fetch(
-        `http://localhost:3000/api/deleteUserSpace/${employeeSelect}/${space.id}`,
+        `${apiURL}/api/deleteUserSpace/${employeeSelect}/${space.id}`,
         {
           method: "DELETE",
           headers: {
@@ -43,7 +45,7 @@ const Employees = ({ idUser, space, userInfo }) => {
         role: newRole,
       };
       fetch(
-        `http://localhost:3000/api/updateSpaceUserRole/${employeeSelect}/${space.id}`,
+        `${apiURL}/api/updateSpaceUserRole/${employeeSelect}/${space.id}`,
         {
           method: "PUT",
           headers: {
@@ -69,7 +71,7 @@ const Employees = ({ idUser, space, userInfo }) => {
       if (!space) return;
       try {
         const res = await fetch(
-          `http://localhost:3000/api/usersSpace/${space.id}`
+          `${apiURL}/api/usersSpace/${space.id}`
         );
         if (res.ok) {
           const data = await res.json();

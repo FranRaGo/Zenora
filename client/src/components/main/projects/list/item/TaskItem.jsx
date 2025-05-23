@@ -7,6 +7,7 @@ import Priority from "./Priority";
 import Profile from "../../../../global/profile/Profile";
 import Assigne from "./Assigne";
 
+const apiURL = import.meta.env.VITE_API_URL;
 
 const TaskItem = ({ tarea, disableDraggable = false, users, isSelected, onOpenTask }) => {
     const [assignedUsers, setAssignedUsers] = useState(null);
@@ -20,7 +21,7 @@ const TaskItem = ({ tarea, disableDraggable = false, users, isSelected, onOpenTa
     useEffect(() => {
         if (!tarea) return;
         const loadUsers = async () => {
-            const res = await fetch(`http://localhost:3000/api/usersTask/${tarea.id}`);
+            const res = await fetch(`${apiURL}/api/usersTask/${tarea.id}`);
             if (res.ok) {
                 const data = await res.json();
                 console.log("assigned users", data);

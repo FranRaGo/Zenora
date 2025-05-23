@@ -4,6 +4,8 @@ import FromProject from "../projects/forms/FormProject";
 import FormTask from "../projects/forms/FormTask";
 import { getActiveUser } from "../../../utils/getActiveUser";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Add = ({ user, onClose, usersSpace, modul }) => {
     const [formProject, setFormProject] = useState(false);
     const [formTask, setFormTask] = useState(false);
@@ -28,7 +30,7 @@ const Add = ({ user, onClose, usersSpace, modul }) => {
 
     const searchUsers = async (id) => {
         try {
-            const users = await fetch(`http://localhost:3000/api/projectUsers/${id}`);
+            const users = await fetch(`${apiURL}/api/projectUsers/${id}`);
             if (!users.ok) throw new Error("Error searching users project", users.status);
             const usersData = await users.json();
             return usersData;
@@ -42,7 +44,7 @@ const Add = ({ user, onClose, usersSpace, modul }) => {
 
         try {
             const { modSpaceId } = modul;
-            const res = await fetch(`http://localhost:3000/api/projectsByUser/${modSpaceId}/${user.id}/${user.role}`);
+            const res = await fetch(`${apiURL}/api/projectsByUser/${modSpaceId}/${user.id}/${user.role}`);
             if (!res.ok) throw new Error("No se pudieron obtener los proyectos");
             const data = await res.json();
 
