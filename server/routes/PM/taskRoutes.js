@@ -11,6 +11,7 @@ router.get('/userSubtask/:userId/:taskId',taskController.getUserSubtask);
 
 router.get('/taskSubtask/:taskId',taskController.getTaskSubtask);
 router.get('/projectTask/:projectId',taskController.getProjectTask);
+router.get('/projectTaskDate/:projectId/:date',taskController.getProjectTaskDate);
 
 router.post('/task/:projectId',taskController.createTask);
 router.post('/assigTask/:taskId',taskController.assigTask);

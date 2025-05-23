@@ -83,6 +83,8 @@
 .overview-top {
   display: flex;
   gap: 10px;
+  width: 100%;
+  padding: 20px;
 }
 
 .overview-tasks {
@@ -98,6 +100,8 @@
 .overview-bottom {
   display: flex;
   gap: 10px;
+  width: 100%;
+  padding: 20px;
 }
 
 .overview-activity {
@@ -109,6 +113,141 @@
   width: 59%;
   background-color: var(--white);
 }
+
+/*-----My tasks--------*/
+
+.mytasks-container {
+  background-color: var(--fondoNav);
+  color: var(--white);
+  border: 1px solid var(--borderNav);
+  border-radius: 12px;
+  padding: 20px;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.mytasks-container h2 {
+  font-size: 1rem;
+  font-weight: 300;
+}
+
+.mytasks-container label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #b0b0b0;
+}
+
+#project-select{
+  width: 100%;
+  padding: 8px 12px;
+  color: var(--white);
+  background-color: var(--f10);
+  border: 0;
+  border-radius: 8px;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+#task-date{
+  width: 100%;
+  padding: 8px 12px;
+  background-color: var(--blue);
+  color: var(--white);
+  border-radius: 8px;
+  border: none;
+  font-weight: 400;
+  font-size: 0.9rem;
+}
+
+.div-show-tasks-tdy{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 150px;
+}
+
+.message-tasks-tdy{
+  text-align: center;
+  font-size: 0.9rem;
+  color: var(--secondText);
+  margin-top: 40px;
+}
+
+.task-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.task-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--f10);
+  border-radius: 8px;
+  padding: 10px 14px;
+}
+
+.task-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.task-title {
+  font-size: 15px;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.status-0 { background-color: red; }
+.status-1 { background-color: orange; }
+.status-2 { background-color: #0ea5e9; }
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+#btn-delete-task{
+  background-color: transparent;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+#btn-delete-task svg{
+  width: 20px;
+  height: 20px;
+  color: var(--red);
+}
+
+
+.task-actions button:hover {
+  color: white;
+}
+
+.see-more {
+  margin-top: 15px;
+  text-align: center;
+  background-color: #333344;
+  border-radius: 20px;
+  padding: 10px;
+  color: #999;
+  cursor: pointer;
+}
+
 
 /*------------------------------------------------------------*/
 /*---------------------------LIST-----------------------------*/
@@ -192,14 +331,14 @@
   display: flex;
 }
 
-.project-selected{
+.project-selected {
   color: var(--white) !important;
 }
 
 .select-project-box {
   background-color: transparent;
   padding: 8px 12px;
-  border: 0.5px solid var(--borderNav);
+  border: 1px solid var(--borderNav);
   border-radius: 6px;
   cursor: pointer;
   font-size: 0.9rem;
@@ -208,11 +347,15 @@
   position: relative;
 }
 
+.select-project-box:focus {
+  outline: 1px solid #4f46e5;
+}
+
 .project-list {
   left: 0;
   top: 35px;
   background-color: var(--fondoNav);
-  border: 0.5px solid var(--borderNav);
+  border: 1px solid var(--borderNav);
   border-radius: 6px;
   max-height: 200px;
   overflow-y: auto;
@@ -234,7 +377,6 @@
   padding: 8px 12px;
   color: #888;
 }
-
 
 /*CONTAINER DE LOS ESTADOS*/
 .container-status {
@@ -409,7 +551,14 @@
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+  cursor: pointer;
+  transition: all 0.2s;
 }
+
+.title-tasks:hover{
+  color: var(--blue);
+}
+
 #checkbox-tasks {
   pointer-events: auto;
   transition: opacity 0.1s ease, visibility 0.1s ease;
@@ -454,11 +603,12 @@
   color: var(--secondText);
 }
 
-.selected-date-display{
+.selected-date-display {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+  padding: 5px;
 }
 
 .date-wrapper {
@@ -479,7 +629,6 @@
   pointer-events: auto;
 }
 
-
 .btn-add-user {
   width: 100% !important;
   height: 100% !important;
@@ -491,6 +640,7 @@
   width: 24px;
   height: 24px;
   position: relative;
+  padding-left: 10px;
 }
 
 .btn-add-user svg {
@@ -518,6 +668,7 @@
   width: 250px;
   gap: 5px;
   font-size: 0.9rem;
+  z-index: 1000;
   user-select: none;
 }
 
@@ -604,6 +755,7 @@
   flex-direction: column;
   width: 150px;
   gap: 5px;
+  z-index: 1000;
 }
 
 .div-popup-priority button {
@@ -651,7 +803,7 @@
   pointer-events: auto;
 }
 
-.profile-stack{
+.profile-stack {
   width: 24px;
   height: 24px;
   border: 0;
@@ -677,15 +829,13 @@
   pointer-events: auto;
 }
 
-.extra-count{
+.extra-count {
   background-color: var(--white);
   color: var(--fondoBlue);
   font-weight: 500;
   box-shadow: -2px 5px 8px var(--fondoBlue);
   font-size: 0.9rem;
-
 }
-
 
 #btn-assignUser-project {
   border: 0;
@@ -711,7 +861,7 @@
   color: var(--white);
 }
 
-#option-project{
+#option-project {
   border: 0;
   border-radius: 5px;
   width: 30px;
@@ -722,7 +872,7 @@
   cursor: pointer;
 }
 
-.svg-option-project{
+.svg-option-project {
   color: var(--secondText);
   width: 100%;
   height: 100%;
@@ -736,7 +886,7 @@
   color: var(--white);
 }
 
-.btns-options-project{
+.btns-options-project {
   width: 200px;
   position: absolute;
   top: 30px;
@@ -751,7 +901,7 @@
   gap: 10px;
 }
 
-.btns-options-project button{
+.btns-options-project button {
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -764,24 +914,75 @@
   background-color: transparent;
 }
 
-.btns-options-project button:hover{
+.btns-options-project button:hover {
   background-color: var(--f10);
 }
 
-.btns-options-project button svg{
+.btns-options-project button svg {
   width: 20px !important;
   height: 20px !important;
   color: var(--secondText);
 }
 
-.btns-options-project button:hover svg{
+.btns-options-project button:hover svg {
   color: var(--white);
 }
 
+/*TASK INFO*/
+.div-info-tasks {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--fondoBlue);
+  z-index: 1000;
+  padding: 15px 20px;
+  width: 700px;
+  height: 600px;
+  border: 1px solid var(--borderNav);
+  border-radius: 8px;
+}
 
 /*------------------------------------------------------------*/
 /*-------------------------KANBAN-----------------------------*/
 /*------------------------------------------------------------*/
+
+.kanban-list{
+  width: 100%;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 10px;
+  padding: 25px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.kanbanColumn-container{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.kanban-column-0{
+  background-color: var(--f10);
+  border: 1px solid var(--borderNav);
+  border-radius: 10px;
+  padding: 2px 5px;
+}
+
+.kanban-column-1{
+  background-color: var(--fblue);
+  border: 1px solid var(--borderNav);
+  border-radius: 10px;
+  padding: 2px 5px;
+}
+
+.kanban-column-2{
+  background-color: var(--fgreen);
+  border: 1px solid var(--borderNav);
+  border-radius: 10px;
+  padding: 2px 5px;
+}
 
 /*------------------------------------------------------------*/
 /*--------------------------FORMs-----------------------------*/
@@ -789,13 +990,89 @@
 
 .selection-bar {
   position: absolute;
-  bottom: 100px;
+  bottom: 50px;
   left: 50%;
   transform: translateX(-50%);
   background-color: var(--fondoBlue);
   color: white;
   padding: 10px 20px;
-  border-top: 1px solid var(--borderNav);
+  z-index: 1000;
+  border: 1px solid var(--borderNav);
+  border-radius: 10px;
+  min-width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.info-taskSelected {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--borderNav);
+  border-radius: 8px;
+  padding: 5px 10px;
+  font-size: 0.9rem;
+}
+
+.info-taskSelected button {
+  background-color: transparent;
+  border: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.info-taskSelected button svg {
+  color: var(--white);
+}
+
+.div-options-selected-task {
+  display: flex;
+  gap: 20px;
+}
+
+#edit-task-btn {
+  display: flex;
+  background-color: transparent;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+  transition: all 0.1s;
+  padding: 5px 5px;
+  border-radius: 5px;
+}
+
+#edit-task-btn:hover {
+  background-color: var(--f20);
+}
+
+#edit-task-btn p {
+}
+
+#edit-task-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+#delete-task-btn {
+  display: flex;
+  background-color: transparent;
+  border: 0;
+  color: var(--red);
+  cursor: pointer;
+  transition: all 0.1s;
+  padding: 5px 5px;
+  border-radius: 5px;
+}
+
+#delete-task-btn:hover {
+  background-color: var(--f20);
+}
+
+#delete-task-btn svg {
+  width: 20px;
+  height: 20px;
 }
 
 .formPopUp {
@@ -809,10 +1086,6 @@
   border-radius: 10px;
   z-index: 1000;
 }
-
-
-
-
 
 /*----FROM PROJECT------*/
 .form-project {
@@ -828,6 +1101,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid var(--borderNav);
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .header-fromPopUp h2 {
@@ -841,6 +1117,7 @@
   color: var(--white);
   border: 0;
   font-size: 1.2rem;
+  cursor: pointer;
 }
 
 /*DIV DE INPUTS*/
@@ -946,8 +1223,6 @@ input:focus {
   color: var(--secondText);
 }
 
-
-
 /*----DUE DATE-------*/
 
 .input-with-duedate {
@@ -962,6 +1237,7 @@ input:focus {
   transition: all 0.2s;
   border: 0;
   border-radius: 8px;
+  padding: 5px 0px 5px 5px;
 }
 
 .input-duedate-project:hover {
@@ -969,7 +1245,7 @@ input:focus {
 }
 
 /*------ASSIGN------*/
-.div-assign-project{
+.div-assign-project {
   position: relative;
 }
 
@@ -1006,7 +1282,7 @@ input:focus {
   overflow: auto;
 }
 
-.popup-assign-user-list{
+.popup-assign-user-list {
   position: absolute;
   width: 300px;
   top: 35px;
@@ -1043,7 +1319,7 @@ input:focus {
   color: var(--secondText);
 }
 
-.user-entry{
+.user-entry {
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -1054,29 +1330,29 @@ input:focus {
   font-weight: 300;
   border: 0;
   border-radius: 8px;
-  
-  transition: all 0.2s ease
+
+  transition: all 0.2s ease;
 }
 
-.user-entry:hover{
+.user-entry:hover {
   background-color: var(--f20);
 }
 
-.user-info{
+.user-info {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
 }
 
-.user-actions{
+.user-actions {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
 }
 
-.user-actions button{
+.user-actions button {
   width: 24px;
   height: 24px;
   background-color: transparent;
@@ -1088,7 +1364,7 @@ input:focus {
   transition: all 0.2s;
 }
 
-.btnDisabled{
+.btnDisabled {
   opacity: 0.5 !important;
   pointer-events: none !important;
   cursor: not-allowed !important;
@@ -1098,7 +1374,7 @@ input:focus {
   -ms-user-select: none;
 }
 
-#remove-assign-project:hover{
+#remove-assign-project:hover {
   color: var(--red);
 }
 
@@ -1118,9 +1394,8 @@ input:focus {
   flex-direction: column;
   gap: 10px;
   width: 500px;
-  height: 500px;
+  min-height: 450px;
 }
-
 
 .btn-clean {
   background: transparent;
@@ -1132,6 +1407,7 @@ input:focus {
   display: flex;
   align-items: center;
   color: var(--white);
+  z-index: 10;
 }
 
 .btn-clean svg {
@@ -1140,11 +1416,122 @@ input:focus {
   color: var(--secondText);
 }
 
-.options{
+.div-status-taks {
+  position: relative;
+  padding: 5px;
+  border: 0;
+  border-radius: 5px;
+}
+
+.btn-status-button {
+  display: flex;
+  gap: 10px;
+}
+
+.dropdown-status-options {
+  position: absolute;
+  top: 30px;
+  left: 5px;
+  background-color: var(--fondoNav);
+  padding: 5px 20px;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 8px;
+  color: var(--white);
+  min-width: 250px;
+  z-index: 200;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 250px;
+  overflow: auto;
+}
+
+.dropdown-btn-status {
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  align-items: center;
+}
+
+.dropdown-priority {
+  position: absolute;
+  top: 30px;
+  left: 5px;
+  background-color: var(--fondoNav);
+  border: 1px solid var(--borderNav);
+  border-radius: 8px;
+  z-index: 1000;
+  color: var(--white);
+}
+
+#circle-status-0 {
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  border: 0;
+  background-color: var(--secondText);
+}
+
+#circle-status-1 {
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  border: 0;
+  background-color: var(--blue);
+}
+
+#circle-status-2 {
+  width: 10px;
+  height: 10px;
+  border-radius: 20px;
+  border: 0;
+  background-color: var(--green);
+}
+
+.dropdown-btn-status p {
+  font-size: 0.9rem;
+  color: var(--secondText);
+  transition: all 0.2s;
+}
+
+.dropdown-btn-status:hover {
+  background-color: var(--f20);
+}
+
+.dropdown-btn-status:hover p {
+  color: var(--white);
+}
+
+.div-status:focus {
+  outline: 1px solid var(--outline);
+}
+
+.options {
   display: flex;
   flex-direction: column;
   gap: 10px;
   padding: 10px 0;
+}
+
+.inputErrorSelect {
+  border-color: var(--red);
+}
+
+.priority-toggle {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
+.priority-display {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
 }
 
 /*------------------------------------------------------------*/

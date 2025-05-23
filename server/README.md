@@ -186,6 +186,9 @@ http://localhost:3000/api/task/:taskId
 --Todas las tareas de un projecto.
 http://localhost:3000/api/projectTask/:projectId
 
+--Todas la tareas de un projecto por fecha
+http://localhost:3000/api/projectTaskDate/:projectId/:date
+
 --Todas las tareas de un projecto y un usuario especifico.
 http://localhost:3000/api/userTask/:userId/:projectId
 

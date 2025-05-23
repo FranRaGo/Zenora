@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useClickOutside from "../../../../utils/useClickOutside";
@@ -11,6 +13,8 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
     const [selectedDate, setSelectedDate] = useState(null);
     const [usersAssigned, setUsersAssigned] = useState([]);
     const [openSelectAssign, setOpenSelectAssign] = useState(false);
+    const navigate = useNavigate();
+    
 
     const [bannerFileName, setBannerFileName] = useState("Choose a banner");
 
@@ -147,11 +151,14 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
                 }
             }
 
-            onReload?.();
             onClose();
+            navigate(0);
         } catch (err) {
             console.error(err);
             alert("Failed to create project");
+        } finally {
+            onClose();
+            navigate(0);
         }
     };
 
@@ -192,6 +199,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
                         selected={selectedDate}
                         onChange={(date) => setSelectedDate(date)}
                         dateFormat="dd/MM/yyyy"
+                        minDate={new Date()}
                         customInput={
                             <div className="date-custom-container">
                                 <button className="date-button-custom">
@@ -245,7 +253,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
 
                 {openSelectAssign && (
                     <div className="popup-assign-user" ref={popupRef}>
-                        <h4>Seleccionados</h4>
+                        <h4>Selected</h4>
                         {usersAssigned.map(user => (
                             <div key={user.id} className="user-entry">
                                 <div className="user-info">
@@ -273,7 +281,7 @@ const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {
                             </div>
                         ))}
 
-                        <h4>No asignados</h4>
+                        <h4>Not selected</h4>
                         {usersSpace.filter(u => !usersAssigned.some(a => a.id === u.id)).map(user => (
                             <div key={user.id} className="user-entry" onClick={() => assignUser(user)}>
                                 <div className="user-info">

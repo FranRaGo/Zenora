@@ -13,8 +13,9 @@ import AssignProject from "./AssignProject";
 
 const List = ({ user, modul, projectData, setProjectData, usersSpace, getProjects }) => {
     const [formProject, setFormProject] = useState(false);
-    const [confirmPopupProject, setConfirmPopupProject] = useState(null); // contiene el proyecto a borrar
+    const [confirmPopupProject, setConfirmPopupProject] = useState(null);
     const [confirmedDelete, setConfirmedDelete] = useState(false);
+    const [selectedTasks, setSelectedTasks] = useState([]);
 
     useEffect(() => {
         if (!confirmedDelete || !confirmPopupProject) return;
@@ -206,9 +207,9 @@ const List = ({ user, modul, projectData, setProjectData, usersSpace, getProject
                                 </div>
                                 {pr.isOpen && (
                                     <>
-                                        <TaskColumn status={0} project={pr} users={pr.users} user={user}/>
-                                        <TaskColumn status={1} project={pr} users={pr.users} user={user}/>
-                                        <TaskColumn status={2} project={pr} users={pr.users} user={user}/>
+                                        <TaskColumn status={0} project={pr} users={pr.users} user={user} selectedTasks={selectedTasks} setSelectedTasks={setSelectedTasks} getProjects={getProjects}/>
+                                        <TaskColumn status={1} project={pr} users={pr.users} user={user} selectedTasks={selectedTasks} setSelectedTasks={setSelectedTasks} getProjects={getProjects}/>
+                                        <TaskColumn status={2} project={pr} users={pr.users} user={user} selectedTasks={selectedTasks} setSelectedTasks={setSelectedTasks} getProjects={getProjects}/>
                                     </>
                                 )}
                             </div>

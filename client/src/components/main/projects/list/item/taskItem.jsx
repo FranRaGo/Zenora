@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Draggable } from "react-beautiful-dnd";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -9,7 +8,7 @@ import Profile from "../../../../global/profile/profile";
 import Assigne from "./Assigne";
 
 
-const TaskItem = ({ tarea, disableDraggable = false, users, isSelected }) => {
+const TaskItem = ({ tarea, disableDraggable = false, users, isSelected, onOpenTask }) => {
     const [assignedUsers, setAssignedUsers] = useState(null);
     const [selectedDate, setSelectedDate] = useState(
         tarea?.due_date ? new Date(tarea.due_date) : null
@@ -37,11 +36,11 @@ const TaskItem = ({ tarea, disableDraggable = false, users, isSelected }) => {
 
     return (
         <div className={`task-item-content ${isSelected ? 'no-background' : ''}`}>
-            <div className="title-tasks">
+            <div className="title-tasks" onClick={onOpenTask}>
                 <p>{tarea.title}</p>
             </div>
             <Assigne tarea={tarea} users={users} />
-            <DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} dateFormat="dd/MM/yyyy"
+            <DatePicker selected={selectedDate} onChange={(date) => setSelectedDate(date)} dateFormat="dd/MM/yyyy" minDate={new Date()}
                 customInput={
                     <button className="date-button-custom">
                         {selectedDate
