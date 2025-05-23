@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Profile from "../../global/profile/Profile";
 import "../../../styles/employees.css";
+import Profile from "../../global/profile/Profile";
 import ConfirmPopup from "../../global/popup/ConfirmPopup";
 
 const Employees = ({ idUser, space, userInfo }) => {

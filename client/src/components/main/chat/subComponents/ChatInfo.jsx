@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ChatHeader from "../microComponents/chatHeader";
+import ChatHeader from "../microComponents/ChatHeader";
 import ChatMessages from "../microComponents/ChatMessages";
 import InputMessage from "../microComponents/InputMessage";
 import "../../../../styles/chat.css";
