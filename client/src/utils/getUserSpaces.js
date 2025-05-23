@@ -4,7 +4,7 @@ export const getUserSpaces = async (userId) => {
     if (!userId) return [];
   
     try {
-      const res = await fetch(`${apiURL}/spaceUser/${userId}`);
+      const res = await fetch(`${apiURL}/api/spaceUser/${userId}`);
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
       const data = await res.json();
       return data;
