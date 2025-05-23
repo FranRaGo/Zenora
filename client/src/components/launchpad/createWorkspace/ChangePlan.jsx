@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Logo from '../../global/logo';
+import Logo from '../../global/Logo';
 
 
 const SelectPlan = ({ goBack, currentPlan, onChangePlan }) => {
