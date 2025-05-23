@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import '../../styles/signup.css';
 import { Link } from 'react-router-dom';
+
 import NameInput from './Input-name';
 import LastnameInput from './Input-lastName';
-import EmailInput from '../login/input-email';
-import PasswordInput from '../login/input-password';
+import EmailInput from '../login/Input-email';
+import PasswordInput from '../login/Input-password';
 
 const FormSignUp = ({ onSuccess }) => {
     const [name, setName] = useState('');
