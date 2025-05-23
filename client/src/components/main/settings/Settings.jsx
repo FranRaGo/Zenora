@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import AccountSettings from "./subComponents/accountSettings";
-import SpaceSettings from "./subComponents/spaceSettings";
+import AccountSettings from "./subComponents/AccountSettings";
+import SpaceSettings from "./subComponents/SpaceSettings";
 import "../../../styles/settings.css";
 
 
