@@ -6,6 +6,8 @@ import ChatInfo from "./subComponents/ChatInfo";
 import ChatSettings from "./subComponents/ChatSettings";
 import useIsMobile from "../../global/useIsMobile";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Chat = ({ idUser }) => {
   const [chats, setChats] = useState([]);
   const [activeChat, setActiveChat] = useState({});
@@ -17,7 +19,7 @@ const Chat = ({ idUser }) => {
 
   useEffect(() => {
     const fetchChats = () => {
-      fetch(`http://localhost:3000/api/chats/${idUser}`)
+      fetch(`${apiURL}/api/chats/${idUser}`)
         .then((response) => {
           if (!response.ok) throw new Error("Error al obtener los chats");
           return response.json();
