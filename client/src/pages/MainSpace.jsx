@@ -7,7 +7,7 @@ import { getActiveUser } from "../utils/getActiveUser";
 import NavBar from '../components/main/nav/nav';
 import Header from '../components/main/header/header';
 import Home from '../components/main/home/home';
-import Projects from '../components/main/projects/project';
+import Projects from '../components/main/projects/Project';
 import Chat from '../components/main/chat/chat';
 import Employees from "../components/main/employees/employes";
 import Add from '../components/main/add/add';
