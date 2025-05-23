@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const ShowInvitations = ({ idUser, onJoined }) => {
     const [invitations, setInvitations] = useState([]);
 
     useEffect(() => {
         const loadInvitations = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/invitations/user_id/${idUser}`);
+                const res = await fetch(`${apiURL}/api/invitations/user_id/${idUser}`);
                 if (!res.ok) throw new Error(`Error ${res.status}`);
                 const invitationsData = await res.json();
 
@@ -15,7 +17,7 @@ const ShowInvitations = ({ idUser, onJoined }) => {
 
                 const invitationWithSpace = await Promise.all(
                     invitedOnly.map(async (inv) => {
-                        const res = await fetch(`http://localhost:3000/api/space/id/${inv.space_id}`);
+                        const res = await fetch(`${apiURL}/api/space/id/${inv.space_id}`);
                         if (!res.ok) throw new Error(`Error fetching space ${inv.space_id}`);
                         const spaceData = await res.json();
                         return {
@@ -44,7 +46,7 @@ const ShowInvitations = ({ idUser, onJoined }) => {
 
 
         try {
-            const join = await fetch(`http://localhost:3000/api/addUserSpace`, {
+            const join = await fetch(`${apiURL}/api/addUserSpace`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -55,7 +57,7 @@ const ShowInvitations = ({ idUser, onJoined }) => {
             if (!join.ok) throw new Error(`Error ${join.status}`);
             console.log("Usuario añadido al espacio correctamente");
 
-            const del = await fetch(`http://localhost:3000/api/deleteInvitation/${invitationId}`, {
+            const del = await fetch(`${apiURL}/api/deleteInvitation/${invitationId}`, {
                 method: "DELETE",
             });
 
@@ -73,7 +75,7 @@ const ShowInvitations = ({ idUser, onJoined }) => {
 
     const deleteInvitation = async (invitationId) => {
         try {
-            const res = await fetch(`http://localhost:3000/api/deleteInvitation/${invitationId}`, {
+            const res = await fetch(`${apiURL}/api/deleteInvitation/${invitationId}`, {
                 method: "DELETE",
             });
 

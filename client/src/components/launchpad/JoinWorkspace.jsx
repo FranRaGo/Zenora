@@ -3,6 +3,8 @@ import { data, useNavigate } from 'react-router-dom';
 import Notifications from "../global/Notifications";
 import { getActiveUser } from "../../utils/getActiveUser";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const JoinWorkspace = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
@@ -53,7 +55,7 @@ const JoinWorkspace = () => {
         let space = null;
 
         try {
-            const res = await fetch(`http://localhost:3000/api/space/invitation_code/${code}`);
+            const res = await fetch(`${apiURL}/api/space/invitation_code/${code}`);
             const data = await res.json();
 
             if (!res.ok || !data || data.length === 0) {
@@ -76,7 +78,7 @@ const JoinWorkspace = () => {
         }
 
         try{
-            const resInv = await fetch(`http://localhost:3000/api/invitations/user_id/${user.id}`);
+            const resInv = await fetch(`${apiURL}/api/invitations/user_id/${user.id}`);
             if (resInv.ok) {
                 const dataInv = await resInv.json();
                 const alreadySent = dataInv.some(inv => inv.space_id === space.id);
@@ -99,7 +101,7 @@ const JoinWorkspace = () => {
         };
 
         try {
-            const res = await fetch('http://localhost:3000/api/invitation', {
+            const res = await fetch(`${apiURL}/api/invitation`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(invitation)

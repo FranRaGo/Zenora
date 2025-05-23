@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
     const [modules, setModules] = useState([]);
     const [selectedModuls, setSelectedMod] = useState({});
@@ -9,7 +11,7 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
     useEffect(() => {
         const getModuls = async () => {
             try {
-                const res = await fetch('http://localhost:3000/api/modules');
+                const res = await fetch(`${apiURL}/api/modules`);
                 if (res.ok) {
                     const data = await res.json();
                     // console.log(data);  Aquí ya puedes ver todos los módulos
@@ -72,7 +74,7 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
             file_type: null
         }        
         try {
-            const space = await fetch('http://localhost:3000/api/space', {
+            const space = await fetch(`${apiURL}/api/space`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -93,7 +95,7 @@ const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
                     moduleId: mod.id
                 }
 
-                const resMod = await fetch('http://localhost:3000/api/modSpace', {
+                const resMod = await fetch(`${apiURL}/api/modSpace`, {
                     method: 'POST',
                     headers: {
                         'Content-Type' : 'application/json'
