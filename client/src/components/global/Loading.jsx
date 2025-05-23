@@ -1,7 +1,7 @@
 import React from "react";
 
-import Logo from "../global/logo";
-import "../../styles/loading.css";
+import Logo from "./logo";
+import "../../styles/global.css";
 
 const Loading = () => {
     return(

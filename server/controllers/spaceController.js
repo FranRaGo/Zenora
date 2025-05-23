@@ -1,13 +1,39 @@
-const db = require('../config/db.js')
+const db = require('../config/db.js');
+require('dotenv').config();
+const jwt = require('jsonwebtoken');
+const crypto = require('crypto');
+
 
 //GET
 
-exports.getSpace = (req,res)=>{
-  const id = req.params.id;
+exports.getSpace = (req, res) => {
+  const param = req.params.param;
+  const value = req.params.value;
 
-  db.query(`SELECT name, id_admin, plan_id, file_type, logo
-            FROM space
-            WHERE id = ?;`,[id],(err,results)=>{
+  const allowedFields = ["id", "token", "invitation_code"];
+  if (!allowedFields.includes(param)) {
+    return res.status(400).json({ error: "Parámetro no permitido" });
+  }
+
+  const query = `SELECT * FROM space WHERE ${param} = ?`;
+
+  db.query(query, [value], (err, result) => {
+    if (err) {
+      console.error("Error en la consulta:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    res.json(result);
+  });
+}
+
+exports.getUserSpace = (req, res) => {
+  const userId = req.params.id;
+
+  db.query(`SELECT s.id ,s.name, us.role, us.owner, s.file_type ,s.color ,s.logo
+            FROM space s
+            JOIN user_space us ON s.id = us.space_id
+            JOIN user u ON us.user_id = u.id
+            WHERE u.id = ?;`, [userId], (err, results) => {
     if (err) {
       console.error('Error en la consulta:', err);
       return res.status(500).json({ error: 'Error en la base de datos' });
@@ -16,23 +42,52 @@ exports.getSpace = (req,res)=>{
   });
 }
 
-exports.getUserSpace = (req,res)=>{
-  const userId = req.params.id;
+exports.getUserRole = (req, res) => {
+  const userId = req.params.userId;
+  const spaceId = req.params.spaceId;
 
-  db.query(`SELECT s.id ,s.name, us.role, us.owner, s.file_type ,s.logo
+
+  db.query(`SELECT s.name, us.role AS role
             FROM space s
             JOIN user_space us ON s.id = us.space_id
             JOIN user u ON us.user_id = u.id
-            WHERE u.id = ?;`,[userId],(err,results)=>{
+            WHERE u.id = ? AND s.id = ?;`, [userId, spaceId], (err, results) => {
     if (err) {
       console.error('Error en la consulta:', err);
       return res.status(500).json({ error: 'Error en la base de datos' });
     }
     res.json(results);
+  });
+}
+
+exports.getInvitationsFilter = (req, res) => {
+  const param = req.params.param;
+  const value = req.params.value;
+
+  const allowedFields = ["user_id", "space_id", "status", "role"];
+
+  if (!allowedFields.includes(param)) {
+    return res.status(400).json({ error: "Parámetro no permitido" });
+  }
+
+  const query = `SELECT * FROM invitations WHERE ${param} = ?`;
+
+  db.query(query, [value], (err, result) => {
+    if (err) {
+      console.error("Error en la consulta:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.length === 0) {
+      return res.status(404).json({ message: "Invitacion no encontrada" });
+    }
+    res.json(result);
   });
 }
 
 //POST
+
+let colorIndex = 0;
+const colors = ['#3F5AB5', '#387C30', '#8B37DF', '#0F8860', '#B216AF', '#E36420'];
 
 exports.createSpace = (req, res) => {
   const { name, admin_id, plan_id, logo, file_type } = req.body;
@@ -41,9 +96,16 @@ exports.createSpace = (req, res) => {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
   }
 
-  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type) VALUES (?, ?, ?, ?, ?)";
+  const tokenPayload = { name };
+  const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
+  const invitationCode = crypto.randomBytes(12).toString('hex').slice(0, 12);
 
-  db.query(query, [name, admin_id, plan_id, logo, file_type], (err, result) => {
+  const selectedColor = colors[colorIndex];
+  colorIndex = (colorIndex + 1) % colors.length;
+
+  const query = "INSERT INTO space (name, plan_id, logo, file_type, color, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+  db.query(query, [name, plan_id, logo, file_type, selectedColor, token, invitationCode], (err, result) => {
     if (err) {
       console.error("Error al insertar espacio:", err);
       return res.status(500).json({ error: "Error en la base de datos al crear espacio" });
@@ -68,21 +130,39 @@ exports.createSpace = (req, res) => {
   });
 };
 
-exports.addUserSpace = (req,res) => {
+exports.addUserSpace = (req, res) => {
   const { spaceId, userId, role } = req.body;
+  const owner = 0;
 
-  const query = "INSERT INTO user_space(user_id,space_id,role) VALUES (?,?,?)";
+  const query = "INSERT INTO user_space(user_id,space_id,role,owner) VALUES (?,?,?,?)";
 
-  db.query(query, [userId, spaceId, role], (err, result) => {
+  db.query(query, [userId, spaceId, role, owner], (err, result) => {
     if (err) {
-      console.error("Error al eliminar usuario:", err);
+      console.error("Error al crear usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
     }
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    res.json({ message: "Usuario eliminado exitosamente" });
+    res.json({ message: "Usuario unido exitosamente" });
   });
+}
+
+exports.createInvitation = (req, res) => {
+  const { userId, spaceId, status, role } = req.body;
+
+  const query = "INSERT INTO invitations (user_id, space_id, status, role) VALUES (?, ?, ?, ?)";
+
+  db.query(query, [userId, spaceId, status, role], (err, result) => {
+    if (err) {
+      console.error("Error al crear la invitacion:", err);
+      return res.status(404).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Usuario no encontrado" });
+    }
+    res.json({ message: "Invitacion creada correctamente" });
+  })
 }
 
 //PUT
@@ -128,7 +208,7 @@ exports.updateSpaceName = (req, res) => {
 };
 
 exports.updateSpaceLogo = (req, res) => {
-  const spaceId = req.params.userId;
+  const spaceId = req.params.spaceId;
   const { image, file_type } = req.body;
 
   if (!image) {
@@ -151,7 +231,7 @@ exports.updateSpaceLogo = (req, res) => {
   });
 };
 
-exports.updateUserRole = (req,res) => {
+exports.updateUserRole = (req, res) => {
   const spaceId = req.params.spaceId;
   const userId = req.params.userId;
   const { role } = req.body;
@@ -189,7 +269,7 @@ exports.deleteSpace = (req, res) => {
   });
 };
 
-exports.deleteUserSpace = (req,res) => {
+exports.deleteUserSpace = (req, res) => {
   const spaceId = req.params.spaceId;
   const userId = req.params.userId;
 
@@ -206,3 +286,20 @@ exports.deleteUserSpace = (req,res) => {
     res.json({ message: "Usuario eliminado exitosamente" });
   });
 }
+
+exports.deleteInvitation = (req, res) => {
+  const invitationId = req.params.invitationId;
+
+  const query = "DELETE FROM invitations WHERE id = ?";
+
+  db.query(query, [invitationId], (err, result) => {
+    if (err) {
+      console.error("Error al eliminar invitacion:", err);
+      return res.status(500).json({ error: "Error en la base de datos" });
+    }
+    if (result.affectedRows === 0) {
+      return res.status(404).json({ error: "Invitacion no encontrada" });
+    }
+    res.json({ message: "Invitation delete success" });
+  });
+};

@@ -18,7 +18,7 @@ exports.getUsersFilter = (req,res)=>{
   const param = req.params.param;
   const value = req.params.value;
 
-  const allowedFields = ["id", "email", "first_name", "last_name"];
+  const allowedFields = ["id", "email", "first_name", "last_name", "token"];
   if (!allowedFields.includes(param)) {
       return res.status(400).json({ error: "Parámetro no permitido" });
   }
@@ -40,7 +40,7 @@ exports.getUsersFilter = (req,res)=>{
 exports.getUsersSpace = (req,res)=>{
   const spaceId = req.params.id;
 
-  db.query(`SELECT u.*
+  db.query(`SELECT u.*, us.*
             FROM user u
             JOIN user_space us ON u.id = us.user_id
             JOIN space s ON us.space_id = s.id
@@ -55,6 +55,9 @@ exports.getUsersSpace = (req,res)=>{
 
 //POST
 
+let colorIndex = 0;
+const colors = ['#3F5AB5', '#387C30', '#8B37DF', '#0F8860', '#B216AF', '#E36420'];
+
 exports.createUser = (req, res) => {
   const { first_name, last_name, email, pass, private, profile_picture , file_type } = req.body;
 
@@ -65,9 +68,12 @@ exports.createUser = (req, res) => {
   const tokenPayload = { email };
   const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
 
-  const query = "INSERT INTO user (first_name, last_name, email, pass, private, profile_picture , file_type, token) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  const selectedColor = colors[colorIndex];
+  colorIndex = (colorIndex + 1) % colors.length;
 
-  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type, token], (err, result ) => {
+  const query = "INSERT INTO user (first_name, last_name, email, pass, private, profile_picture , file_type, color, token) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+  db.query(query, [first_name, last_name, email, pass, private, profile_picture , file_type, selectedColor, token], (err, result ) => {
     if (err) {
       console.error("Error al insertar usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
@@ -80,15 +86,27 @@ exports.createUser = (req, res) => {
 
 exports.updateUser = (req, res) => {
   const userId = req.params.userId;
-  const { first_name, last_name, email, pass, private } = req.body;
+  const { first_name, last_name, email, pass } = req.body;
 
-  if (!first_name || !last_name || !email || !pass) {
+  if (!first_name || !last_name || !email) {
     return res.status(400).json({ error: "Todos los campos son obligatorios" });
   }
 
-  const query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ?, private = ? WHERE id = ?";
+  let query;
+  let params;
 
-  db.query(query, [first_name, last_name, email, pass, private, userId], (err, result) => {
+  const tokenPayload = { email };
+  const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
+
+  if (pass && pass.trim() !== "") {
+    query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ?, token = ? WHERE id = ?";
+    params = [first_name, last_name, email, pass, token,userId];
+  } else {
+    query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, token = ? WHERE id = ?";
+    params = [first_name, last_name, email, token, userId];
+  }
+
+  db.query(query, params, (err, result) => {
     if (err) {
       console.error("Error al actualizar usuario:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
@@ -96,7 +114,7 @@ exports.updateUser = (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    res.json({ message: "Usuario actualizado exitosamente" });
+    res.json({ message: "Usuario actualizado exitosamente", token:token });
   });
 };
 

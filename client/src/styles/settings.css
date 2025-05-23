@@ -1,0 +1,117 @@
+.settingsSpace{
+    color: var(--white);
+    height: 100%;
+    width: 100%;
+    display: flex;
+}
+
+.settingSelect{
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.settingSelect p{
+    color: var(--secondText);
+    cursor: pointer;
+}
+
+.settingSelect h1{
+    font-size: 1.5rem;
+    font-weight: 400;
+    margin-bottom: 20px;
+}
+
+.selectedSetting{
+    color: var(--blue) !important;
+}
+
+.settings{
+    width: 100%;
+    height: 100%;
+    padding-top: 70px;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.settingSection{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 50px;
+    padding-top: 10px;
+    padding-bottom: 40px;
+    width: 90%;
+    background-color: var(--f02);
+    border: solid 1px var(--borderNav);
+    border-radius: 8px;
+}
+.settingSection h2{
+    padding: 10px;
+    width: 100%;
+    border-bottom: solid 1px var(--borderNav); 
+    font-size: 1.3rem;
+    font-weight: 350;
+}
+
+.sectionChanges{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.sectionChanges label{
+    font-weight: 200;
+    font-size: 0.8rem;
+    color: var(--secondText);
+}
+
+.settingSubSecction{
+    display: flex;
+    gap: 20px;
+}
+
+.inputDisplaySettings{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+.inputSetting{
+    width: 100%;
+    padding:  8px 12px;
+    border: 1px solid var(--borderNav);
+    border-radius: 6px;
+    background-color: transparent;
+    color: var(--white);
+}
+
+.settingsButtons{
+    display: flex;
+    gap: 25px;
+}
+
+.settingsButtons button{
+    background-color: var(--blue);
+    color: var(--white);
+    border: 0;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    padding-inline: 10px;
+    cursor: pointer;
+    padding: 10px 15px;
+}
+
+.settingsButtons .red{
+    background-color: var(--red);
+}
+
+.errorSettings{
+    color: var(--red);
+    font-size: 0.8rem;
+}

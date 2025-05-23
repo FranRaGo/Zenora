@@ -1,0 +1,59 @@
+.modal-backdrop{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--fondoNav);
+    padding: 15px;
+    border: 0.5px solid var(--borderNav);
+    border-radius: 8px;
+    max-width: 250px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-backdrop h2{
+    color: var(--secondText);
+    font-weight: 300;
+    font-size: 0.9rem;
+    padding-left: 5px;
+}
+
+.create-option{
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 10px;
+    transition: all 0.2s;
+    padding: 5px;
+    border: 0;
+    border-radius: 8px;
+}
+
+.create-option:hover{
+   background-color: var(--f10);
+}
+
+
+.create-option svg{
+   width: 20px;
+   height: 20px;
+   color: var(--white);
+   margin-top: 2px;
+}
+
+.create-labels{
+    display: flex;
+    flex-direction: column;
+    max-width: 70%;;
+}
+
+.create-labels p{
+    font-weight: 300;
+    color: var(--white);
+}
+
+.description-text{
+    font-size: 0.8rem;
+    color: var(--secondText) !important;
+}

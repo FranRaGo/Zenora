@@ -14,6 +14,38 @@ exports.getProject = (req,res)=>{
   })
 }
 
+exports.getProjectsByUser = (req, res) => {
+  const { modSpaceId, userId, role } = req.params;
+
+  if (!modSpaceId || !userId || !role) {
+    return res.status(400).json({ error: "Faltan parámetros" });
+  }
+
+  let query;
+  let params;
+
+  if (role === 'admin') {
+    query = `SELECT * FROM pm_project WHERE mod_space_id = ?`;
+    params = [modSpaceId];
+  } else {
+    query = `
+      SELECT p.* FROM pm_project p
+      JOIN pm_assig_project ap ON ap.project_id = p.id
+      WHERE p.mod_space_id = ? AND ap.user_id = ?
+    `;
+    params = [modSpaceId, userId];
+  }
+
+  db.query(query, params, (err, results) => {
+    if (err) {
+      console.error("❌ Error en getProjectsByUser:", err);
+      return res.status(500).json({ error: "Error al obtener proyectos" });
+    }
+    res.json(results);
+  });
+};
+
+
 exports.getProjects = (req,res)=>{
   const spaceId = req.params.spaceId;
 
@@ -31,7 +63,7 @@ exports.getProjects = (req,res)=>{
 exports.getUserProjects = (req,res)=>{
     const userId = req.params.id;
 
-    db.query(`SELECT p.*  FROM pm_project p 
+    db.query(`SELECT p.*, ap.* FROM pm_project p 
                 JOIN pm_assig_project ap ON p.id = ap.project_id
                 JOIN user u ON ap.user_id = u.id
                 WHERE u.id = ?`,[userId],(err,results)=>{
@@ -44,9 +76,10 @@ exports.getUserProjects = (req,res)=>{
 }
 
 exports.getProjectUsers = (req,res)=>{
-  const projectId = req.params.id;
+  const projectId = req.params.projectId;
 
-  db.query(`SELECT u.*  FROM pm_project p 
+  db.query(`SELECT u.*, ap.id as id_assign, ap.manager
+              FROM pm_project p 
               JOIN pm_assig_project ap ON p.id = ap.project_id
               JOIN user u ON ap.user_id = u.id
               WHERE p.id = ?`,[projectId],(err,results)=>{
@@ -74,7 +107,7 @@ exports.createProject = (req, res) => {
       console.error("Error al insertar projecto:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
     }
-    res.status(201).json({ message: "Projecto creado exitosamente", userId: result.insertId });
+    res.status(201).json({ message: "Projecto creado exitosamente", projectId: result.insertId });
   });
 };
 

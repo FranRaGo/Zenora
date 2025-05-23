@@ -6,6 +6,7 @@ router.get('/userProjects/:id',projectController.getUserProjects);
 router.get('/projectUsers/:projectId',projectController.getProjectUsers);
 router.get('/projects/:spaceId',projectController.getProjects);
 router.get('/project/:projectId',projectController.getProject);
+router.get('/projectsByUser/:modSpaceId/:userId/:role', projectController.getProjectsByUser);
 
 router.post('/project',projectController.createProject);
 router.post('/assigProject',projectController.assigProject);

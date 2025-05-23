@@ -51,11 +51,18 @@ http://localhost:3000/api/user/:userId
 
 ### 📥GET
 
---Espacio en base de la ID.
-http://localhost:3000/api/usersSpace/:spaceId
+--Espacio en base a un parametro y valor.
+http://localhost:3000/api/space/:param/:value
 
 --Espacios de un usuario.
 http://localhost:3000/api/spaceUser/:userId
+
+--Invitaciones en base a un parametro y valor.
+http://localhost:3000/api/invitations/:param/:value
+
+--Rol de un usuario en un espacio.
+http://localhost:3000/api/userSpaceRole/:userId/:spaceId
+
 
 ### 📤POST
 
@@ -67,10 +74,14 @@ http://localhost:3000/api/space
 http://localhost:3000/api/addUserSpace
 { spaceId, userId, role }
 
+--Insertar invitacion
+http://localhost:3000/api/invitation
+{ userId, spaceId, status, role }
+
 ### ♻️PUT
 
 --Actualizar nombre de un espacio.
-http://localhost:3000/api/upadateSpaceName/:spaceId
+http://localhost:3000/api/updateSpaceName/:spaceId
 { name }
 
 --Actualizar plan de un espacio.
@@ -78,7 +89,7 @@ http://localhost:3000/api/upadateSpacePlan/:spaceId
 { plan_id }
 
 --Actualizar foto de logo de un espacio.
-http://localhost:3000/api/upadateSpaceLogo/:userId
+http://localhost:3000/api/updateSpaceLogo/:spaceId
 { image, file_type }
 
 --Actualizar rol de un usuario en un espacio.
@@ -101,7 +112,7 @@ http://localhost:3000/api/deleteUserSpace/:userId/:spaceId
 --Todos los modulos disponibles.
 http://localhost:3000/api/modules
 
---Espacios asignados a un proyectos
+--Modulos asignados a un espacio.
 http://localhost:3000/api/modules/:spaceId
 
 ### 📤POST
@@ -131,6 +142,9 @@ http://localhost:3000/api/userProjects/:id
 
 --Todos los usuarios de un proyecto.
 http://localhost:3000/api/projectUsers/:projectId
+
+--Todos los proyectos segun modulo asignado, user, role
+http://localhost:3000/api/projectsByUser/:modSpaceId/:userId/:role
 
 ### 📤POST
 
@@ -175,8 +189,14 @@ http://localhost:3000/api/task/:taskId
 --Todas las tareas de un projecto.
 http://localhost:3000/api/projectTask/:projectId
 
+--Todas la tareas de un projecto por fecha
+http://localhost:3000/api/projectTaskDate/:projectId/:date
+
 --Todas las tareas de un projecto y un usuario especifico.
 http://localhost:3000/api/userTask/:userId/:projectId
+
+--Todos los usuario de una tarea.
+http://localhost:3000/api/usersTask/:taskId
 
 --Subtarea mediante una ID.
 http://localhost:3000/api/subtask/:subtaskId
@@ -187,10 +207,12 @@ http://localhost:3000/api/taskSubtask/:taskId
 --Todas las subtareas de una tarea y un usuario especifico.
 http://localhost:3000/api/userSubtask/:userId/:taskId
 
+
+
 ### 📤POST
 
 --Crear nueva tarea.
-http://localhost:3000/api/task
+http://localhost:3000/api/task/:projectId
 { *title, *description, status, priority, due_date }
 
 --Asignar usuario a tarea.
@@ -256,11 +278,14 @@ http://localhost:3000/api/PmDocument/:documentId
 --Chats de un usuario.
 http://localhost:3000/api/chat/:userId
 
+-Compañero de chat de un usuario
+http://localhost:3000/api/chatMembers/:userId/:chatId
+
 ### 📤POST
 
 --Crear chat.
 http://localhost:3000/api/chat
-{ name, type, mod_space_id }
+{ name, type, mod_space_id, user_id, user_id_2 }
 
 --Asignar usuario a chat.
 http://localhost:3000/api/userChat
@@ -295,4 +320,9 @@ http://localhost:3000/api/messages/:chatId
 http://localhost:3000/api/message
 { *chatId, *userId, *content, answer ,file, type }
 
+### ♻️PUT
+
+--Editar chat.
+http://localhost:3000/api/important
+{ chatUsId, important }
 

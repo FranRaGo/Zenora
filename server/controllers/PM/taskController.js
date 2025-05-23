@@ -32,7 +32,7 @@ exports.getUserTask = (req,res)=>{
     const userId = req.params.userId;
     const projectId = req.params.projectId;
 
-    db.query(`SELECT t.*,u*
+    db.query(`SELECT t.*
                 FROM pm_task t
                 JOIN pm_assig_task at ON t.id = at.task_id
                 JOIN pm_assig_project ap ON at.assing_project_id = ap.id
@@ -43,6 +43,22 @@ exports.getUserTask = (req,res)=>{
         }
         res.json(results);
     })
+}
+
+exports.getUsersTask = (req,res)=>{
+  const taskId = req.params.taskId;
+
+  db.query(`SELECT u.*, t.id as id_assign_task
+    FROM pm_assig_task t 
+    JOIN pm_assig_project p ON t.assing_project_id = p.id 
+    JOIN user u ON u.id = p.user_id 
+    WHERE t.task_id = ?;`,[taskId],(err,results)=>{
+      if (err) {
+        console.error('Error en la consulta:', err);
+        return res.status(500).json({ error: 'Error en la base de datos' });
+      }
+      res.json(results);
+  })
 }
 
 exports.getUserSubtask = (req,res)=>{
@@ -71,6 +87,23 @@ exports.getProjectTask = (req,res)=>{
                 FROM pm_task t
                 JOIN pm_project p ON t.project_id = p.id
                 WHERE p.id = ?;`,[projectId],(err,results)=>{
+        if (err) {
+          console.error('Error en la consulta:', err);
+          return res.status(500).json({ error: 'Error en la base de datos' });
+        }
+        res.json(results);
+    })
+}
+
+
+exports.getProjectTaskDate = (req,res)=>{
+    const projectId = req.params.projectId;
+    const date = req.params.date;
+
+    db.query(`
+      SELECT * FROM pm_task
+      WHERE project_id = ? AND DATE(due_date) = ?;
+      `, [projectId, date],(err,results)=>{
         if (err) {
           console.error('Error en la consulta:', err);
           return res.status(500).json({ error: 'Error en la base de datos' });
@@ -111,7 +144,7 @@ exports.createTask = (req, res) => {
       console.error("Error al insertar projecto:", err);
       return res.status(500).json({ error: "Error en la base de datos" });
     }
-    res.status(201).json({ message: "Projecto creado exitosamente", userId: result.insertId });
+    res.status(201).json({ message: "Projecto creado exitosamente", taskId: result.insertId });
   });
 };
 

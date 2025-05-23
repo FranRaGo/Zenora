@@ -26,11 +26,11 @@
 /*CONTAINER*/
 
 .div-launchpad {
-  background-color: #10314a;
-  background-color: #123956;
-  background-color: #15485b50;
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0px 10px #33a0c89e;
-  border: 2px solid #31809c9e;
+  background-color: var(--fondoBlue);
+  /* background-color: #123956;
+  background-color: #15485b50; */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0px 10px #1d386b;
+  border: 0.5px solid var(--borderNav);
   width: 550px;
   height: 700px;
   border-radius: 20px;
@@ -41,7 +41,7 @@
   align-items: center;
   color: var(--white);
   position: relative;
-  z-index: 10;
+  z-index: 1000;
   gap: 80px;
 }
 
@@ -78,24 +78,12 @@
   position: relative;
 }
 
-.dropdown-popup {
-  width: 150px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-  border: 0;
-  border-radius: 8px;
-  background-color: var(--fondoNav);
-  position: absolute;
-  top: 45px;
-  right: 0;
-}
+
 
 /*Div de tus workspace*/
 .myWorkspace {
   width: 70%;
-  max-height: 250px;
+  max-height: 300px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -129,6 +117,20 @@
   display: flex;
   flex-direction: column;
   gap: 5px;
+  height: 120px;
+  overflow-y: scroll;
+  padding-right: 15px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--secondText) transparent;
+}
+
+#showMyWorkspace::-webkit-scrollbar{
+  width: 3px;
+}
+
+#showMyWorkspace::-webkit-scrollbar-thumb{
+  background-color: var(--white);
+  width: 3px;
 }
 
 /*carta para cada espacio*/
@@ -161,7 +163,6 @@
   height: 30px;
   border: 0;
   border-radius: 30px;
-  background-color: var(--verde);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -199,7 +200,7 @@
 /*Div donde se muestran los espacios en los que te has unido*/
 .joinedWorkspace {
   width: 70%;
-  max-height: 250px;
+  max-height: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -230,11 +231,12 @@
   flex-direction: column;
   align-items: center;
   position: relative;
+  
 }
 
 .actions span {
   position: absolute;
-  bottom: -35px;
+  bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
   font-size: 0.8rem;
@@ -242,7 +244,6 @@
   white-space: nowrap;
   padding: 4px 8px;
   border-radius: 4px;
-  background-color: var(--fondoHover);
   color: var(--white);
   z-index: 10;
   display: none;
@@ -253,34 +254,23 @@
 }
 
 .btn-add {
+  background-color: var(--f10);
   width: 30px;
   height: 30px;
-  border: 0;
+  border: 0.5px solid var(--secondText);
   border-radius: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 1.2rem;
   cursor: pointer;
-}
+  color: var(--secondText);
+  transition: all 0.2s;
 
-.btn-add {
-  background-color: var(--secondText);
-  width: 30px;
-  height: 30px;
-  border: 0;
-  border-radius: 30px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-}
-
-.btn-add p {
 }
 
 .btn-add:hover {
-  background-color: var(--white);
+  background-color: var(--f20);
 }
 
 .invitations {
@@ -295,19 +285,151 @@
   align-items: center;
   width: 35px;
   height: 35px;
-  border: 0;
+  border: 0.5px solid var(--secondText);
   border-radius: 35px;
-  background-color: var(--secondText);
+  background-color: var(--f10);
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 #emailbox svg {
   width: 20px;
   height: 20px;
-  color: var(--fondo);
+  color: var(--secondText);
 }
 
 #emailbox:hover {
-  background-color: var(--white);
+  background-color: var(--f20);
+}
+
+
+/*JOINSPACE*/
+
+.container-joinWorkspace {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--fondo);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.div-joinSpace {
+  background-color: var(--fondoBlue);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3), inset 0 0px 10px #1d386b;
+  border: 0.5px solid var(--borderNav);
+  width: 550px;
+  height: 500px;
+  border-radius: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  color: var(--white);
+  position: relative;
+  z-index: 10;
+  position: relative;
+}
+
+.error-join-code {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: var(--red);
+  padding-left: 5px;
+  visibility: hidden;
+}
+
+.showError {
+  font-size: 0.8rem;
+  font-weight: 200;
+  color: var(--red);
+  padding-left: 5px;
+  visibility: visible;
+}
+
+.inputError {
+  border-color: var(--red) !important;
+}
+
+.inputError:hover {
+  border-color: var(--red) !important;
+}
+
+.inputError:focus {
+  border: 0.5px solid var(--red);
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+
+.showInvitations{
+  position: absolute;
+  width: 210px;
+  background-color: var(--fondoBlue);
+  padding: 10px 15px;
+  border: 0.5px solid var(--borderNav);
+  border-radius: 5px;
+  right: 0px;
+  bottom: 40px;
+  z-index: 1000;
+  max-height: 200px;
+  overflow: auto;
+}
+
+.mesaje-notifi-invite{
+color: var(--white);
+  font-size: 0.9rem;
+}
+
+.title-invitatios{
+  color: var(--secondText);
+  font-size: 0.9rem;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.invitation-card{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 0;
+  width: 100%;
+}
+
+.invitation-card p{
+  font-size: 0.9rem;
+  font-weight: 300;
+}
+
+.invitation-card p span{
+  font-size: 0.9rem;
+  color: var(--secondText);
+  font-weight: 300;
+}
+
+.div-options-invitation{
+  display: flex;
+  justify-content: space-between;
+}
+
+.div-options-invitation button{
+  padding: 3px 10px;
+  border-radius: 8px;
+  border: 0;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.btn-aceptar-invitation{
+  background-color: var(--blue);
+}
+
+.btn-cancel-invitation{
+  background-color: var(--f20);
+
 }
 
 

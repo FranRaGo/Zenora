@@ -1,43 +1,123 @@
-import React, { useState } from "react";
-import '../../../styles/nav.css';
+import React, { useState, useEffect } from "react";
+import "../../../styles/nav.css";
+import { getActiveSpace } from "../../../utils/getActiveSpace";
+import SpaceDropdown from "./spaceDropdown";
+import SpaceIcon from "../../global/profile/spaceIcon";
 
-const ProfileIcon = ({ status }) => {
-  const [name, setName] = useState('My space');
+const ProfileIcon = ({ status, dropdown, setDropdown, setActiveSection }) => {
+  const [space, setSpace] = useState(null);
+
+  useEffect(() => {
+    const loadSpace = async () => {
+      const result = await getActiveSpace();
+      setSpace(result);
+    };
+    loadSpace();
+  }, []);
+
+  if (!space) return null;
+
+  const desplegar = () => {
+    setDropdown(!dropdown);
+  };
 
   if (status === true) {
     return (
-      <button id="btn-profile-expanded">
-        {/* Avatar container: either image or first letter */}
-        <div id="avatar-container-expanded">
-          <p id="workspace-letter">M</p>
+      <div id="btn-profile-expanded" onClick={desplegar}>
+        <div
+          id="avatar-container-expanded"
+          style={{ backgroundColor: space.color }}
+        >
+          <SpaceIcon spaceId={space.id} styleCss={"profile_icon"} />
         </div>
 
-        {/* Name + dropdown icon */}
         <div id="name-arrow-container">
-          <p id="workspace-name" className="fade-text">{name.length > 8 ? name.slice(0, 8) + "…" : name}</p>
+          <p id="workspace-name" className="fade-text">
+            {space.name.length > 8 ? space.name.slice(0, 8) + "…" : space.name}
+          </p>
           <div id="dropdown-icon-expanded">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-white">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-            </svg>
+            {dropdown ? (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m4.5 15.75 7.5-7.5 7.5 7.5"
+                />
+              </svg>
+            ) : (
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                />
+              </svg>
+            )}
           </div>
         </div>
-      </button>
+        {dropdown && (
+          <SpaceDropdown
+            space={space}
+            setActiveSection={setActiveSection}
+            closeDiv={() => setDropdown(false)}
+          />
+        )}
+      </div>
     );
   } else {
     return (
-      <button id="btn-profile-collapsed">
-        {/* Just avatar */}
-        <div id="avatar-container">
-          <p id="workspace-letter">M</p>
+      <div id="btn-profile-collapsed" onClick={desplegar}>
+        <div id="avatar-container" style={{ backgroundColor: space.color }}>
+          <SpaceIcon spaceId={space.id} styleCss={"profile_icon"} />
         </div>
 
-        {/* Only the dropdown icon */}
         <div id="dropdown-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5 text-white">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
-          </svg>
+          {dropdown ? (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m4.5 15.75 7.5-7.5 7.5 7.5"
+              />
+            </svg>
+          ) : (
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              strokeWidth="1.5"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="m19.5 8.25-7.5 7.5-7.5-7.5"
+              />
+            </svg>
+          )}
         </div>
-      </button>
+        {dropdown && (
+          <SpaceDropdown space={space} setActiveSection={setActiveSection} />
+        )}
+      </div>
     );
   }
 };

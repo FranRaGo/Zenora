@@ -4,6 +4,8 @@ const cors = require('cors'); // ✅ Importar cors
 
 const server = express();
 server.use(cors()); 
+server.use(express.json({ limit: '10mb' }));
+server.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Middleware para JSON
 server.use(express.json());
@@ -20,7 +22,7 @@ const chatCcRoutes = require('./routes/CC/chatRoutes');
 const messageCcRoutes = require('./routes/CC/messageRoutes');
 
 
-// Middleware para JSON
+// Middleware para JSONs
 server.use(express.json());
 
 // Usar rutas
