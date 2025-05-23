@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import '../../styles/signup.css';
 import { Link, useNavigate } from 'react-router-dom';
 
+const apiURL = import.meta.env.VITE_API_URL;
 
 const ValidateSignup = ({ user, goBack }) => {
     const [loading, setLoading] = useState(false);
@@ -57,7 +58,7 @@ const ValidateSignup = ({ user, goBack }) => {
 
             console.log(newUserData);
             try {
-                const response = await fetch('http://localhost:3000/api/user', {
+                const response = await fetch(`${apiURL}/api/user`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(newUserData)
@@ -86,7 +87,7 @@ const ValidateSignup = ({ user, goBack }) => {
             setLoading(true);
             setSent(false);
 
-            const response = await fetch('http://localhost:3000/api/send-code', {
+            const response = await fetch(`${apiURL}/api/send-code`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: user.email })

@@ -1,4 +1,5 @@
 export const getLoggedUsers = async () => {
+    const apiURL = import.meta.env.VITE_API_URL;
     const tokens = JSON.parse(localStorage.getItem("loggedTokens"));
     if (!tokens) return [];
   
@@ -7,7 +8,7 @@ export const getLoggedUsers = async () => {
     for (let i = 0; i < tokens.length; i++) {
       const token = tokens[i];
       try {
-        const res = await fetch(`http://localhost:3000/api/usersFilter/token/${token}`);
+        const res = await fetch(`${apiURL}/api/usersFilter/token/${token}`);
         if (!res.ok) throw new Error(`Error HTTP ${res.status}`);
   
         const data = await res.json();

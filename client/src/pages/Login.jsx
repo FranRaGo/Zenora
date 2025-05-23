@@ -4,6 +4,7 @@ import PasswordInput from '../components/login/Input-password';
 import { useNavigate, Route, Routes, Link } from 'react-router-dom';
 import '../styles/login.css';
 
+const apiURL = import.meta.env.VITE_API_URL;
 
 const Login = () => {
     const [userData, setUserData] = useState(null);
@@ -35,7 +36,7 @@ const Login = () => {
         }
 
         try {
-            const res = await fetch(`http://localhost:3000/api/usersFilter/email/${email}`);
+            const res = await fetch(`${apiURL}/api/usersFilter/email/${email}`);
             if (!res.ok) throw new Error("No user found");
             const user = await res.json(); //user en json
             if (user.length === 0) throw new Error("No user found");

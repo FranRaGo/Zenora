@@ -5,6 +5,8 @@ import Notifications from "../../../global/Notifications";
 import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 import { useNavigate } from "react-router-dom";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const SpaceSettings = ({
   setChangeSettings,
   userInfo,
@@ -45,7 +47,7 @@ const SpaceSettings = ({
   useEffect(() => {
     if (userInfo && space) {
       fetch(
-        `http://localhost:3000/api/userSpaceRole/${userInfo.id}/${space.id}`,
+        `${apiURL}/api/userSpaceRole/${userInfo.id}/${space.id}`,
         {
           method: "GET",
           headers: {
@@ -86,7 +88,7 @@ const SpaceSettings = ({
       const fileType = selectedBanner.type;
 
       try {
-        await fetch(`http://localhost:3000/api/updateSpaceLogo/${space.id}`, {
+        await fetch(`${apiURL}/api/updateSpaceLogo/${space.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -109,7 +111,7 @@ const SpaceSettings = ({
 
   useEffect(() => {
     if (deleteSpaceConfirm) {
-      fetch(`http://localhost:3000/api/deleteSpace/${space.id}`, {
+      fetch(`${apiURL}/api/deleteSpace/${space.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -138,7 +140,7 @@ const SpaceSettings = ({
       name: name,
     };
 
-    fetch(`http://localhost:3000/api/updateSpaceName/${space.id}`, {
+    fetch(`${apiURL}/api/updateSpaceName/${space.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

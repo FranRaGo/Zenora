@@ -5,6 +5,8 @@ import Notifications from "../../../global/Notifications";
 import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 import { useNavigate } from "react-router-dom";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
   const [firstName, setFirstName] = useState(userInfo?.first_name || "");
   const [oldToken, setOldToken] = useState(userInfo?.token || "");
@@ -69,7 +71,7 @@ const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
       const fileType = selectedBanner.type;
 
       try {
-        await fetch(`http://localhost:3000/api/userPhoto/${userInfo.id}`, {
+        await fetch(`${apiURL}/api/userPhoto/${userInfo.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -92,7 +94,7 @@ const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
 
   useEffect(() => {
     if (deleteUserConfirm) {
-      fetch(`http://localhost:3000/api/user/${userInfo.id}`, {
+      fetch(`${apiURL}/api/user/${userInfo.id}`, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
@@ -150,7 +152,7 @@ const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
       updatedData.pass = newPassword;
     }
 
-    fetch(`http://localhost:3000/api/user/${userInfo.id}`, {
+    fetch(`${apiURL}/api/user/${userInfo.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

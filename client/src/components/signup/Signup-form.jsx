@@ -7,6 +7,8 @@ import LastnameInput from './Input-lastName';
 import EmailInput from '../login/Input-email';
 import PasswordInput from '../login/Input-password';
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const FormSignUp = ({ onSuccess }) => {
     const [name, setName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -94,7 +96,7 @@ const FormSignUp = ({ onSuccess }) => {
         }
     
         try {
-            const res = await fetch(`http://localhost:3000/api/usersFilter/email/${emailValue}`);
+            const res = await fetch(`${apiURL}/api/usersFilter/email/${emailValue}`);
             if (res.ok) {
                 // L'email ja existeix, bloqueja registre
                 input.classList.add("inputError");
@@ -153,7 +155,7 @@ const FormSignUp = ({ onSuccess }) => {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/send-code', {
+            const response = await fetch(`${apiURL}/api/send-code`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ email: email })

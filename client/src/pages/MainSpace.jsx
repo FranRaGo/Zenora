@@ -14,6 +14,8 @@ import Add from '../components/main/add/Add';
 import Settings from "../components/main/settings/Settings";
 import ChangePlan from "../components/global/ChangePlan";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const Main = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
@@ -66,7 +68,7 @@ const Main = () => {
         const loadUserSpace = async () => {
             if (!space) return;
             try {
-                const res = await fetch(`http://localhost:3000/api/usersSpace/${space.id}`);
+                const res = await fetch(`${apiURL}/api/usersSpace/${space.id}`);
                 if (res.ok) {
                     const resData = await res.json();
                     setUsersSpace(resData);
@@ -85,7 +87,7 @@ const Main = () => {
         const getModulSpace = async () => {
             if (!space) return;
             try {
-                const res = await fetch(`http://localhost:3000/api/modules/${space.id}`);
+                const res = await fetch(`${apiURL}/api/modules/${space.id}`);
                 if (res.ok) {
                     const data = await res.json();
                     for (let i = 0; i < data.length; i++) {

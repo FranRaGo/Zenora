@@ -10,6 +10,8 @@ import AccountDropdown from "../components/launchpad/AccountDropdown/AccountDrop
 import ShowInvitations from "../components/launchpad/joinWorkspace/ShowInvitations";
 import SpaceIcon from "../components/global/profile/SpaceIcon";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const LaunchPad = () => {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
@@ -43,7 +45,7 @@ const LaunchPad = () => {
         const idSpace = e.currentTarget.id;
         console.log("Id espacio seleccionado", idSpace);
         try {
-            const res = await fetch(`http://localhost:3000/api/space/id/${idSpace}`);
+            const res = await fetch(`${apiURL}/api/space/id/${idSpace}`);
             if (res.ok) {
                 const resData = await res.json();
                 const token = resData[0]?.token;
