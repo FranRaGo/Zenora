@@ -16,6 +16,9 @@ const getMimeType = (ext) => {
     }
 };
 
+const apiURL = import.meta.env.VITE_API_URL;
+
+
 const Profile = ({ userId, styleCss }) => {
     const [user, setUser] = useState(null);
     const [imageUrl, setImageUrl] = useState(null);
@@ -24,7 +27,7 @@ const Profile = ({ userId, styleCss }) => {
         if (!userId) return;
         const searchUser = async () => {
             try {
-                const res = await fetch(`http://localhost:3000/api/usersFilter/id/${userId}`);
+                const res = await fetch(`${apiURL}/api/usersFilter/id/${userId}`);
                 const resData = await res.json();
                 const userData = resData[0];
                 setUser(userData);

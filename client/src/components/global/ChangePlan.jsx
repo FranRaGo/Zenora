@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Logo from "./Logo";
 
 const ChangePlan = ({ }) => {
-
     return (
         <div className="step-plan-container">
 

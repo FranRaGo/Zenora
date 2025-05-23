@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 
+const apiURL = import.meta.env.VITE_API_URL;
+
 const SpaceIcon = ({ spaceId, styleCss }) => {
   const [space, setSpace] = useState(null);
   const [imageUrl, setImageUrl] = useState(null);
@@ -9,7 +11,7 @@ const SpaceIcon = ({ spaceId, styleCss }) => {
 
     const searchSpace = async () => {
       try {
-        const res = await fetch(`http://localhost:3000/api/space/id/${spaceId}`);
+        const res = await fetch(`${apiURL}/api/space/id/${spaceId}`);
         const resData = await res.json();
         const spaceData = resData[0];
         setSpace(spaceData);
