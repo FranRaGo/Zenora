@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import EyeButton from './icon-eye';
+import EyeButton from './Icon-eye';
 import '../../styles/login.css';
 
 
