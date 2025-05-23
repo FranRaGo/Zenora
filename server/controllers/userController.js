@@ -54,6 +54,7 @@ exports.getUsersSpace = (req,res)=>{
 }
 
 //POST
+
 let colorIndex = 0;
 const colors = ['#3F5AB5', '#387C30', '#8B37DF', '#0F8860', '#B216AF', '#E36420'];
 
@@ -94,12 +95,15 @@ exports.updateUser = (req, res) => {
   let query;
   let params;
 
+  const tokenPayload = { email };
+  const token = jwt.sign(tokenPayload, process.env.JWT_SECRET);
+
   if (pass && pass.trim() !== "") {
-    query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ? WHERE id = ?";
-    params = [first_name, last_name, email, pass, userId];
+    query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, pass = ?, token = ? WHERE id = ?";
+    params = [first_name, last_name, email, pass, token,userId];
   } else {
-    query = "UPDATE user SET first_name = ?, last_name = ?, email = ? WHERE id = ?";
-    params = [first_name, last_name, email, userId];
+    query = "UPDATE user SET first_name = ?, last_name = ?, email = ?, token = ? WHERE id = ?";
+    params = [first_name, last_name, email, token, userId];
   }
 
   db.query(query, params, (err, result) => {
@@ -110,7 +114,7 @@ exports.updateUser = (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: "Usuario no encontrado" });
     }
-    res.json({ message: "Usuario actualizado exitosamente" });
+    res.json({ message: "Usuario actualizado exitosamente", token:token });
   });
 };
 

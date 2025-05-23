@@ -42,6 +42,24 @@ exports.getUserSpace = (req, res) => {
   });
 }
 
+exports.getUserRole = (req, res) => {
+  const userId = req.params.userId;
+  const spaceId = req.params.spaceId;
+
+
+  db.query(`SELECT s.name, us.role AS role
+            FROM space s
+            JOIN user_space us ON s.id = us.space_id
+            JOIN user u ON us.user_id = u.id
+            WHERE u.id = ? AND s.id = ?;`, [userId, spaceId], (err, results) => {
+    if (err) {
+      console.error('Error en la consulta:', err);
+      return res.status(500).json({ error: 'Error en la base de datos' });
+    }
+    res.json(results);
+  });
+}
+
 exports.getInvitationsFilter = (req, res) => {
   const param = req.params.param;
   const value = req.params.value;
@@ -85,9 +103,9 @@ exports.createSpace = (req, res) => {
   const selectedColor = colors[colorIndex];
   colorIndex = (colorIndex + 1) % colors.length;
 
-  const query = "INSERT INTO space (name, id_admin, plan_id, logo, file_type, color, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+  const query = "INSERT INTO space (name, plan_id, logo, file_type, color, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-  db.query(query, [name, admin_id, plan_id, logo, file_type, selectedColor, token, invitationCode], (err, result) => {
+  db.query(query, [name, plan_id, logo, file_type, selectedColor, token, invitationCode], (err, result) => {
     if (err) {
       console.error("Error al insertar espacio:", err);
       return res.status(500).json({ error: "Error en la base de datos al crear espacio" });
@@ -190,7 +208,7 @@ exports.updateSpaceName = (req, res) => {
 };
 
 exports.updateSpaceLogo = (req, res) => {
-  const spaceId = req.params.userId;
+  const spaceId = req.params.spaceId;
   const { image, file_type } = req.body;
 
   if (!image) {

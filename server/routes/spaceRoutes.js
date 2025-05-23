@@ -5,6 +5,7 @@ const spaceController = require('../controllers/spaceController');
 router.get('/spaceUser/:id', spaceController.getUserSpace);
 router.get('/space/:param/:value', spaceController.getSpace);
 router.get('/invitations/:param/:value', spaceController.getInvitationsFilter);
+router.get('/userSpaceRole/:userId/:spaceId', spaceController.getUserRole);
 
 
 router.post('/space', spaceController.createSpace);

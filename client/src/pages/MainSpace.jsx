@@ -124,7 +124,7 @@ const Main = () => {
                         {isAddOpen === true && < Add user={userFinal} onClose={() => setIsAddOpen(false)} usersSpace={usersSpace} modul={modul} />}
                         {activeSection === "employees" && <Employees idUser={idUser} space={space} userInfo={userFinal}/>}
                         {activeSection === "chat" && <Chat idUser={idUser} />}
-                        {activeSection === "settings" && <Settings setChangeSettings={setChangeSettings} changeSettings={changeSettings} space={space} userInfo={userFinal}/>}
+                        {activeSection === "settings" && <Settings setChangeSettings={setChangeSettings} changeSettings={changeSettings} space={space} userInfo={user}/>}
                         {activeSection === "changePlan" && <ChangePlan />}
                     </div>
                 </div>

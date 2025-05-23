@@ -3,17 +3,21 @@ import "../../../../styles/settings.css";
 import Profile from "../../../global/profile/profile";
 import Notifications from "../../../global/notifications";
 import ConfirmPopup from "../../../global/popup/ConfirmPopup";
+import { useNavigate } from "react-router-dom";
 
 const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
   const [firstName, setFirstName] = useState(userInfo?.first_name || "");
+  const [oldToken, setOldToken] = useState(userInfo?.token || "");
+
   const [lastName, setLastName] = useState(userInfo?.last_name || "");
   const [email, setEmail] = useState(userInfo?.email || "");
   const [selectedBanner, setSelectedBanner] = useState(null);
   const [notification, setNotification] = useState(null);
+  const navigate = useNavigate();
 
-    const [deleteUserConfirm, setDeleteUserConfirm] = useState(null);
-    const [popupDelete, setPopupDelete] = useState(null);
-  
+  const [deleteUserConfirm, setDeleteUserConfirm] = useState(null);
+  const [popupDelete, setPopupDelete] = useState(null);
+
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [repeatNewPassword, setRepeatNewPassword] = useState("");
@@ -38,6 +42,7 @@ const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
       setFirstName(userInfo.first_name || "");
       setLastName(userInfo.last_name || "");
       setEmail(userInfo.email || "");
+      setOldToken(userInfo.token || "");
     }
   }, [userInfo]);
 
@@ -85,25 +90,31 @@ const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
     reader.readAsDataURL(selectedBanner);
   };
 
-   useEffect(() => {
-      if (deleteUserConfirm) {
-        fetch(
-          `http://localhost:3000/api/user/${userInfo.id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
-        )
-          .then(() => {
-            setDeleteUserConfirm(false);
-          })
-          .catch((er) => {
-            setError(er.message || "Unexpected error");
-          });
-      }
-    }, [deleteUserConfirm]);
+  useEffect(() => {
+    if (deleteUserConfirm) {
+      fetch(`http://localhost:3000/api/user/${userInfo.id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then(() => {
+          let arrayUsers =
+            JSON.parse(localStorage.getItem("loggedTokens")) || [];
+
+          arrayUsers = arrayUsers.filter((token) => token !== oldToken);
+
+          localStorage.setItem("loggedTokens", JSON.stringify(arrayUsers));
+          localStorage.removeItem("activeToken");
+
+          setDeleteUserConfirm(false);
+          navigate("/login");
+        })
+        .catch((er) => {
+          console.log(er);
+        });
+    }
+  }, [deleteUserConfirm]);
 
   const handleSave = () => {
     setInfoError("");
@@ -146,7 +157,20 @@ const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
       },
       body: JSON.stringify(updatedData),
     })
-      .then(() => {
+      .then((res) => {
+        if (!res.ok) throw new Error("Error al actualizar el usuario");
+        return res.json(); // 👈 obtener el usuario actualizado del backend
+      })
+      .then((updatedUser) => {
+        localStorage.setItem("activeToken", updatedUser.token);
+        let arrayUsers = JSON.parse(localStorage.getItem("loggedTokens"));
+
+        arrayUsers = arrayUsers.map((token) =>
+          token === oldToken ? updatedUser.token : token
+        );
+
+        localStorage.setItem("loggedTokens", JSON.stringify(arrayUsers));
+
         if (selectedBanner) {
           return uploadProfilePicture();
         }
@@ -285,10 +309,12 @@ const AccountSettings = ({ setChangeSettings, userInfo, changeSettings }) => {
 
         <div className="settingsButtons">
           <button onClick={handleSave}>Save changes</button>
-          <button className="red" onClick={()=>setPopupDelete(true)}>Delete Account</button>
+          <button className="red" onClick={() => setPopupDelete(true)}>
+            Delete Account
+          </button>
         </div>
       </div>
-       {popupDelete && (
+      {popupDelete && (
         <ConfirmPopup
           text={"Are you sure you want to delete this user?"}
           set={setDeleteUserConfirm}
