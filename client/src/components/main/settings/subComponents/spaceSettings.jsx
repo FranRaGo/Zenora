@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../../styles/settings.css";
-import SpaceIcon from "../../../global/profile/spaceIcon";
-import Notifications from "../../../global/notifications";
+import SpaceIcon from "../../../global/profile/SpaceIcon";
+import Notifications from "../../../global/Notifications";
 import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 import { useNavigate } from "react-router-dom";
 

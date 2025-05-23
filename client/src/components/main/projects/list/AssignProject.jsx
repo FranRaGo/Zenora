@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import Profile from "../../../global/profile/profile";
+import Profile from "../../../global/profile/Profile";
 
 const AssignProject = ({ project, user, usersProject, usersSpace, onClose, getProjects }) => {
     const [usersAssigned, setUsersAssigned] = useState(usersProject || []);

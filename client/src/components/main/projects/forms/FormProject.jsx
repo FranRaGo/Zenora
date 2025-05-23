@@ -5,7 +5,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import useClickOutside from "../../../../utils/useClickOutside";
 import ExpandableInput from "./ExpandableInput";
-import Profile from "../../../global/profile/profile";
+import Profile from "../../../global/profile/Profile";
 
 
 const FromProject = ({ user, onClose, usersSpace, modul, onReload }) => {

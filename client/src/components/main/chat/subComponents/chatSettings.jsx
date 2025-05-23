@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Profile from "../../../global/profile/profile";
+import Profile from "../../../global/profile/Profile";
 import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 import AddUserGroupPopup from "../microComponents/addUserGroupPopup";
-import Notifications from "../../../global/notifications";
+import Notifications from "../../../global/Notifications";
 
 const ChatSettings = ({
   settings,

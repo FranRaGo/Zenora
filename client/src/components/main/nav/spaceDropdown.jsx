@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import useClickOutside from "../../../utils/useClickOutside";
-import SpaceIcon from "../../global/profile/spaceIcon";
+import SpaceIcon from "../../global/profile/SpaceIcon";
 
 const SpaceDropdown = ({ space, setActiveSection, closeDiv }) => {
   const navigate = useNavigate();

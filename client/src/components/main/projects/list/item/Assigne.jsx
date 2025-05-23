@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AssingDropdown from "./AssingDropdown";
-import Profile from "../../../../global/profile/profile";
+import Profile from "../../../../global/profile/Profile";
 
 const Assigne = ({ tarea, users }) => {
     const [assignDrop, setAssignDrop] = useState(false);

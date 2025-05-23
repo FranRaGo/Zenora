@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import ChatBanner from "../microComponents/chatBanner";
-import FilterButtons from "../microComponents/filterButtons";
-import SearchChat from "../microComponents/searchChat";
-import CreateChatButton from "../microComponents/createChatButton";
-import CreateChatPopup from "../microComponents/createChatPopup";
+import ChatBanner from "../microComponents/ChatBanner";
+import FilterButtons from "../microComponents/FilterButtons";
+import SearchChat from "../microComponents/SearchChat";
+import CreateChatButton from "../microComponents/CreateChatButton";
+import CreateChatPopup from "../microComponents/CreateChatPopup";
 
 import "../../../../styles/chat.css";
 

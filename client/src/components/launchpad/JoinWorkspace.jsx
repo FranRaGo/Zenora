@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { data, useNavigate } from 'react-router-dom';
-import Notifications from "../global/notifications";
+import Notifications from "../global/Notifications";
 import { getActiveUser } from "../../utils/getActiveUser";
 
 const JoinWorkspace = () => {

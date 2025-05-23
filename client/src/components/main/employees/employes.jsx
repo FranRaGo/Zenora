@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Profile from "../../global/profile/profile";
+import Profile from "../../global/profile/Profile";
 import "../../../styles/employees.css";
 import ConfirmPopup from "../../global/popup/ConfirmPopup";
 

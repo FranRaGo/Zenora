@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 
-import ProfileIcon from "./iconPerfil";
-import Menu from "./menu";
 import '../../../styles/nav.css';
+
+import ProfileIcon from "./IconPerfil";
+import Menu from "./Menu";
+import Invite from "./Invite";
+
 import useIsMobile from "../../global/useIsMobile";
-import Invite from "./invite";
 import { getActiveSpace } from "../../../utils/getActiveSpace";
 import { getActiveUser } from "../../../utils/getActiveUser";
 

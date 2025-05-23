@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 
 import "../../../styles/chat.css";
-import ChatsPanel from "./subComponents/chatsPanel";
-import ChatInfo from "./subComponents/chatInfo";
-import ChatSettings from "./subComponents/chatSettings";
+import ChatsPanel from "./subComponents/ChatsPanel";
+import ChatInfo from "./subComponents/ChatInfo";
+import ChatSettings from "./subComponents/ChatSettings";
 import useIsMobile from "../../global/useIsMobile";
 
 const Chat = ({ idUser }) => {

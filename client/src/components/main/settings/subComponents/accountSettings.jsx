@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../../../../styles/settings.css";
-import Profile from "../../../global/profile/profile";
-import Notifications from "../../../global/notifications";
+import Profile from "../../../global/profile/Profile";
+import Notifications from "../../../global/Notifications";
 import ConfirmPopup from "../../../global/popup/ConfirmPopup";
 import { useNavigate } from "react-router-dom";
 

@@ -4,7 +4,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import Priority from "./Priority";
-import Profile from "../../../../global/profile/profile";
+import Profile from "../../../../global/profile/Profile";
 import Assigne from "./Assigne";
 
 

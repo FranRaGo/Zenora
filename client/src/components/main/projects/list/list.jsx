@@ -3,8 +3,8 @@ import { getActiveSpace } from "../../../../utils/getActiveSpace";
 import { DragDropContext } from "react-beautiful-dnd";
 
 import TaskColumn from "./TaskColumn";
-import Notification from "../../../global/notifications";
-import Profile from "../../../global/profile/profile";
+import Notification from "../../../global/Notifications";
+import Profile from "../../../global/profile/Profile";
 import FromProject from "../forms/FormProject";
 
 import ConfirmProjects from "../../../global/popup/ConfirmProjects";

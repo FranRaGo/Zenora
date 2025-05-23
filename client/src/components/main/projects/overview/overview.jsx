@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 
-import MyTasks from "./myTasks";
-import MyProjects from "./myProjects";
-import Activity from "./myProjects";
-import Calendar from "./myProjects";
+import MyTasks from "./MyTasks";
+import MyProjects from "./MyProjects";
+import Activity from "./Activity";
+import Calendar from "./Calendar";
 
 const Overview = ({ user, modul, projectData, usersSpace }) => {
   

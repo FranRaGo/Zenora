@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { getActiveUser } from "../../../utils/getActiveUser";
 
-import Profile from "../../global/profile/profile";
+import Profile from "../../global/profile/Profile";
 import SearchAccounts from "./SearchAccounts";
 
 const AccountDropdown = ({ user }) => {

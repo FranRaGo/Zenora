@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { getActiveSpace } from "../../../utils/getActiveSpace";
-import Notification from "../../global/notifications";
+import Notification from "../../global/Notifications";
 import useClickOutside from "../../../utils/useClickOutside";
 
 const Invite = ({ onClose, clickOut }) => {

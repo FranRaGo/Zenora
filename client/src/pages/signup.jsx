@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import '../styles/signup.css';
-import FormSignUp from '../components/signup/signup-form';
-import ValidateSignup from '../components/signup/validate-code';
+import FormSignUp from '../components/signup/Signup-form';
+import ValidateSignup from '../components/signup/Validate-code';
 
 const SignUp = () => {
     const [step, setStep] = useState(1);

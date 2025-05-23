@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import Profile from "../../../global/profile/profile";
+import Profile from "../../../global/profile/Profile";
 import "../../../../styles/chat.css";
 
 const ChatMessages = ({ idUser, activeChat, setAnswer, messages }) => {

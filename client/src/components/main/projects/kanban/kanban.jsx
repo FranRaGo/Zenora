@@ -4,7 +4,7 @@ import { DragDropContext } from "react-beautiful-dnd";
 
 import FromProject from "../forms/FormProject";
 import KanbanColumns from "./KanbanColumns";
-import Profile from "../../../global/profile/profile";
+import Profile from "../../../global/profile/Profile";
 import AssignProject from "../list/AssignProject";
 import OptionsProject from "../list/OptionsProject";
 

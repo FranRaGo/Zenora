@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import EmailInput from '../components/login/input-email';
-import PasswordInput from '../components/login/input-password';
+import EmailInput from '../components/login/Input-email';
+import PasswordInput from '../components/login/Input-password';
 import { useNavigate, Route, Routes, Link } from 'react-router-dom';
 import '../styles/login.css';
 

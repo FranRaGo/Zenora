@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import { getActiveUser } from "../../../utils/getActiveUser";
 
-import Profile from "../../global/profile/profile";
-import LoggedAcounts from "./loggedAcounts";
+import Profile from "../../global/profile/Profile";
+import LoggedAcounts from "./LoggedAcounts";
 
 const ProfileDropdown = ({ user, setActiveSection}) => {
     const navigate = useNavigate();

@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import '../../../styles/header.css';
 
-import Logo from '../../global/logo';
+import Logo from '../../global/Logo';
 import useIsMobile from "../../global/useIsMobile";
-import ProfilePlus from "../../global/profile/profilePlus";
-import ProfileDropdown from "./profileDropdown";
+import ProfilePlus from "../../global/profile/ProfilePlus";
+import ProfileDropdown from "./ProfileDropdown";
 
 
 const Header = ({ user, setActiveSection }) => {

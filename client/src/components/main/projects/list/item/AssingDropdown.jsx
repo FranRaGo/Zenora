@@ -1,5 +1,5 @@
 import React, { useRef } from "react";
-import Profile from "../../../../global/profile/profile";
+import Profile from "../../../../global/profile/Profile";
 import useClickOutside from "../../../../../utils/useClickOutside";
 
 

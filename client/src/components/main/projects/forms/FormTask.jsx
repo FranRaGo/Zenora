@@ -4,7 +4,7 @@ import useClickOutside from "../../../../utils/useClickOutside";
 import ExpandableInput from "./ExpandableInput";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Profile from "../../../global/profile/profile";
+import Profile from "../../../global/profile/Profile";
 
 const FormTask = ({ projects, project, status, users, onClose }) => {
     const [projectSelected, setProjectSelected] = useState(project || null);

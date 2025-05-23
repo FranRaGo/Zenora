@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../../../styles/nav.css";
 import { getActiveSpace } from "../../../utils/getActiveSpace";
-import SpaceDropdown from "./spaceDropdown";
-import SpaceIcon from "../../global/profile/spaceIcon";
+import SpaceDropdown from "./SpaceDropdown";
+import SpaceIcon from "../../global/profile/SpaceIcon";
 
 const ProfileIcon = ({ status, dropdown, setDropdown, setActiveSection }) => {
   const [space, setSpace] = useState(null);

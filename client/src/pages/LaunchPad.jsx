@@ -5,10 +5,10 @@ import '../styles/launchpad.css';
 import { getActiveUser } from "../utils/getActiveUser";
 import { getUserSpaces } from "../utils/getUserSpaces";
 
-import ProfilePlus from "../components/global/profile/profilePlus";
+import ProfilePlus from "../components/global/profile/ProfilePlus";
 import AccountDropdown from "../components/launchpad/AccountDropdown/AccountDropdown";
-import ShowInvitations from "../components/launchpad/joinWorkspace/showInvitations";
-import SpaceIcon from "../components/global/profile/spaceIcon";
+import ShowInvitations from "../components/launchpad/joinWorkspace/ShowInvitations";
+import SpaceIcon from "../components/global/profile/SpaceIcon";
 
 const LaunchPad = () => {
     const navigate = useNavigate();

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, use } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import Profile from "../../global/profile/profile";
+import Profile from "../../global/profile/Profile";
 import { getLoggedUsers } from "../../../utils/getLoggedUsers";
 
 const SearchAccounts = () => {

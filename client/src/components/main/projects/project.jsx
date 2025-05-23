@@ -5,10 +5,10 @@ import { getActiveUser } from "../../../utils/getActiveUser";
 import { getActiveSpace } from "../../../utils/getActiveSpace";
 
 import MenuProjects from "./MenuProjects";
-import Overview from "./overview/overview";
+import Overview from "./overview/Overview";
 import List from "./list/List";
 import Kanban from "./kanban/Kanban";
-import Calendar from "./calendar/calendar";
+import Calendar from "./calendar/Calendar";
 
 const Project = ({ user, usersSpace, modul }) => {
     //get el menu activo
