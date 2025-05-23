@@ -18,6 +18,7 @@ const Chat = ({ idUser }) => {
   const isMobile = useIsMobile(480);
 
   useEffect(() => {
+    console.log("API URL chat.jsx:", apiURL);
     const fetchChats = () => {
       fetch(`${apiURL}/api/chats/${idUser}`)
         .then((response) => {
