@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 const apiURL = import.meta.env.VITE_API_URL;
 
-const Moduls = ({ nameSpace, goBack, plan, idUser, changePlan }) => {
+const Moduls = ({ idUser, plan, changePlan, nameSpace, goBack }) => {
     const [modules, setModules] = useState([]);
     const [selectedModuls, setSelectedMod] = useState({});
     const navigate = useNavigate();

@@ -103,9 +103,9 @@ exports.createSpace = (req, res) => {
   const selectedColor = colors[colorIndex];
   colorIndex = (colorIndex + 1) % colors.length;
 
-  const query = "INSERT INTO space (name, plan_id, logo, file_type, color, token, invitation_code) VALUES (?, ?, ?, ?, ?, ?, ?)";
+  const query = "INSERT INTO space (name, plan_id, logo, file_type, color, token, invitation_code, id_admin) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 
-  db.query(query, [name, plan_id, logo, file_type, selectedColor, token, invitationCode], (err, result) => {
+  db.query(query, [name, plan_id, logo, file_type, selectedColor, token, invitationCode, admin_id], (err, result) => {
     if (err) {
       console.error("Error al insertar espacio:", err);
       return res.status(500).json({ error: "Error en la base de datos al crear espacio" });
