@@ -13,13 +13,13 @@ const pool = mysql.createPool({
     queueLimit: 0
 });
 
-// 🔍 Prueba de conexión inicial
+
 pool.getConnection((err, connection) => {
     if (err) {
         console.error('❌ Error al conectar a MySQL:', err.message);
     } else {
         console.log('✅ Conexión con MySQL establecida correctamente');
-        connection.release(); // Muy importante: liberar la conexión al pool
+        connection.release();
     }
 });
 
