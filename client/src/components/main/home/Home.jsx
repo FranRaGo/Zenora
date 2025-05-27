@@ -11,7 +11,7 @@ const Home = ({ user }) => {
         return (
             <div className="content-container">
                 <button className="div-header-home">
-                    <p>{user.first_name}</p>
+                    <p>{user?.first_name}</p>
                     <h1>EL nombre del espacio</h1>
                 </button>
             </div>
@@ -22,7 +22,7 @@ const Home = ({ user }) => {
                 <div className="div-header-home">
                     <h1>Home</h1>
                 </div>
-                 <p>{user.first_name}</p>
+                 <p>{user?.first_name}</p>
                 <h2>estas en el HOMEEEE</h2>
             </div>
         )
