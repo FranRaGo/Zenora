@@ -130,7 +130,7 @@ const LaunchPad = () => {
                                             <p>{space.name[0]}</p>
                                         </div>
                                     ) : (
-                                        <p>Tiene logo</p>
+                                    <SpaceIcon spaceId={space.id} styleCss={"profile_icon"} />
                                     )}
                                     <p>{space.name}</p>
                                     <button id="option-space" onClick={(e) => optionsNav(space.id, e)}>

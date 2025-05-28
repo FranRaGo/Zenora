@@ -450,11 +450,10 @@
   border-radius: 15px;
   border: 0.5px solid var(--borderNav);
   background-color: var(--f02);
-  padding: 10px;
-  padding-bottom: -10px;
   color: var(--white);
-  padding-right: 50px;
-  padding-left: 50px;
+    color: var(--white);
+    padding-right: 50px;
+    padding-left: 50px;
 }
 
 .answerInfo {
