@@ -121,7 +121,7 @@ const Main = () => {
                 <div className="main-content">
                     < NavBar activeSection={activeSection} setActiveSection={setActiveSection} setIsAddOpen={setIsAddOpen} />
                     <div className={`${activeSection === "chat" ? "chatActive" : "main-view"}`}>
-                        {activeSection === "home" && <Home user={user}/>}
+                        {activeSection === "home" && <Home user={user} space={space}/>}
                         {activeSection === "projects" && <Projects user={userFinal} usersSpace={usersSpace} modul={modul} />}
                         {isAddOpen === true && < Add user={userFinal} onClose={() => setIsAddOpen(false)} usersSpace={usersSpace} modul={modul} />}
                         {activeSection === "employees" && <Employees idUser={idUser} space={space} userInfo={userFinal}/>}
