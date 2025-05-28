@@ -28,11 +28,14 @@ const ProfileDropdown = ({ user, setActiveSection}) => {
         navigate("/login");
     };
 
+    const fullName = `${user?.first_name} ${user?.last_name}`;
+    const displayName = fullName.length > 10 ? fullName.slice(0, 10) + "…" : fullName;
+
     return (
         <div className="dropdown-popup">
             <button id="btn-profile-dropdown" onClick={(e) => {e.stopPropagation(); showDropdown(); }}>
                 < Profile userId={user.id} styleCss={"profile_icon_header"} color={user.color} />
-                <p>{user?.first_name}{user?.last_name}</p>
+                <p>{displayName}</p>
                 {subDropdown ? (
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />

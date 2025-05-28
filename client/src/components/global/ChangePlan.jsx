@@ -25,8 +25,8 @@ const ChangePlan = ({ }) => {
                     {/* {usingPlan === 1 ? (
                         <button className="haveit-btn">You have it</button>
                     ) : (
-                        <button className="subscribe-btn">Subscribe</button>
-                    )} */}
+                        )} */}
+                    <button className="subscribe-btn">Subscribe</button>
                 </div>
 
                 <div className="plan-card best">
@@ -48,6 +48,7 @@ const ChangePlan = ({ }) => {
                     ) : (
                         <button className="subscribe-btn">Subscribe</button>
                     )} */}
+                    <button className="subscribe-btn">Subscribe</button>
                 </div>
 
                 <div className="plan-card">
@@ -69,6 +70,7 @@ const ChangePlan = ({ }) => {
                     ) : (
                         <button className="subscribe-btn">Subscribe</button>
                     )} */}
+                    <button className="subscribe-btn">Subscribe</button>
                 </div>
             </div>
 

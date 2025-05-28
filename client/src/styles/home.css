@@ -76,7 +76,7 @@
 .home-project-list,
 .home-chat-list,
 .home-task-list {
-  background-color: var(--f10);
+  background-color: var(--fondoNav);
   padding: 1rem;
   border-radius: 8px;
   border: 1px solid var(--borderNav);
